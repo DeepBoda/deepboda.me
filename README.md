@@ -1,36 +1,66 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# deepboda.me
 
-## Getting Started
+Personal site for Deep Boda, Senior DevOps & Full-Stack Engineer.
 
-First, run the development server:
+The page is structured as **one request travelling down the stack**. Each section
+is a layer, what I do there, and the thing that tends to break at that layer.
+
+## Run
 
 ```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
+npm run dev      # http://localhost:3000
+npm run build    # static, all routes prerendered
+npm run start    # serve the production build
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+## Stack
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+- **Next.js 16** (App Router) + **React 19** + **TypeScript**
+- **Tailwind CSS v4** with CSS custom properties for the design tokens
+- **Inter** via `next/font` (self-hosted, preloaded, `display: swap`)
+- Zero animation libraries. All motion is **native CSS scroll-driven animation**
+  (`animation-timeline: view()`), which runs on the compositor and ships no JS.
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+## Structure
 
-## Learn More
+```
+app/
+  globals.css      design tokens, layered base + components, scroll animations
+  layout.tsx       metadata, JSON-LD Person schema, font
+  page.tsx         the whole homepage
+  theme-toggle.tsx the only client component on the page
+  sitemap.ts
+  robots.ts
+lib/
+  content.ts       all copy lives here, nothing hard-coded in JSX
+```
 
-To learn more about Next.js, take a look at the following resources:
+**Edit `lib/content.ts` to change any text.** The page renders from it.
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+## Notes on the CSS
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+Base styles and components are inside `@layer base` and `@layer components`.
+This matters: unlayered CSS beats layered CSS in the cascade regardless of
+specificity, so an unlayered reset would silently override every Tailwind
+utility.
 
-## Deploy on Vercel
+Dark mode is `prefers-color-scheme` by default with a manual override stored in
+`localStorage` and applied via `data-theme` on `<html>`.
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+## Deploy
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+**Phase 1 — Vercel.** Push to GitHub, import, point deepboda.me at it. Free.
+
+**Phase 2 — own infrastructure.** `next build` with `output: "export"` gives a
+static bundle for S3 + CloudFront, provisioned with Terraform and deployed from
+GitHub Actions. Then write the migration up and link it. The site becomes its own
+case study.
+
+## Still to build
+
+- [ ] `/writing` — MDX, the LinkedIn posts as long-form with their graphics
+- [ ] `/uses` and `/colophon`
+- [ ] Live data panel: uptime, last deploy, build duration from real infra
+- [ ] GSAP + Lenis pinned request-path sequence
+- [ ] One React Three Fiber moment: the interactive cluster model
+- [ ] OG image generation via `ImageResponse`

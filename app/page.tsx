@@ -1,69 +1,321 @@
-import Image from "next/image";
+import { SITE, LAYERS, RELEASE, STATS, TIMELINE } from "@/lib/content";
+
+const NODES = [
+  { x: 60, label: "Browser" },
+  { x: 236, label: "CDN" },
+  { x: 412, label: "ALB" },
+  { x: 588, label: "Cluster" },
+  { x: 764, label: "App" },
+  { x: 940, label: "Data" },
+];
+
+function RequestPath() {
+  return (
+    <svg
+      viewBox="0 0 1000 96"
+      className="w-full h-auto"
+      role="img"
+      aria-label="A request travelling from the browser through CDN, load balancer, cluster and application to the database."
+    >
+      <line
+        x1="60" y1="34" x2="940" y2="34"
+        stroke="var(--line)" strokeWidth="1.5"
+      />
+      {NODES.map((n, i) => (
+        <g key={n.label}>
+          <circle
+            cx={n.x} cy="34" r="6"
+            fill="var(--bg)"
+            stroke={i === 0 ? "var(--accent)" : "var(--faint)"}
+            strokeWidth="2"
+          />
+          <text
+            x={n.x} y="66"
+            textAnchor="middle"
+            fill="var(--faint)"
+            style={{ font: "500 13px var(--font-sans)", letterSpacing: "0.02em" }}
+          >
+            {n.label}
+          </text>
+        </g>
+      ))}
+      <circle
+        className="packet"
+        r="4.5"
+        fill="var(--accent)"
+        style={{ offsetPath: 'path("M60 34 H940")', offsetRotate: "0deg" }}
+      />
+    </svg>
+  );
+}
 
 export default function Home() {
   return (
-    <div className="flex flex-col flex-1 items-center justify-center bg-zinc-50 font-sans dark:bg-black">
-      <main className="flex flex-1 w-full max-w-3xl flex-col items-center justify-between py-32 px-16 bg-white dark:bg-black sm:items-start">
-        <Image
-          className="dark:invert h-5 w-[100px]"
-          src="/next.svg"
-          alt="Next.js logo"
-          width={100}
-          height={20}
-          priority
-        />
-        <div className="flex flex-col items-center gap-6 text-center sm:items-start sm:text-left">
-          <h1 className="max-w-xs text-3xl font-semibold leading-10 tracking-tight text-black dark:text-zinc-50">
-            To get started, edit the{" "}
-            <code className="rounded bg-black/[.06] px-1.5 py-0.5 font-mono text-[0.9em] dark:bg-white/[.08]">
-              page.tsx
-            </code>{" "}
-            file.
-          </h1>
-          <p className="max-w-md text-lg leading-8 text-zinc-600 dark:text-zinc-400">
-            Looking for a starting point or more instructions? Head over to{" "}
-            <a
-              href="https://vercel.com/templates?framework=next.js&utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-              className="font-medium text-zinc-950 dark:text-zinc-50"
-            >
-              Templates
-            </a>{" "}
-            or the{" "}
-            <a
-              href="https://nextjs.org/learn?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-              className="font-medium text-zinc-950 dark:text-zinc-50"
-            >
-              Learning
-            </a>{" "}
-            center.
+    <>
+      <main id="top">
+        {/* ---------------- HERO ---------------- */}
+        <section className="wrap pt-16 pb-14 md:pt-28 md:pb-20">
+          <p className="eyebrow reveal">
+            DevOps · Platform · Full-Stack · {SITE.location}
           </p>
-        </div>
-        <div className="flex flex-col gap-4 text-base font-medium sm:flex-row">
-          <a
-            className="flex h-12 w-full items-center justify-center gap-2 rounded-full bg-foreground px-5 text-background transition-colors hover:bg-[#383838] dark:hover:bg-[#ccc] md:w-[158px]"
-            href="https://vercel.com/new?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            <Image
-              className="dark:invert h-[14px] w-4"
-              src="/vercel.svg"
-              alt="Vercel logomark"
-              width={16}
-              height={14}
-            />
-            Deploy Now
-          </a>
-          <a
-            className="flex h-12 w-full items-center justify-center rounded-full border border-solid border-black/[.08] px-5 transition-colors hover:border-transparent hover:bg-black/[.04] dark:border-white/[.145] dark:hover:bg-[#1a1a1a] md:w-[158px]"
-            href="https://nextjs.org/docs?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Documentation
-          </a>
-        </div>
+
+          <h1 className="display mt-5 max-w-[16ch] reveal">
+            I run production, and I write the code on it.
+          </h1>
+
+          <p className="lede mt-7 max-w-[60ch] reveal">
+            Four years as the DevOps and backend engineer behind live products.
+            Kubernetes on AWS EKS serving millions of requests a day, ECS
+            microservices behind a platform with 100,000+ users, and the
+            Node.js services running on top of all of it.
+          </p>
+
+          <div className="mt-9 flex flex-wrap items-center gap-3 reveal">
+            <a
+              href={`mailto:${SITE.email}`}
+              className="inline-flex items-center h-11 px-6 rounded-full bg-[var(--ink)] text-[var(--bg)] font-medium text-[0.92rem] hover:opacity-90 transition-opacity"
+            >
+              Get in touch
+            </a>
+            <a
+              href={SITE.linkedin}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="inline-flex items-center h-11 px-6 rounded-full border border-[var(--line)] font-medium text-[0.92rem] hover:border-[var(--accent)] hover:text-[var(--accent)] transition-colors"
+            >
+              LinkedIn
+            </a>
+            <span className="inline-flex items-center gap-2 h-11 px-4 text-[0.86rem] text-[var(--soft)]">
+              <span className="relative flex w-2 h-2">
+                <span className="absolute inline-flex w-full h-full rounded-full bg-[var(--accent)] opacity-60 motion-safe:animate-ping" />
+                <span className="relative inline-flex w-2 h-2 rounded-full bg-[var(--accent)]" />
+              </span>
+              {SITE.available}
+            </span>
+          </div>
+
+          <div className="mt-16 md:mt-24 reveal-slow">
+            <p className="eyebrow mb-5">One request, top to bottom</p>
+            <RequestPath />
+            <p className="mt-5 text-[0.9rem] text-[var(--soft)] max-w-[62ch]">
+              This page follows that path. Every stop is a layer I am
+              responsible for, and the thing that tends to break there.
+            </p>
+          </div>
+        </section>
+
+        {/* ---------------- STATS ---------------- */}
+        <section className="section" aria-label="Scale">
+          <div className="wrap grid grid-cols-2 md:grid-cols-4 gap-y-9 gap-x-6">
+            {STATS.map((s) => (
+              <div key={s.l} className="reveal">
+                <div className="text-[1.9rem] md:text-[2.3rem] font-bold tracking-[-0.035em] leading-none">
+                  {s.v}
+                </div>
+                <div className="mt-2.5 text-[0.85rem] text-[var(--soft)] leading-snug max-w-[22ch]">
+                  {s.l}
+                </div>
+              </div>
+            ))}
+          </div>
+        </section>
+
+        {/* ---------------- THE PATH ---------------- */}
+        <section id="path" className="section">
+          <div className="wrap">
+            <p className="eyebrow reveal">The path</p>
+            <h2 className="h2 mt-4 max-w-[20ch] reveal">
+              Six layers. Six ways to lose a night.
+            </h2>
+            <p className="lede mt-5 max-w-[58ch] reveal">
+              Most engineers own one or two of these. The expensive bugs live in
+              the gaps between them, where neither side is looking.
+            </p>
+
+            <div className="relative mt-16 md:mt-20">
+              {/* rail */}
+              <div
+                className="hidden md:block absolute left-[19px] top-2 bottom-2 w-px bg-[var(--line)]"
+                aria-hidden="true"
+              >
+                <div className="rail-fill absolute inset-0 bg-[var(--accent)]" />
+              </div>
+
+              <ol className="space-y-14 md:space-y-20">
+                {LAYERS.map((l) => (
+                  <li key={l.id} id={l.id} className="reveal md:pl-[64px] relative scroll-mt-20">
+                    <span
+                      className="hidden md:flex absolute left-0 top-0 w-10 h-10 rounded-full border border-[var(--line)] bg-[var(--bg)] items-center justify-center mono text-[var(--faint)]"
+                      aria-hidden="true"
+                    >
+                      {l.n}
+                    </span>
+
+                    <div className="flex items-baseline gap-3 flex-wrap">
+                      <span className="md:hidden mono text-[var(--faint)]">{l.n}</span>
+                      <h3 className="h3">{l.layer}</h3>
+                      <span className="mono text-[var(--faint)]">{l.sub}</span>
+                    </div>
+
+                    <p className="mt-4 text-[1.05rem] md:text-[1.15rem] font-semibold tracking-[-0.02em] max-w-[36ch]">
+                      {l.title}
+                    </p>
+
+                    <p className="mt-3.5 text-[var(--mid)] max-w-[62ch] leading-relaxed">
+                      {l.body}
+                    </p>
+
+                    <p className="bite mt-6 max-w-[58ch] text-[0.95rem] leading-relaxed">
+                      {l.bite}
+                    </p>
+
+                    <ul className="mt-6 flex flex-wrap gap-2">
+                      {l.tools.map((t) => (
+                        <li key={t} className="chip">{t}</li>
+                      ))}
+                    </ul>
+                  </li>
+                ))}
+              </ol>
+            </div>
+          </div>
+        </section>
+
+        {/* ---------------- RELEASE ---------------- */}
+        <section id="release" className="section">
+          <div className="wrap">
+            <p className="eyebrow reveal">Release engineering</p>
+            <h2 className="h2 mt-4 max-w-[18ch] reveal">{RELEASE.title}</h2>
+            <p className="lede mt-5 max-w-[58ch] reveal">{RELEASE.body}</p>
+
+            <div className="mt-12 grid gap-4 md:grid-cols-3">
+              {RELEASE.lanes.map((lane) => (
+                <div key={lane.name} className="card p-6 reveal">
+                  <div className="flex items-baseline justify-between">
+                    <h3 className="font-semibold text-[1.05rem] tracking-[-0.02em]">
+                      {lane.name}
+                    </h3>
+                    <span className="mono text-[var(--faint)] text-[0.72rem]">
+                      {lane.sub}
+                    </span>
+                  </div>
+                  <ol className="mt-5 space-y-3">
+                    {lane.steps.map((s, i) => (
+                      <li key={s} className="flex items-center gap-3 text-[0.92rem]">
+                        <span
+                          className={`mono text-[0.7rem] w-5 shrink-0 ${
+                            i === lane.steps.length - 1
+                              ? "text-[var(--accent)]"
+                              : "text-[var(--faint)]"
+                          }`}
+                        >
+                          {String(i + 1).padStart(2, "0")}
+                        </span>
+                        <span
+                          className={
+                            i === lane.steps.length - 1
+                              ? "text-[var(--accent)] font-medium"
+                              : "text-[var(--mid)]"
+                          }
+                        >
+                          {s}
+                        </span>
+                      </li>
+                    ))}
+                  </ol>
+                </div>
+              ))}
+            </div>
+
+            <p className="mt-9 text-[0.95rem] text-[var(--soft)] max-w-[64ch] reveal">
+              I also set up and run the store accounts themselves. App Store
+              Connect and Google Play Console from first enrolment onward: team
+              roles, app records, bundle IDs, signing certificates, API keys for
+              automated uploads, and the review submissions after.
+            </p>
+          </div>
+        </section>
+
+        {/* ---------------- TIMELINE ---------------- */}
+        <section id="stack" className="section">
+          <div className="wrap">
+            <p className="eyebrow reveal">How it went</p>
+            <h2 className="h2 mt-4 max-w-[20ch] reveal">
+              Four years, from backend to the whole stack.
+            </h2>
+
+            <ol className="mt-14 space-y-0">
+              {TIMELINE.map((t, i) => (
+                <li
+                  key={t.year}
+                  className={`reveal grid md:grid-cols-[88px_1fr] gap-x-8 gap-y-2 py-7 ${
+                    i === 0 ? "" : "border-t border-[var(--hair)]"
+                  }`}
+                >
+                  <div className="mono text-[var(--accent)] font-medium pt-1">
+                    {t.year}
+                  </div>
+                  <div>
+                    <h3 className="font-semibold tracking-[-0.018em] text-[1.02rem]">
+                      {t.title}
+                    </h3>
+                    <p className="text-[0.9rem] text-[var(--soft)] mt-0.5">{t.org}</p>
+                    <p className="text-[0.92rem] text-[var(--mid)] mt-2.5 max-w-[58ch]">
+                      {t.note}
+                    </p>
+                  </div>
+                </li>
+              ))}
+            </ol>
+          </div>
+        </section>
+
+        {/* ---------------- CONTACT ---------------- */}
+        <section id="contact" className="section">
+          <div className="wrap">
+            <p className="eyebrow reveal">Contact</p>
+            <h2 className="h2 mt-4 max-w-[16ch] reveal">
+              Tell me what is broken.
+            </h2>
+            <p className="lede mt-5 max-w-[52ch] reveal">
+              If your deploys break, your AWS bill keeps climbing, or your
+              servers only make sense to one person, those are the three things
+              I fix. Happy to say honestly whether I am the right person.
+            </p>
+
+            <div className="mt-10 grid gap-x-10 gap-y-6 sm:grid-cols-2 max-w-[640px] reveal">
+              <div>
+                <p className="eyebrow mb-2">Email</p>
+                <a href={`mailto:${SITE.email}`} className="link-u text-[1.02rem]">
+                  {SITE.email}
+                </a>
+              </div>
+              <div>
+                <p className="eyebrow mb-2">LinkedIn</p>
+                <a
+                  href={SITE.linkedin}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="link-u text-[1.02rem]"
+                >
+                  linkedin.com/in/deep-boda
+                </a>
+              </div>
+              <div>
+                <p className="eyebrow mb-2">Phone</p>
+                <a href={`tel:${SITE.phone.replace(/\s/g, "")}`} className="link-u text-[1.02rem]">
+                  {SITE.phone}
+                </a>
+              </div>
+              <div>
+                <p className="eyebrow mb-2">Based in</p>
+                <p className="text-[1.02rem] text-[var(--mid)]">{SITE.location}</p>
+              </div>
+            </div>
+          </div>
+        </section>
       </main>
-    </div>
+
+    </>
   );
 }
