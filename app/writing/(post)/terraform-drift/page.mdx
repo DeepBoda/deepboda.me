@@ -5,6 +5,15 @@ export const metadata = {
   title: postBySlug("terraform-drift").title,
   description: postBySlug("terraform-drift").summary,
   alternates: { canonical: "https://deepboda.me/writing/terraform-drift" },
+  openGraph: {
+    type: "article",
+    url: "https://deepboda.me/writing/terraform-drift",
+    title: postBySlug("terraform-drift").title,
+    description: postBySlug("terraform-drift").summary,
+    images: [
+      `/og?title=${encodeURIComponent(postBySlug("terraform-drift").title)}&kicker=${encodeURIComponent(postBySlug("terraform-drift").tags.join(" · "))}`,
+    ],
+  },
 };
 
 <ArticleHeader slug="terraform-drift" />

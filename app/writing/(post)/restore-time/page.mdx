@@ -5,6 +5,15 @@ export const metadata = {
   title: postBySlug("restore-time").title,
   description: postBySlug("restore-time").summary,
   alternates: { canonical: "https://deepboda.me/writing/restore-time" },
+  openGraph: {
+    type: "article",
+    url: "https://deepboda.me/writing/restore-time",
+    title: postBySlug("restore-time").title,
+    description: postBySlug("restore-time").summary,
+    images: [
+      `/og?title=${encodeURIComponent(postBySlug("restore-time").title)}&kicker=${encodeURIComponent(postBySlug("restore-time").tags.join(" · "))}`,
+    ],
+  },
 };
 
 <ArticleHeader slug="restore-time" />

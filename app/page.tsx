@@ -1,4 +1,5 @@
 import { SITE, LAYERS, RELEASE, STATS, TIMELINE } from "@/lib/content";
+import RequestTrace from "./request-trace";
 
 const NODES = [
   { x: 60, label: "Browser" },
@@ -132,51 +133,8 @@ export default function Home() {
               the gaps between them, where neither side is looking.
             </p>
 
-            <div className="relative mt-16 md:mt-20">
-              {/* rail */}
-              <div
-                className="hidden md:block absolute left-[19px] top-2 bottom-2 w-px bg-[var(--line)]"
-                aria-hidden="true"
-              >
-                <div className="rail-fill absolute inset-0 bg-[var(--accent)]" />
-              </div>
-
-              <ol className="space-y-14 md:space-y-20">
-                {LAYERS.map((l) => (
-                  <li key={l.id} id={l.id} className="reveal md:pl-[64px] relative scroll-mt-20">
-                    <span
-                      className="hidden md:flex absolute left-0 top-0 w-10 h-10 rounded-full border border-[var(--line)] bg-[var(--bg)] items-center justify-center mono text-[var(--faint)]"
-                      aria-hidden="true"
-                    >
-                      {l.n}
-                    </span>
-
-                    <div className="flex items-baseline gap-3 flex-wrap">
-                      <span className="md:hidden mono text-[var(--faint)]">{l.n}</span>
-                      <h3 className="h3">{l.layer}</h3>
-                      <span className="mono text-[var(--faint)]">{l.sub}</span>
-                    </div>
-
-                    <p className="mt-4 text-[1.05rem] md:text-[1.15rem] font-semibold tracking-[-0.02em] max-w-[36ch]">
-                      {l.title}
-                    </p>
-
-                    <p className="mt-3.5 text-[var(--mid)] max-w-[62ch] leading-relaxed">
-                      {l.body}
-                    </p>
-
-                    <p className="bite mt-6 max-w-[58ch] text-[0.95rem] leading-relaxed">
-                      {l.bite}
-                    </p>
-
-                    <ul className="mt-6 flex flex-wrap gap-2">
-                      {l.tools.map((t) => (
-                        <li key={t} className="chip">{t}</li>
-                      ))}
-                    </ul>
-                  </li>
-                ))}
-              </ol>
+            <div className="mt-16 md:mt-24">
+              <RequestTrace layers={LAYERS} />
             </div>
           </div>
         </section>

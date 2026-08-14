@@ -19,8 +19,15 @@ npm run start    # serve the production build
 - **Tailwind CSS v4** with CSS custom properties for the design tokens
 - **MDX** via `@next/mdx` for the writing section
 - **Inter** via `next/font` (self-hosted, preloaded, `display: swap`)
-- Zero animation libraries. All motion is **native CSS scroll-driven animation**
-  (`animation-timeline: view()`), which runs on the compositor and ships no JS.
+- **Native CSS scroll-driven animation** (`animation-timeline: view()`) for every
+  reveal. Compositor-run, zero JS.
+- **GSAP + ScrollTrigger** only for the pinned request trace, where scrubbing and
+  per-section state genuinely need JS. Dynamically imported, so it is not in the
+  initial bundle.
+- **Lenis** smooth scroll, driven off GSAP's ticker so scroll-linked animation
+  stays in sync. Both disabled entirely under `prefers-reduced-motion`, and the
+  trace falls back to a static diagram under 1024px.
+- **Dynamic OG images** via `next/og` at `/og?title=&kicker=`
 
 ## Structure
 
@@ -80,9 +87,9 @@ case study.
 ## Still to build
 
 - [x] `/writing` — MDX, seven posts live with their graphics
+- [x] Dynamic OG images, per page and per post
+- [x] GSAP + Lenis pinned request trace
 - [ ] `/uses` and `/colophon`
 - [ ] RSS feed at `/writing/rss.xml`
 - [ ] Live data panel: uptime, last deploy, build duration from real infra
-- [ ] GSAP + Lenis pinned request-path sequence
 - [ ] One React Three Fiber moment: the interactive cluster model
-- [ ] OG image generation via `ImageResponse`

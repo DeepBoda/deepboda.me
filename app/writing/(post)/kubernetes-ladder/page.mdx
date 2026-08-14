@@ -5,6 +5,15 @@ export const metadata = {
   title: postBySlug("kubernetes-ladder").title,
   description: postBySlug("kubernetes-ladder").summary,
   alternates: { canonical: "https://deepboda.me/writing/kubernetes-ladder" },
+  openGraph: {
+    type: "article",
+    url: "https://deepboda.me/writing/kubernetes-ladder",
+    title: postBySlug("kubernetes-ladder").title,
+    description: postBySlug("kubernetes-ladder").summary,
+    images: [
+      `/og?title=${encodeURIComponent(postBySlug("kubernetes-ladder").title)}&kicker=${encodeURIComponent(postBySlug("kubernetes-ladder").tags.join(" · "))}`,
+    ],
+  },
 };
 
 <ArticleHeader slug="kubernetes-ladder" />

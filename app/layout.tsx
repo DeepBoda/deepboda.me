@@ -3,6 +3,7 @@ import { Inter } from "next/font/google";
 import { SITE } from "@/lib/content";
 import Nav from "./nav";
 import Footer from "./footer";
+import SmoothScroll from "./smooth-scroll";
 import "./globals.css";
 
 const inter = Inter({
@@ -43,11 +44,22 @@ export const metadata: Metadata = {
     title: `${SITE.name} — ${SITE.role}`,
     description: SITE.description,
     locale: "en_GB",
+    images: [
+      {
+        url: `/og?title=${encodeURIComponent("I run production, and I write the code on it.")}`,
+        width: 1200,
+        height: 630,
+        alt: `${SITE.name} — ${SITE.role}`,
+      },
+    ],
   },
   twitter: {
     card: "summary_large_image",
     title: `${SITE.name} — ${SITE.role}`,
     description: SITE.description,
+    images: [
+      `/og?title=${encodeURIComponent("I run production, and I write the code on it.")}`,
+    ],
   },
   robots: {
     index: true,
@@ -108,6 +120,7 @@ export default function RootLayout({
           type="application/ld+json"
           dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
         />
+        <SmoothScroll />
         <Nav />
         {children}
         <Footer />

@@ -5,6 +5,15 @@ export const metadata = {
   title: postBySlug("alert-fatigue").title,
   description: postBySlug("alert-fatigue").summary,
   alternates: { canonical: "https://deepboda.me/writing/alert-fatigue" },
+  openGraph: {
+    type: "article",
+    url: "https://deepboda.me/writing/alert-fatigue",
+    title: postBySlug("alert-fatigue").title,
+    description: postBySlug("alert-fatigue").summary,
+    images: [
+      `/og?title=${encodeURIComponent(postBySlug("alert-fatigue").title)}&kicker=${encodeURIComponent(postBySlug("alert-fatigue").tags.join(" · "))}`,
+    ],
+  },
 };
 
 <ArticleHeader slug="alert-fatigue" />

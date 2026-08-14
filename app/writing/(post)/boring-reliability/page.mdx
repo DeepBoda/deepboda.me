@@ -5,6 +5,15 @@ export const metadata = {
   title: postBySlug("boring-reliability").title,
   description: postBySlug("boring-reliability").summary,
   alternates: { canonical: "https://deepboda.me/writing/boring-reliability" },
+  openGraph: {
+    type: "article",
+    url: "https://deepboda.me/writing/boring-reliability",
+    title: postBySlug("boring-reliability").title,
+    description: postBySlug("boring-reliability").summary,
+    images: [
+      `/og?title=${encodeURIComponent(postBySlug("boring-reliability").title)}&kicker=${encodeURIComponent(postBySlug("boring-reliability").tags.join(" · "))}`,
+    ],
+  },
 };
 
 <ArticleHeader slug="boring-reliability" />

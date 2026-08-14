@@ -5,6 +5,15 @@ export const metadata = {
   title: postBySlug("jd-vs-job").title,
   description: postBySlug("jd-vs-job").summary,
   alternates: { canonical: "https://deepboda.me/writing/jd-vs-job" },
+  openGraph: {
+    type: "article",
+    url: "https://deepboda.me/writing/jd-vs-job",
+    title: postBySlug("jd-vs-job").title,
+    description: postBySlug("jd-vs-job").summary,
+    images: [
+      `/og?title=${encodeURIComponent(postBySlug("jd-vs-job").title)}&kicker=${encodeURIComponent(postBySlug("jd-vs-job").tags.join(" · "))}`,
+    ],
+  },
 };
 
 <ArticleHeader slug="jd-vs-job" />

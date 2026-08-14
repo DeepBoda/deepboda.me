@@ -9,6 +9,13 @@ export const metadata: Metadata = {
   description:
     "Notes on running production infrastructure: Kubernetes, AWS, Terraform, CI/CD, on-call and the parts of the job nobody writes a job description for.",
   alternates: { canonical: `${SITE.url}/writing` },
+  openGraph: {
+    title: "Writing",
+    url: `${SITE.url}/writing`,
+    images: [
+      `/og?title=${encodeURIComponent("Things that broke, and what they cost.")}&kicker=${encodeURIComponent("Writing")}`,
+    ],
+  },
 };
 
 function fmt(d: string) {
