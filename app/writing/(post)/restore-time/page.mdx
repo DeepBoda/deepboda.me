@@ -1,0 +1,38 @@
+import ArticleHeader from "@/app/writing/article-header";
+import { postBySlug } from "@/lib/posts";
+
+export const metadata = {
+  title: postBySlug("restore-time").title,
+  description: postBySlug("restore-time").summary,
+  alternates: { canonical: "https://deepboda.me/writing/restore-time" },
+};
+
+<ArticleHeader slug="restore-time" />
+
+Everyone asks whether you have backups. Almost nobody asks how long a restore takes.
+
+Those are completely different questions, and only one of them matters at 3 AM.
+
+## What a restore actually costs
+
+1. Notice the data is wrong
+2. Decide which snapshot to trust
+3. Provision somewhere to restore into
+4. The restore itself
+5. Verify the data is actually correct
+6. Repoint the app, DNS and connection strings
+7. Tell everyone it is over
+
+Seven steps. **Your RTO is the sum of all seven.**
+
+But when teams quote a recovery time, they are almost always quoting step four, the only one the tooling reports. The other six are guesses wearing a number's clothing.
+
+And some of those guesses are large. "Which snapshot" can take longer than the restore itself, because it means working out exactly when the data went bad. Verifying is not a step people plan for at all, and it is the one you cannot skip.
+
+## A backup you have never restored is a hypothesis
+
+Not a safety net. A hypothesis.
+
+The fix is unglamorous and takes an afternoon. Pick a calm Tuesday, restore into a throwaway environment, time every step, write the number down. Then tell the client that number instead of a comfortable one.
+
+If someone asked you right now, could you answer with a measurement rather than a feeling?

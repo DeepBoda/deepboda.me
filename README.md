@@ -17,6 +17,7 @@ npm run start    # serve the production build
 
 - **Next.js 16** (App Router) + **React 19** + **TypeScript**
 - **Tailwind CSS v4** with CSS custom properties for the design tokens
+- **MDX** via `@next/mdx` for the writing section
 - **Inter** via `next/font` (self-hosted, preloaded, `display: swap`)
 - Zero animation libraries. All motion is **native CSS scroll-driven animation**
   (`animation-timeline: view()`), which runs on the compositor and ships no JS.
@@ -25,15 +26,35 @@ npm run start    # serve the production build
 
 ```
 app/
-  globals.css      design tokens, layered base + components, scroll animations
-  layout.tsx       metadata, JSON-LD Person schema, font
-  page.tsx         the whole homepage
-  theme-toggle.tsx the only client component on the page
-  sitemap.ts
-  robots.ts
+  globals.css           design tokens, layered base + components, scroll animations
+  layout.tsx            metadata, JSON-LD Person schema, nav + footer
+  page.tsx              the homepage
+  nav.tsx  footer.tsx
+  theme-toggle.tsx      the only client component on the site
+  writing/
+    page.tsx            the index
+    article-header.tsx  title, date, hero image, BlogPosting JSON-LD
+    (post)/
+      layout.tsx        prose shell + author CTA. Route group, so the URL
+                        stays /writing/<slug> and the index is unaffected.
+      <slug>/page.mdx   one folder per post
+  sitemap.ts  robots.ts
 lib/
-  content.ts       all copy lives here, nothing hard-coded in JSX
+  content.ts       homepage copy
+  posts.ts         post manifest, drives the index and the sitemap
+mdx-components.tsx prose styling for MDX elements
 ```
+
+## Adding a post
+
+1. Add an entry to `POSTS` in `lib/posts.ts`
+2. Drop the image in `public/writing/<slug>.png`
+3. Create `app/writing/(post)/<slug>/page.mdx`, starting with
+   `<ArticleHeader slug="<slug>" />`
+
+The index, sitemap and JSON-LD all follow from the manifest.
+
+Note: `useMDXComponents()` in this Next version takes **no arguments**.
 
 **Edit `lib/content.ts` to change any text.** The page renders from it.
 
@@ -58,8 +79,9 @@ case study.
 
 ## Still to build
 
-- [ ] `/writing` — MDX, the LinkedIn posts as long-form with their graphics
+- [x] `/writing` — MDX, seven posts live with their graphics
 - [ ] `/uses` and `/colophon`
+- [ ] RSS feed at `/writing/rss.xml`
 - [ ] Live data panel: uptime, last deploy, build duration from real infra
 - [ ] GSAP + Lenis pinned request-path sequence
 - [ ] One React Three Fiber moment: the interactive cluster model

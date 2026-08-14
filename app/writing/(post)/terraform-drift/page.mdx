@@ -1,0 +1,40 @@
+import ArticleHeader from "@/app/writing/article-header";
+import { postBySlug } from "@/lib/posts";
+
+export const metadata = {
+  title: postBySlug("terraform-drift").title,
+  description: postBySlug("terraform-drift").summary,
+  alternates: { canonical: "https://deepboda.me/writing/terraform-drift" },
+};
+
+<ArticleHeader slug="terraform-drift" />
+
+Ran `terraform plan` on prod last week. Not deploying anything, just checking.
+
+Three things came back changed.
+
+Instance type was `t3.large`. Code says `t3.medium`. Someone resized it during an incident, it worked, so it stayed.
+
+RDS backup retention was 1 day. Code says 7. Probably someone clearing space.
+
+And the IAM policy on our runner was `AdministratorAccess`. Code says `ReadOnly`.
+
+That last one I remember, because it was me. Something was failing on permissions, it was late, I widened it to get the deploy through and told myself I would fix it after. That was a while ago.
+
+## None of this is in git
+
+No PR, no commit, nothing anyone reviewed. Prod just quietly became something different from what we wrote down.
+
+The annoying part is what happens the next time someone runs apply. It either puts everything back, **including the resize that was actually keeping things up**, or it errors out and blocks a deploy that had nothing to do with any of this.
+
+Either way it lands on a random day, on whoever is on call, and that person usually has no idea why.
+
+## The fix is not "never touch the console"
+
+People are going to touch the console, and sometimes they should. You are not writing Terraform at 2 AM while something is down.
+
+What I do now is run plan against prod on a schedule. Once a week. Nothing is deploying, nothing is wrong, it only tells me what stopped matching.
+
+Takes a minute. It has caught things I would otherwise have found much later, in a much worse way.
+
+> Run plan when nothing is wrong. That is when it tells you something.

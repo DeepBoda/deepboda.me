@@ -1,8 +1,7 @@
 import type { MDXComponents } from "mdx/types";
 import Image from "next/image";
 
-export function useMDXComponents(components: MDXComponents): MDXComponents {
-  return {
+const components: MDXComponents = {
     h2: (p) => <h2 className="h3 mt-14 mb-4 scroll-mt-24" {...p} />,
     h3: (p) => (
       <h3
@@ -42,6 +41,8 @@ export function useMDXComponents(components: MDXComponents): MDXComponents {
         className="my-10 w-full h-auto rounded-xl border border-[var(--line)]"
       />
     ),
-    ...components,
-  };
+};
+
+export function useMDXComponents(): MDXComponents {
+  return components;
 }

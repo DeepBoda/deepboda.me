@@ -1,0 +1,34 @@
+import ArticleHeader from "@/app/writing/article-header";
+import { postBySlug } from "@/lib/posts";
+
+export const metadata = {
+  title: postBySlug("jd-vs-job").title,
+  description: postBySlug("jd-vs-job").summary,
+  alternates: { canonical: "https://deepboda.me/writing/jd-vs-job" },
+};
+
+<ArticleHeader slug="jd-vs-job" />
+
+I re-read my own job description last week. We are not close.
+
+The JD says: maintain CI/CD, manage AWS infrastructure, ensure high availability, collaborate with the team. All true. All about 20% of what I actually do.
+
+The other circle is signing macOS builds. Explaining the cloud bill to someone who did not ask for a lesson. Fixing a colleague's VPN. Writing the backend too. Talking to the client directly. Shipping the release at 9:40 PM because it has to go out today.
+
+Being the reason it is up.
+
+## Why the JD only describes the small circle
+
+Because the small circle is the part that can be written down before the work starts.
+
+"Maintain CI/CD" is a task with a tool attached. You can buy it, budget for it, and interview for it. "Notice that the health check is about to take out the fleet" is not a task, it is a judgement, and nobody has worked out how to put judgement in a requisition.
+
+So job descriptions describe the buyable part, and then teams are surprised when the person they hired can do the buyable part and nothing else.
+
+## What this means if you are hiring
+
+Nobody writes a job description for the right circle. But at a services company, the right circle **is** the role, and it is the reason they keep you instead of replacing you.
+
+If you are hiring DevOps: try writing the right circle down instead. What actually happened in the last three months? Who got called, and for what? Which problem cost you the most and who solved it?
+
+You will get very different, and much better, candidates.

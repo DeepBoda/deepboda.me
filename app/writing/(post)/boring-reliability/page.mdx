@@ -1,0 +1,38 @@
+import ArticleHeader from "@/app/writing/article-header";
+import { postBySlug } from "@/lib/posts";
+
+export const metadata = {
+  title: postBySlug("boring-reliability").title,
+  description: postBySlug("boring-reliability").summary,
+  alternates: { canonical: "https://deepboda.me/writing/boring-reliability" },
+};
+
+<ArticleHeader slug="boring-reliability" />
+
+Four years of infrastructure work, and the things that actually moved reliability were embarrassingly boring.
+
+## The list that worked
+
+- Health checks that do not touch the database
+- A rollback that takes one command instead of a meeting
+- Autoscaling set from real peak traffic rather than a guess
+- Alerts that fire only when a human genuinely has to act
+- A staging environment that actually matches production
+- Terraform for everything, including the things we swore we would only ever do once
+- Log rotation
+
+That last one has saved more nights than any tool I have adopted. An application that dies because a disk filled with its own logs is not an application problem, and you will spend the first thirty minutes looking in entirely the wrong place.
+
+## The list I was wrong about
+
+- A beautiful dashboard nobody opened at 2 AM
+- Chasing whatever tool was new that quarter
+- Splitting into services before we had a team big enough to run them
+
+None of those were bad ideas. They were answers to problems we did not have yet, and each one cost time we needed for the boring list.
+
+---
+
+Nobody gets promoted for log rotation. Everybody gets woken up without it.
+
+Reliability is not a project. It is a hundred boring decisions, made early, by someone who has been woken up before.

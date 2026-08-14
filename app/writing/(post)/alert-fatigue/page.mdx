@@ -1,0 +1,38 @@
+import ArticleHeader from "@/app/writing/article-header";
+import { postBySlug } from "@/lib/posts";
+
+export const metadata = {
+  title: postBySlug("alert-fatigue").title,
+  description: postBySlug("alert-fatigue").summary,
+  alternates: { canonical: "https://deepboda.me/writing/alert-fatigue" },
+};
+
+<ArticleHeader slug="alert-fatigue" />
+
+I muted a production alert last month. It was the right call.
+
+It had fired every single night for weeks. Disk at 81%, then 82%, then 81% again, a log directory that rotated itself by morning. Nobody had ever acted on it. Nobody ever would.
+
+That is not monitoring. That is furniture.
+
+## One night on call
+
+Forty-seven alerts fired. Two of them needed a human: a target group dropping to 2 of 6 healthy, and a sustained 5xx rate on checkout.
+
+The other forty-five were CPU thresholds on a batch job that is supposed to use CPU, a certificate warning that would fire again tomorrow and the day after, and the same disk warning three times.
+
+## The damage is not the noise
+
+It is what the noise teaches.
+
+After a few weeks of alerts that never mean anything, your brain stops reading them. So when target group 2-of-6 lands at 02:31, it arrives on a person who has been trained not to look.
+
+Every alert you keep that does not require action makes the next real one harder to see. That is a real cost, and it is invisible until the night it isn't.
+
+## The rule I use now
+
+If an alert fires and the runbook is "look at it and go back to sleep", it is not an alert. It is a dashboard. Move it there.
+
+So the question is not what else you should alert on.
+
+It is: what would you delete?

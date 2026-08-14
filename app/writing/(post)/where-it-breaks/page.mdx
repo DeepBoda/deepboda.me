@@ -1,0 +1,58 @@
+import ArticleHeader from "@/app/writing/article-header";
+import { postBySlug } from "@/lib/posts";
+
+export const metadata = {
+  title: postBySlug("where-it-breaks").title,
+  description: postBySlug("where-it-breaks").summary,
+  alternates: { canonical: "https://deepboda.me/writing/where-it-breaks" },
+};
+
+<ArticleHeader slug="where-it-breaks" />
+
+"Full-stack DevOps" means nothing until someone shows you the layers. So here are mine. One request, browser to disk, and the specific thing that bites at each one.
+
+## The browser
+
+A request can return **200 OK** with an error inside the body. Your uptime monitor sees a healthy service and says nothing, while every user sees a broken page. Status codes tell you the transport worked, not that the thing worked.
+
+## DNS and TLS
+
+Nothing changed. The certificate expired.
+
+It is always a Sunday, and it is never in the deploy log, which is why the first forty minutes go into reading deploy history that has nothing to do with it.
+
+## The load balancer
+
+If the health check path touches the database, one slow query drains the whole fleet at once.
+
+Each instance fails its check independently, all of them at the same time, for a reason that has nothing to do with any of them. This is the one I would put money on you having in production right now.
+
+## The container
+
+A memory limit with no restart policy is not protection. It is a slower outage.
+
+## The app
+
+One un-awaited promise blocks the event loop, and every user waits for one user's request. Node makes this easy to write and hard to see.
+
+## The database
+
+pool size × replicas quietly passes **max_connections**. It works perfectly right up until you scale out, and then scaling out is what breaks you, which is the opposite of what everyone expects.
+
+## Someone else's API
+
+No timeout set means their outage is now your outage, and your graphs will blame you for it.
+
+## The machine
+
+Logs fill the disk and the app dies of something that has nothing to do with the app.
+
+---
+
+Now look at the app and the database again.
+
+That connection-pool bug is not in the app, and it is not in the database. It lives in the seam between them, which is exactly why a team split across two owners never finds it. The app team measures the app. The database team measures the database. Both look fine.
+
+At a product company each of these layers is a different team. For four years, all of them were me. That is not a flex, it is what a services company quietly does to you. But it is also why I catch the bugs that live between layers.
+
+The expensive ones always do.

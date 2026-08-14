@@ -1,0 +1,50 @@
+import ArticleHeader from "@/app/writing/article-header";
+import { postBySlug } from "@/lib/posts";
+
+export const metadata = {
+  title: postBySlug("kubernetes-ladder").title,
+  description: postBySlug("kubernetes-ladder").summary,
+  alternates: { canonical: "https://deepboda.me/writing/kubernetes-ladder" },
+};
+
+<ArticleHeader slug="kubernetes-ladder" />
+
+Most teams asking for Kubernetes do not need Kubernetes.
+
+I say that while running EKS in production. And ECS. And a plain EC2 with systemd, all three right now, for different products.
+
+Here is the ladder I actually think in. Five rungs, and the only rule is: climb when the rung below starts hurting, not before.
+
+## Rung 1. One EC2, one process, systemd
+
+An MVP, a landing page and an API, and you are the whole team. Start here. Genuinely. It is not embarrassing.
+
+## Rung 2. Add a load balancer and autoscaling
+
+Climb when one box cannot take the peak, or when downtime starts costing money. Boring, cheap, and most SaaS never truly outgrows it.
+
+## Rung 3. Docker
+
+Climb when environments have drifted and deploys have become a ritual. "Works on my machine" has to stop being a sentence someone can say.
+
+## Rung 4. ECS or Fargate
+
+Climb when one part needs to scale without dragging the rest. Think of the shape: one service spikes 10x while everything else stays completely flat.
+
+## Rung 5. Kubernetes
+
+Climb when teams are blocking each other on deploys and you need a platform rather than a server.
+
+And know that someone owns that cluster at 2 AM. That someone is a full-time job.
+
+---
+
+**Every rung up costs you a person.** That is the real price, not the AWS bill.
+
+Now the part people get backwards.
+
+My worst outage was not caused by over-engineering. It was the opposite. We sat on rung 1 long after the product had grown to need rung 4. A traffic spike killed the real-time service and it took the whole API down with it.
+
+We did not need Kubernetes that night. We needed one rung up.
+
+Climbing too early costs money. Climbing too late costs you a night.
