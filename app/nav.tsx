@@ -18,6 +18,9 @@ export default function Nav() {
           <Link href="/#release" className="hidden md:inline hover:text-[var(--ink)] transition-colors">
             Release
           </Link>
+          <Link href="/uses" className="hidden md:inline hover:text-[var(--ink)] transition-colors">
+            Uses
+          </Link>
           <Link href="/#contact" className="hidden sm:inline hover:text-[var(--ink)] transition-colors">
             Contact
           </Link>

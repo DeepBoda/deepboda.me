@@ -94,6 +94,7 @@ case study.
 - [x] Dynamic OG images, per page and per post
 - [x] GSAP + Lenis pinned request trace
 - [x] 3D cluster model, gated and code-split
-- [ ] `/uses` and `/colophon`
-- [ ] RSS feed at `/writing/rss.xml`
-- [ ] Live data panel: uptime, last deploy, build duration from real infra
+- [x] `/uses` and `/colophon`
+- [x] RSS feed at `/writing/rss.xml`
+- [x] Real build metadata on /colophon, read at build time
+- [ ] Live uptime panel, once there is an endpoint worth pulling

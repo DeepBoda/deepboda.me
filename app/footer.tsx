@@ -7,7 +7,25 @@ export default function Footer() {
         <span>
           © {new Date().getFullYear()} {SITE.name}
         </span>
-        <span>Next.js · Tailwind · native CSS scroll animation, no JS</span>
+        <span className="flex flex-wrap gap-x-5 gap-y-2">
+          <a href="/colophon" className="hover:text-[var(--ink)] transition-colors">
+            Colophon
+          </a>
+          <a href="/uses" className="hover:text-[var(--ink)] transition-colors">
+            Uses
+          </a>
+          <a href="/writing/rss.xml" className="hover:text-[var(--ink)] transition-colors">
+            RSS
+          </a>
+          <a
+            href="https://github.com/DeepBoda/deepboda.me"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="hover:text-[var(--ink)] transition-colors"
+          >
+            Source
+          </a>
+        </span>
       </div>
     </footer>
   );

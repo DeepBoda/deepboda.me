@@ -36,7 +36,6 @@ export const metadata: Metadata = {
   ],
   authors: [{ name: SITE.name, url: SITE.url }],
   creator: SITE.name,
-  alternates: { canonical: SITE.url },
   openGraph: {
     type: "website",
     url: SITE.url,
@@ -60,6 +59,10 @@ export const metadata: Metadata = {
     images: [
       `/og?title=${encodeURIComponent("I run production, and I write the code on it.")}`,
     ],
+  },
+  alternates: {
+    canonical: SITE.url,
+    types: { "application/rss+xml": `${SITE.url}/writing/rss.xml` },
   },
   robots: {
     index: true,
