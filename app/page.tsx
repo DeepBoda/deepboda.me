@@ -1,5 +1,6 @@
 import { SITE, LAYERS, RELEASE, STATS, TIMELINE } from "@/lib/content";
 import RequestTrace from "./request-trace";
+import Cluster from "./cluster";
 
 const NODES = [
   { x: 60, label: "Browser" },
@@ -135,6 +136,39 @@ export default function Home() {
 
             <div className="mt-16 md:mt-24">
               <RequestTrace layers={LAYERS} />
+            </div>
+          </div>
+        </section>
+
+        {/* ---------------- CLUSTER ---------------- */}
+        <section id="cluster" className="section">
+          <div className="wrap grid lg:grid-cols-[1fr_1.1fr] gap-12 lg:gap-16 items-center">
+            <div>
+              <p className="eyebrow reveal">The cluster</p>
+              <h2 className="h2 mt-4 max-w-[16ch] reveal">
+                What autoscaling actually looks like.
+              </h2>
+              <p className="lede mt-5 max-w-[46ch] reveal">
+                Four worker nodes, pods spread across them, and one service
+                scaling on its own while the rest stay flat. That last part is
+                the whole design.
+              </p>
+              <p className="mt-5 text-[var(--mid)] max-w-[48ch] leading-relaxed reveal">
+                Splitting workloads so a spike stays contained is the difference
+                between one busy service and an outage. Get it wrong and a single
+                hot pod exhausts shared capacity and takes the platform with it.
+              </p>
+              <ul className="mt-7 flex flex-wrap gap-2 reveal">
+                {["EKS", "HPA", "Cluster Autoscaler", "ECS", "Fargate", "Helm"].map(
+                  (t) => (
+                    <li key={t} className="chip">{t}</li>
+                  )
+                )}
+              </ul>
+            </div>
+
+            <div className="reveal-slow">
+              <Cluster />
             </div>
           </div>
         </section>

@@ -28,6 +28,10 @@ npm run start    # serve the production build
   stays in sync. Both disabled entirely under `prefers-reduced-motion`, and the
   trace falls back to a static diagram under 1024px.
 - **Dynamic OG images** via `next/og` at `/og?title=&kicker=`
+- **React Three Fiber** for one 3D moment: the cluster model. Triple-gated
+  (>=1024px, no reduced motion, scrolled into view) and dynamically imported,
+  so three.js sits in its own 883KB chunk that most visitors never download.
+  A static isometric SVG carries the same explanation everywhere else.
 
 ## Structure
 
@@ -89,7 +93,7 @@ case study.
 - [x] `/writing` — MDX, seven posts live with their graphics
 - [x] Dynamic OG images, per page and per post
 - [x] GSAP + Lenis pinned request trace
+- [x] 3D cluster model, gated and code-split
 - [ ] `/uses` and `/colophon`
 - [ ] RSS feed at `/writing/rss.xml`
 - [ ] Live data panel: uptime, last deploy, build duration from real infra
-- [ ] One React Three Fiber moment: the interactive cluster model
