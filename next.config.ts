@@ -3,13 +3,19 @@ import type { NextConfig } from "next";
 
 const nextConfig: NextConfig = {
   pageExtensions: ["ts", "tsx", "mdx"],
-  // the old insider names. anything already shared keeps working.
-  async redirects() {
-    return [
-      { source: "/uses", destination: "/tools", permanent: true },
-      { source: "/colophon", destination: "/how-this-site-is-built", permanent: true },
-    ];
-  },
+
+  /**
+   * Fully static output. `next build` writes a plain folder of HTML, CSS, JS
+   * and assets to out/ that any web server can host. No Node process needed.
+   */
+  output: "export",
+
+  /**
+   * The default next/image loader needs a server to resize on the fly, which
+   * a static host does not have. The source images are already sized and
+   * converted to webp, so nothing is lost by serving them as they are.
+   */
+  images: { unoptimized: true },
 };
 
 const withMDX = createMDX({});

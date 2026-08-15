@@ -11,7 +11,7 @@ export const metadata: Metadata = {
     title: "Work",
     url: `${SITE.url}/work`,
     images: [
-      `/og?title=${encodeURIComponent("What I built and what I run.")}&kicker=${encodeURIComponent("Work")}`,
+      "/og/work.png",
     ],
   },
 };

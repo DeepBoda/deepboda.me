@@ -12,7 +12,7 @@ export const metadata: Metadata = {
     title: "How this site is built",
     url: `${SITE.url}/how-this-site-is-built`,
     images: [
-      `/og?title=${encodeURIComponent("How this site is built.")}&kicker=${encodeURIComponent("How it is built")}`,
+      "/og/how-this-site-is-built.png",
     ],
   },
 };

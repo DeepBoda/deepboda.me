@@ -13,7 +13,7 @@ export const metadata: Metadata = {
     title: "Writing",
     url: `${SITE.url}/writing`,
     images: [
-      `/og?title=${encodeURIComponent("Things that broke, and what they cost.")}&kicker=${encodeURIComponent("Writing")}`,
+      "/og/writing.png",
     ],
   },
 };

@@ -4,8 +4,9 @@
   "private": true,
   "scripts": {
     "dev": "next dev",
-    "build": "next build",
-    "start": "next start"
+    "build": "rm -rf out && next build && node scripts/finish-export.mjs",
+    "start": "echo \"This build is static. Use: npm run serve  (or point a web server at out/)\" && exit 1",
+    "serve": "npx --yes serve out -p 4000"
   },
   "dependencies": {
     "@mdx-js/loader": "^3.1.1",

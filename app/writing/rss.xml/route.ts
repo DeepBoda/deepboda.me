@@ -1,3 +1,5 @@
+export const dynamic = "force-static";
+
 import { SITE } from "@/lib/content";
 import { sortedPosts } from "@/lib/posts";
 
