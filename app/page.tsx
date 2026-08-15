@@ -7,12 +7,12 @@ import Timeline from "./timeline";
 import NextUp from "./next-up";
 
 const NODES = [
-  { x: 60, label: "Browser" },
-  { x: 236, label: "CDN" },
-  { x: 412, label: "ALB" },
-  { x: 588, label: "Cluster" },
-  { x: 764, label: "App" },
-  { x: 940, label: "Data" },
+  { x: 60, label: "Browser", to: "edge" },
+  { x: 236, label: "CDN", to: "edge" },
+  { x: 412, label: "ALB", to: "balancer" },
+  { x: 588, label: "Cluster", to: "cluster" },
+  { x: 764, label: "App", to: "app" },
+  { x: 940, label: "Data", to: "data" },
 ];
 
 function RequestPath() {
@@ -28,7 +28,12 @@ function RequestPath() {
         stroke="var(--line)" strokeWidth="1.5"
       />
       {NODES.map((n, i) => (
-        <g key={n.label}>
+        <a key={n.label} href={`#${n.to}`} className="path-stop">
+          <title>{`Jump to ${n.label}`}</title>
+          <rect
+            x={n.x - 46} y="14" width="92" height="62"
+            fill="transparent" rx="8"
+          />
           <circle
             cx={n.x} cy="34" r="6"
             fill="var(--bg)"
@@ -43,7 +48,7 @@ function RequestPath() {
           >
             {n.label}
           </text>
-        </g>
+        </a>
       ))}
       <circle
         className="packet"
@@ -91,6 +96,16 @@ export default function Home() {
             >
               LinkedIn
             </a>
+            <a
+              href={SITE.cv}
+              download
+              className="inline-flex items-center gap-2 h-11 px-6 rounded-full border border-[var(--line)] font-medium text-[0.92rem] hover:border-[var(--accent)] hover:text-[var(--accent)] transition-colors"
+            >
+              Download CV
+              <span aria-hidden="true" className="mono text-[0.68rem] text-[var(--faint)]">
+                PDF
+              </span>
+            </a>
             <span className="inline-flex items-center gap-2 h-11 px-4 text-[0.86rem] text-[var(--soft)]">
               <span className="relative flex w-2 h-2">
                 <span className="absolute inline-flex w-full h-full rounded-full bg-[var(--accent)] opacity-60 motion-safe:animate-ping" />
@@ -105,7 +120,8 @@ export default function Home() {
             <RequestPath />
             <p className="mt-5 text-[0.9rem] text-[var(--soft)] max-w-[62ch]">
               This page follows that path. Every stop is a layer I am
-              responsible for, and the thing that tends to break there.
+              responsible for, and the thing that tends to break there. Pick one
+              and it will take you straight to it.
             </p>
           </div>
         </section>

@@ -147,9 +147,18 @@ export default function NextUp() {
               />
             </div>
 
-            <p className="mt-6 pt-5 border-t border-[var(--hair)] text-[0.88rem] text-[var(--soft)]">
-              Based in {SITE.location}. {SITE.available}, and open to remote.
-            </p>
+            <div className="mt-6 pt-5 border-t border-[var(--hair)] flex flex-wrap items-center gap-x-4 gap-y-3">
+              <p className="text-[0.88rem] text-[var(--soft)]">
+                Based in {SITE.location}. {SITE.available}, and open to remote.
+              </p>
+              <a
+                href={SITE.cv}
+                download
+                className="ml-auto inline-flex items-center gap-2 h-9 px-4 rounded-full bg-[var(--ink)] text-[var(--bg)] text-[0.83rem] font-medium hover:opacity-90 transition-opacity"
+              >
+                Download CV
+              </a>
+            </div>
           </div>
         </div>
       </div>

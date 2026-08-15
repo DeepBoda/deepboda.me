@@ -46,6 +46,13 @@ export default function Footer() {
               >
                 LinkedIn
               </a>
+              <a
+                href={SITE.cv}
+                download
+                className="inline-flex items-center h-11 px-6 rounded-full border border-[var(--line)] font-medium text-[0.92rem] hover:border-[var(--accent)] hover:text-[var(--accent)] transition-colors"
+              >
+                Download CV
+              </a>
             </div>
           </div>
 

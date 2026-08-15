@@ -1,4 +1,5 @@
 export const SITE = {
+  cv: "/Deep-Boda-DevOps-Engineer-CV.pdf",
   name: "Deep Boda",
   role: "Senior DevOps & Full-Stack Engineer",
   url: "https://deepboda.me",

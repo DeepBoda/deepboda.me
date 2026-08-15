@@ -249,6 +249,20 @@
       0 22px 50px -26px color-mix(in srgb, var(--tint) 70%, transparent);
   }
 
+  /* the request path in the hero is a set of links, so it needs to look like one */
+  .path-stop { cursor: pointer; }
+  .path-stop circle { transition: stroke 0.2s ease, r 0.2s ease; }
+  .path-stop text { transition: fill 0.2s ease; }
+  .path-stop:hover circle,
+  .path-stop:focus-visible circle {
+    stroke: var(--accent);
+    r: 8;
+  }
+  .path-stop:hover text,
+  .path-stop:focus-visible text {
+    fill: var(--ink);
+  }
+
   .link-u {
     border-bottom: 1px solid var(--line);
     transition: border-color 0.18s ease, color 0.18s ease;
