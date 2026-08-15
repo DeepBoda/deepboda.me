@@ -204,7 +204,7 @@ export type Work = {
 };
 
 /**
- * Seven live products. Client and product names left out on purpose.
+ * Live products. Client and product names left out on purpose.
  * The decisions are mine to talk about. The names are not.
  */
 export const WORK: Work[] = [

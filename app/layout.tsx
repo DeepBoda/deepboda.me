@@ -72,10 +72,7 @@ export const metadata: Metadata = {
 };
 
 export const viewport: Viewport = {
-  themeColor: [
-    { media: "(prefers-color-scheme: light)", color: "#fcfcfa" },
-    { media: "(prefers-color-scheme: dark)", color: "#0c0c0e" },
-  ],
+  themeColor: "#fcfcfa",
   width: "device-width",
   initialScale: 1,
 };
@@ -117,14 +114,7 @@ export default function RootLayout({
   children: React.ReactNode;
 }) {
   return (
-    <html lang="en" className={inter.variable} suppressHydrationWarning>
-      <head>
-        <script
-          dangerouslySetInnerHTML={{
-            __html: `try{var t=localStorage.getItem('theme');if(t)document.documentElement.dataset.theme=t}catch(e){}`,
-          }}
-        />
-      </head>
+    <html lang="en" className={inter.variable}>
       <body className="min-h-dvh flex flex-col">
         <a
           href="#top"

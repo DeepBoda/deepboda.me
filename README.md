@@ -41,7 +41,6 @@ app/
   layout.tsx            metadata, JSON-LD Person schema, nav + footer
   page.tsx              the homepage
   nav.tsx  footer.tsx
-  theme-toggle.tsx      the only client component on the site
   writing/
     page.tsx            the index
     article-header.tsx  title, date, hero image, BlogPosting JSON-LD
@@ -76,8 +75,9 @@ This matters: unlayered CSS beats layered CSS in the cascade regardless of
 specificity, so an unlayered reset would silently override every Tailwind
 utility.
 
-Dark mode is `prefers-color-scheme` by default with a manual override stored in
-`localStorage` and applied via `data-theme` on `<html>`.
+One mode, deliberately. The dark `.band` sections are the contrast device on
+this site, and a second theme takes that away from them. Tokens live on `:root`
+with `color-scheme: light`, so there is exactly one place a colour is defined.
 
 ## Deploy
 

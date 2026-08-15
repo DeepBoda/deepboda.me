@@ -12,12 +12,10 @@ function Pod({
   position,
   accent,
   delay,
-  dark,
 }: {
   position: [number, number, number];
   accent?: boolean;
   delay: number;
-  dark: boolean;
 }) {
   const ref = useRef<Mesh>(null);
 
@@ -35,7 +33,7 @@ function Pod({
       position={position}
     >
       <meshStandardMaterial
-        color={accent ? ACCENT : dark ? "#4c4c58" : "#c9cad2"}
+        color={accent ? ACCENT : "#c9cad2"}
         roughness={0.42}
         metalness={0.08}
         emissive={accent ? ACCENT : "#000000"}
@@ -50,18 +48,16 @@ function Node({
   position,
   pods,
   hot,
-  dark,
 }: {
   position: [number, number, number];
   pods: number;
   hot?: boolean;
-  dark: boolean;
 }) {
   return (
     <group position={position}>
       <RoundedBox args={[1.9, 0.22, 1.9]} radius={0.05} smoothness={3}>
         <meshStandardMaterial
-          color={dark ? "#1e1e25" : "#ffffff"}
+          color="#ffffff"
           roughness={0.6}
           metalness={0.04}
         />
@@ -73,7 +69,7 @@ function Node({
           position={[-0.55 + (i % 3) * 0.55, 0.29, -0.3 + Math.floor(i / 3) * 0.55]}
           accent={hot && i === 0}
           delay={i * 0.35}
-          dark={dark}
+         
         />
       ))}
     </group>
@@ -81,7 +77,7 @@ function Node({
 }
 
 /** Slow drift, so it feels alive without demanding attention. */
-function Rig({ reduced, dark }: { reduced: boolean; dark: boolean }) {
+function Rig({ reduced }: { reduced: boolean }) {
   const ref = useRef<Group>(null);
 
   useFrame(({ clock }) => {
@@ -91,35 +87,19 @@ function Rig({ reduced, dark }: { reduced: boolean; dark: boolean }) {
 
   return (
     <group ref={ref}>
-      <Node position={[-1.15, 0, -1.15]} pods={4} dark={dark} />
-      <Node position={[1.15, 0, -1.15]} pods={3} dark={dark} />
-      <Node position={[-1.15, 0, 1.15]} pods={2} dark={dark} />
-      <Node position={[1.15, 0, 1.15]} pods={5} hot dark={dark} />
+      <Node position={[-1.15, 0, -1.15]} pods={4} />
+      <Node position={[1.15, 0, -1.15]} pods={3} />
+      <Node position={[-1.15, 0, 1.15]} pods={2} />
+      <Node position={[1.15, 0, 1.15]} pods={5} hot />
     </group>
   );
 }
 
 export default function ClusterScene() {
   const [reduced, setReduced] = useState(false);
-  const [dark, setDark] = useState(false);
 
   useEffect(() => {
     setReduced(window.matchMedia("(prefers-reduced-motion: reduce)").matches);
-
-    const read = () =>
-      setDark(
-        document.documentElement.dataset.theme === "dark" ||
-          (!document.documentElement.dataset.theme &&
-            window.matchMedia("(prefers-color-scheme: dark)").matches)
-      );
-    read();
-
-    const obs = new MutationObserver(read);
-    obs.observe(document.documentElement, {
-      attributes: true,
-      attributeFilter: ["data-theme"],
-    });
-    return () => obs.disconnect();
   }, []);
 
   return (
@@ -133,7 +113,7 @@ export default function ClusterScene() {
       <directionalLight position={[5, 8, 4]} intensity={1.15} />
       <directionalLight position={[-4, 3, -4]} intensity={0.3} />
 
-      <Rig reduced={reduced} dark={dark} />
+      <Rig reduced={reduced} />
 
       <OrbitControls
         enablePan={false}
