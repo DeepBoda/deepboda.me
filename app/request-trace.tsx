@@ -106,46 +106,52 @@ export default function RequestTrace({ layers }: { layers: Layer[] }) {
             key={l.id}
             id={l.id}
             data-step
-            className="reveal relative scroll-mt-24 lg:min-h-[420px]"
+            className="reveal relative scroll-mt-24 lg:min-h-[380px]"
+            style={{ ["--tint" as string]: l.tint }}
           >
-            <div className="flex items-baseline gap-3 flex-wrap">
-              <span className="mono font-semibold" style={{ color: l.tint }}>
-                {l.n}
-              </span>
-              <h3 className="h3">{l.layer}</h3>
-              <span className="mono text-[var(--faint)]">{l.sub}</span>
-            </div>
+            <article className="layer-card">
+              <span className="ghost-n" aria-hidden="true">{l.n}</span>
 
-            <p className="mt-4 text-[1.05rem] md:text-[1.2rem] font-semibold tracking-[-0.022em] max-w-[36ch]">
-              {l.title}
-            </p>
+              <div className="flex items-center gap-3 flex-wrap">
+                <span className="tint-dot" />
+                <h3 className="h3">{l.layer}</h3>
+                <span className="mono text-[var(--faint)]">{l.sub}</span>
+              </div>
 
-            <p className="mt-3.5 text-[var(--mid)] max-w-[58ch] leading-relaxed">
-              {l.body}
-            </p>
+              <p className="mt-4 text-[1.08rem] md:text-[1.24rem] font-semibold tracking-[-0.024em] max-w-[34ch]">
+                {l.title}
+              </p>
 
-            <p
-              className="bite mt-6 max-w-[54ch] text-[0.95rem] leading-relaxed"
-              style={{ borderColor: l.tint }}
-            >
-              {l.bite}
-            </p>
+              <p className="mt-3.5 text-[var(--mid)] max-w-[56ch] leading-relaxed">
+                {l.body}
+              </p>
 
-            <ul className="mt-6 flex flex-wrap gap-2">
-              {l.tools.map((t) => (
-                <li key={t} className="chip">
-                  {t}
-                </li>
-              ))}
-            </ul>
+              <p className="bite-box mt-6 max-w-[52ch] text-[0.94rem] leading-relaxed">
+                {l.bite}
+              </p>
 
-            {/* mobile connector */}
-            {i < layers.length - 1 && (
-              <span
-                aria-hidden="true"
-                className="lg:hidden block w-px h-10 bg-[var(--line)] mt-14 ml-1"
-              />
-            )}
+              <ul className="mt-6 flex flex-wrap gap-2">
+                {l.tools.map((t) => (
+                  <li key={t} className="chip">
+                    {t}
+                  </li>
+                ))}
+              </ul>
+
+              {/* share of the time I spend at this layer */}
+              <div className="mt-7 flex items-center gap-3">
+                <span className="mono text-[var(--faint)] shrink-0">time here</span>
+                <span className="flex-1 h-1.5 rounded-full bg-[var(--hair)] overflow-hidden">
+                  <span
+                    className="block h-full rounded-full"
+                    style={{ width: `${l.weight * 3.6}%`, background: l.tint }}
+                  />
+                </span>
+                <span className="mono tabular-nums shrink-0" style={{ color: l.tint }}>
+                  {l.weight}%
+                </span>
+              </div>
+            </article>
           </li>
         ))}
       </ol>

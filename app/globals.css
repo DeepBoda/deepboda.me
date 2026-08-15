@@ -286,6 +286,54 @@
     background: linear-gradient(90deg, var(--tint, var(--accent)), transparent);
   }
 
+  /* a layer, as an actual object on the page */
+  .layer-card {
+    position: relative;
+    border: 1px solid var(--line);
+    border-radius: 18px;
+    background: var(--bg-raised);
+    padding: 26px 26px 24px;
+    overflow: hidden;
+    transition: border-color .25s ease, transform .25s ease, box-shadow .25s ease;
+  }
+  .layer-card::before {
+    content: "";
+    position: absolute; inset: 0 0 auto 0; height: 3px;
+    background: linear-gradient(90deg, var(--tint), transparent 72%);
+  }
+  .layer-card::after {
+    content: "";
+    position: absolute; z-index: 0;
+    width: 320px; height: 320px; right: -120px; top: -140px;
+    border-radius: 50%;
+    background: radial-gradient(circle, color-mix(in srgb, var(--tint) 15%, transparent), transparent 68%);
+    pointer-events: none;
+  }
+  .layer-card > * { position: relative; z-index: 1; }
+  .layer-card:hover {
+    border-color: color-mix(in srgb, var(--tint) 45%, var(--line));
+    transform: translateY(-2px);
+    box-shadow: 0 12px 34px -18px color-mix(in srgb, var(--tint) 55%, transparent);
+  }
+
+  /* the big ghost number behind each layer */
+  .ghost-n {
+    position: absolute; right: 22px; bottom: 4px; z-index: 0;
+    font-size: 106px; font-weight: 700; letter-spacing: -0.06em; line-height: 1;
+    color: color-mix(in srgb, var(--tint) 13%, transparent);
+    pointer-events: none;
+  }
+
+  /* the bite, as a filled callout rather than a hairline */
+  .bite-box {
+    border-left: 3px solid var(--tint);
+    background: color-mix(in srgb, var(--tint) 7%, transparent);
+    border-radius: 0 10px 10px 0;
+    padding: 13px 16px 13px 15px;
+    color: var(--ink);
+    font-weight: 500;
+  }
+
   .tint-dot {
     width: 8px; height: 8px; border-radius: 50%;
     background: var(--tint, var(--accent));

@@ -199,6 +199,8 @@ export type Work = {
   points: string[];
   stack: string[];
   scale?: string;
+  image?: string;
+  imageAlt?: string;
 };
 
 /**
@@ -219,6 +221,8 @@ export const WORK: Work[] = [
       "GitOps delivery through ArgoCD, so a bad release was one reverted commit rather than a manual scramble.",
     ],
     stack: ["Kubernetes (EKS)", "ArgoCD", "Node.js", "Next.js", "React", "PostgreSQL", "Redis", "Elasticsearch", "Nginx"],
+    image: "/work/travel.webp",
+    imageAlt: "Architecture diagram: CloudFront and an ALB in front of an EKS cluster running three services, with PostgreSQL, Redis and Elasticsearch behind, and ArgoCD syncing from Git.",
   },
   {
     id: "fintech",
@@ -233,6 +237,8 @@ export const WORK: Work[] = [
       "That containment is the whole design. One hot service exhausting shared capacity is how the platform goes down.",
     ],
     stack: ["AWS ECS", "ECR", "Socket.io", "Node.js", "Redis", "PostgreSQL"],
+    image: "/work/fintech.webp",
+    imageAlt: "Architecture diagram: an ALB feeding four separate ECS services, with the Socket.io service marked in red as the only one that scales during market hours.",
   },
   {
     id: "ctrlops",
@@ -247,6 +253,8 @@ export const WORK: Work[] = [
       "Signed and notarised for macOS on both Apple Silicon and Intel.",
     ],
     stack: ["Rust", "Tokio", "ssh2", "Tauri 2.0", "React", "Vite", "xterm.js", "macOS notarisation"],
+    image: "/work/ctrlops.webp",
+    imageAlt: "Diagram of a Tauri desktop application: React and xterm.js on top, a Rust core on Tokio and ssh2 streaming PTY sessions over IPC, connected to remote Linux hosts and an LLM.",
   },
   {
     id: "aitools",

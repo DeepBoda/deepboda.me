@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import Image from "next/image";
 import { SITE, WORK } from "@/lib/content";
 
 export const metadata: Metadata = {
@@ -52,6 +53,17 @@ export default function WorkPage() {
                   {w.name}
                 </h2>
                 <p className="mt-1.5 text-[var(--soft)]">{w.summary}</p>
+
+                {w.image && (
+                  <Image
+                    src={w.image}
+                    alt={w.imageAlt ?? ""}
+                    width={1600}
+                    height={1200}
+                    sizes="(max-width: 768px) 100vw, 700px"
+                    className="mt-6 w-full h-auto rounded-xl border border-[var(--line)]"
+                  />
+                )}
 
                 <ul className="mt-6 space-y-3">
                   {w.points.map((p) => (

@@ -193,40 +193,52 @@ export default function Home() {
             <h2 className="h2 mt-4 max-w-[18ch] reveal">{RELEASE.title}</h2>
             <p className="lede mt-5 max-w-[58ch] reveal">{RELEASE.body}</p>
 
-            <div className="mt-12 grid gap-4 md:grid-cols-3">
-              {RELEASE.lanes.map((lane) => (
-                <div key={lane.name} className="card p-6 reveal">
-                  <div className="flex items-baseline justify-between">
-                    <h3 className="font-semibold text-[1.05rem] tracking-[-0.02em]">
+            <div className="mt-12 space-y-4">
+              {RELEASE.lanes.map((lane, li) => (
+                <div
+                  key={lane.name}
+                  className="layer-card reveal"
+                  style={{ ["--tint" as string]: ["var(--l1)", "var(--l2)", "var(--l3)"][li] }}
+                >
+                  <div className="flex items-center gap-3">
+                    <span className="tint-dot" />
+                    <h3 className="font-semibold text-[1.08rem] tracking-[-0.02em]">
                       {lane.name}
                     </h3>
-                    <span className="mono text-[var(--faint)] text-[0.72rem]">
-                      {lane.sub}
-                    </span>
+                    <span className="mono text-[var(--faint)]">{lane.sub}</span>
                   </div>
-                  <ol className="mt-5 space-y-3">
-                    {lane.steps.map((s, i) => (
-                      <li key={s} className="flex items-center gap-3 text-[0.92rem]">
-                        <span
-                          className={`mono text-[0.7rem] w-5 shrink-0 ${
-                            i === lane.steps.length - 1
-                              ? "text-[var(--accent)]"
-                              : "text-[var(--faint)]"
-                          }`}
-                        >
-                          {String(i + 1).padStart(2, "0")}
-                        </span>
-                        <span
-                          className={
-                            i === lane.steps.length - 1
-                              ? "text-[var(--accent)] font-medium"
-                              : "text-[var(--mid)]"
-                          }
-                        >
-                          {s}
-                        </span>
-                      </li>
-                    ))}
+
+                  <ol className="mt-5 flex flex-wrap items-center gap-y-3">
+                    {lane.steps.map((step, i) => {
+                      const last = i === lane.steps.length - 1;
+                      return (
+                        <li key={step} className="flex items-center">
+                          <span
+                            className="inline-flex items-center gap-2 h-9 px-3.5 rounded-lg border text-[0.88rem] font-medium whitespace-nowrap"
+                            style={{
+                              borderColor: last
+                                ? ["var(--l1)", "var(--l2)", "var(--l3)"][li]
+                                : "var(--line)",
+                              color: last
+                                ? ["var(--l1)", "var(--l2)", "var(--l3)"][li]
+                                : "var(--mid)",
+                              background: "var(--bg)",
+                            }}
+                          >
+                            <span className="mono text-[0.68rem] opacity-60">
+                              {String(i + 1).padStart(2, "0")}
+                            </span>
+                            {step}
+                          </span>
+                          {!last && (
+                            <svg width="26" height="10" viewBox="0 0 26 10" aria-hidden="true" className="mx-1 shrink-0">
+                              <path d="M1 5 H21" stroke="var(--line)" strokeWidth="1.5" />
+                              <path d="M18 2 L22 5 L18 8" fill="none" stroke="var(--line)" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
+                            </svg>
+                          )}
+                        </li>
+                      );
+                    })}
                   </ol>
                 </div>
               ))}
