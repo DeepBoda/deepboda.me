@@ -175,3 +175,110 @@ export const TIMELINE = [
     note: "And building CtrlOps, a desktop DevOps terminal in Rust.",
   },
 ];
+
+export type Work = {
+  id: string;
+  name: string;
+  role: string;
+  kind: "Client platform" | "Internal product";
+  summary: string;
+  points: string[];
+  stack: string[];
+  scale?: string;
+};
+
+/**
+ * Seven live products. Client and product names withheld deliberately;
+ * the engineering decisions are mine to describe, the names are not.
+ */
+export const WORK: Work[] = [
+  {
+    id: "travel",
+    name: "Consumer Travel Platform",
+    role: "Infrastructure lead",
+    kind: "Client platform",
+    scale: "Millions of requests a day",
+    summary: "Global discovery and content site running on Kubernetes.",
+    points: [
+      "Ran the whole EKS environment: cluster design, node groups, autoscaling and rollout strategy.",
+      "Three connected apps behind it, a Node.js backend, a Next.js site and a React admin, with Elasticsearch powering location search and Redis keeping it fast under global traffic.",
+      "GitOps delivery through ArgoCD, so a bad release was one reverted commit rather than a manual scramble.",
+    ],
+    stack: ["Kubernetes (EKS)", "ArgoCD", "Node.js", "Next.js", "React", "PostgreSQL", "Redis", "Elasticsearch", "Nginx"],
+  },
+  {
+    id: "fintech",
+    name: "Fintech Trading Platform",
+    role: "Infrastructure lead",
+    kind: "Client platform",
+    scale: "100,000+ users",
+    summary: "Stock market application streaming live market data.",
+    points: [
+      "Ran the AWS ECS microservices: the main API, scheduled jobs, a leaderboard, and a Socket.io service pushing live prices.",
+      "Split into separate task definitions so the socket service scales alone. When markets open and connections jump, the API and batch jobs stay flat.",
+      "That containment is the whole design. One hot service exhausting shared capacity is how the platform goes down.",
+    ],
+    stack: ["AWS ECS", "ECR", "Socket.io", "Node.js", "Redis", "PostgreSQL"],
+  },
+  {
+    id: "ctrlops",
+    name: "DevOps Desktop Application",
+    role: "Product engineer",
+    kind: "Internal product",
+    summary: "A desktop terminal and SSH client with an LLM wired into the core.",
+    points: [
+      "Migrated the app from Electron to Tauri 2.0 with a Rust core. Far lighter on memory and noticeably faster.",
+      "xterm.js driving a real PTY, with SSH sessions streamed over IPC rather than shelling out to a subprocess.",
+      "The AI part is useful rather than decorative: it explains unfamiliar commands and writes them mid-incident, inside the terminal you are already in.",
+      "Signed and notarised for macOS on both Apple Silicon and Intel.",
+    ],
+    stack: ["Rust", "Tokio", "ssh2", "Tauri 2.0", "React", "Vite", "xterm.js", "macOS notarisation"],
+  },
+  {
+    id: "aitools",
+    name: "AI Tools Directory",
+    role: "Backend & infrastructure lead",
+    kind: "Internal product",
+    summary: "Search and discovery platform for AI tools, owned end to end.",
+    points: [
+      "Product direction, backend and infrastructure, all mine.",
+      "Node.js and Express on MySQL, with Elasticsearch search across the catalogue and Redis caching the busiest queries.",
+      "Also the technical SEO and page speed work, which is the half of a directory that decides whether it gets found.",
+    ],
+    stack: ["Node.js", "Express", "MySQL", "Redis", "Elasticsearch", "AWS", "Nginx", "Technical SEO"],
+  },
+  {
+    id: "cards",
+    name: "Digital Business Card Platform",
+    role: "Backend lead & client delivery",
+    kind: "Client platform",
+    summary: "Digital cards and professional networking.",
+    points: [
+      "Built the entire backend, and ran both the client relationship and the delivery team through to launch.",
+      "Card creation and editing, QR-based profile sharing, and Apple Wallet passes via PassKit.",
+    ],
+    stack: ["Node.js", "Express", "MySQL", "Redis", "Apple PassKit"],
+  },
+  {
+    id: "news",
+    name: "Industry News Mobile Application",
+    role: "Backend engineer",
+    kind: "Client platform",
+    summary: "Sector news, regulation updates and a knowledge base.",
+    points: [
+      "Built the backend and APIs behind the mobile app: content delivery, search, and the feed that keeps professionals current on regulatory changes.",
+    ],
+    stack: ["Node.js", "Express", "MySQL"],
+  },
+  {
+    id: "erp",
+    name: "Enterprise ERP",
+    role: "Backend engineer",
+    kind: "Client platform",
+    summary: "Internal ERP for a renewable energy group.",
+    points: [
+      "Backend services and APIs for the core business modules, with PostgreSQL schema design and Redis caching.",
+    ],
+    stack: ["Node.js", "Express", "PostgreSQL", "Redis"],
+  },
+];

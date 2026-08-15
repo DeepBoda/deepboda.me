@@ -88,6 +88,18 @@ static bundle for S3 + CloudFront, provisioned with Terraform and deployed from
 GitHub Actions. Then write the migration up and link it. The site becomes its own
 case study.
 
+## Pages
+
+| Route | What it is |
+|---|---|
+| `/` | The request path. Six layers, pinned trace, 3D cluster, release lanes, timeline |
+| `/work` | Seven live products, anonymised |
+| `/writing` | Seven posts, MDX |
+| `/uses` | Hardware, editor, tools |
+| `/colophon` | Real build metadata, read at build time |
+| `/og` | Dynamic 1200x630 social cards |
+| `/writing/rss.xml` | Feed |
+
 ## Still to build
 
 - [x] `/writing` — MDX, seven posts live with their graphics
@@ -97,4 +109,5 @@ case study.
 - [x] `/uses` and `/colophon`
 - [x] RSS feed at `/writing/rss.xml`
 - [x] Real build metadata on /colophon, read at build time
+- [x] `/work` case studies and a real 404
 - [ ] Live uptime panel, once there is an endpoint worth pulling

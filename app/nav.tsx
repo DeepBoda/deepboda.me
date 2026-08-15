@@ -9,16 +9,16 @@ export default function Nav() {
           Deep Boda
         </Link>
         <div className="flex items-center gap-5 text-[0.85rem] text-[var(--soft)]">
+          <Link href="/work" className="hover:text-[var(--ink)] transition-colors">
+            Work
+          </Link>
           <Link href="/writing" className="hover:text-[var(--ink)] transition-colors">
             Writing
           </Link>
-          <Link href="/#path" className="hidden sm:inline hover:text-[var(--ink)] transition-colors">
+          <Link href="/#path" className="hidden md:inline hover:text-[var(--ink)] transition-colors">
             Path
           </Link>
-          <Link href="/#release" className="hidden md:inline hover:text-[var(--ink)] transition-colors">
-            Release
-          </Link>
-          <Link href="/uses" className="hidden md:inline hover:text-[var(--ink)] transition-colors">
+          <Link href="/uses" className="hidden lg:inline hover:text-[var(--ink)] transition-colors">
             Uses
           </Link>
           <Link href="/#contact" className="hidden sm:inline hover:text-[var(--ink)] transition-colors">
