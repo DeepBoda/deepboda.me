@@ -3,7 +3,7 @@ import { execSync } from "node:child_process";
 /**
  * Captured at build time and baked into the static output.
  * On Vercel the git details come from the platform env; locally we shell out.
- * Nothing here is invented — if a value cannot be read it says so.
+ * Nothing here is invented. If a value cannot be read it says so.
  */
 function git(cmd: string): string | null {
   try {

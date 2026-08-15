@@ -35,7 +35,7 @@ export const LAYERS: Layer[] = [
     layer: "The edge",
     sub: "DNS · TLS · CDN",
     title: "Where the request arrives, and where it quietly dies.",
-    body: "Route 53, CloudFront and ACM certificates in front of everything. Cache headers set deliberately rather than inherited, TLS terminated at the edge, and renewals that run on a schedule instead of on the morning something breaks.",
+    body: "Route 53, CloudFront and ACM certificates in front of everything. Cache headers I set on purpose instead of inheriting whatever the framework does, TLS at the edge, and certificate renewals on a schedule so nobody meets them for the first time on a Sunday.",
     bite: "Nothing changed. The certificate expired. It is always a Sunday, and it is never in the deploy log.",
     tools: ["CloudFront", "Route 53", "ACM", "Nginx", "SSL/TLS"],
   },
@@ -188,8 +188,8 @@ export type Work = {
 };
 
 /**
- * Seven live products. Client and product names withheld deliberately;
- * the engineering decisions are mine to describe, the names are not.
+ * Seven live products. Client and product names left out on purpose.
+ * The decisions are mine to talk about. The names are not.
  */
 export const WORK: Work[] = [
   {

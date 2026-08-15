@@ -81,9 +81,9 @@ Dark mode is `prefers-color-scheme` by default with a manual override stored in
 
 ## Deploy
 
-**Phase 1 — Vercel.** Push to GitHub, import, point deepboda.me at it. Free.
+**Phase 1, Vercel.** Push to GitHub, import, point deepboda.me at it. Free.
 
-**Phase 2 — own infrastructure.** `next build` with `output: "export"` gives a
+**Phase 2, own infrastructure.** `next build` with `output: "export"` gives a
 static bundle for S3 + CloudFront, provisioned with Terraform and deployed from
 GitHub Actions. Then write the migration up and link it. The site becomes its own
 case study.
@@ -102,7 +102,7 @@ case study.
 
 ## Still to build
 
-- [x] `/writing` — MDX, seven posts live with their graphics
+- [x] `/writing`, MDX, seven posts live with their graphics
 - [x] Dynamic OG images, per page and per post
 - [x] GSAP + Lenis pinned request trace
 - [x] 3D cluster model, gated and code-split

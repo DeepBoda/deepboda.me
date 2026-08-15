@@ -6,7 +6,7 @@ import { BUILD } from "@/lib/build-info";
 export const metadata: Metadata = {
   title: "Colophon",
   description:
-    "How this site is built, what it ships, and how it deploys. Real build metadata, not claims.",
+    "How this site is built, what it ships, and how it deploys. Read from the build, not written by hand.",
   alternates: { canonical: `${SITE.url}/colophon` },
   openGraph: {
     title: "Colophon",
@@ -53,9 +53,9 @@ export default function Colophon() {
         How this site is built, and what it costs to load.
       </h1>
       <p className="lede mt-5 max-w-[58ch] reveal">
-        I spend my working life on other people&apos;s infrastructure, so it
-        would be strange not to document my own. Everything below is read at
-        build time, not written by hand.
+        I spend my working life on other people&apos;s infrastructure, so I
+        may as well document my own. Everything below is read at build time.
+        I have not typed any of it, which means it cannot go stale.
       </p>
 
       {/* ---------- this build ---------- */}
@@ -82,7 +82,7 @@ export default function Colophon() {
       <section className="mt-20 max-w-[720px] reveal">
         <h2 className="h3">What it ships</h2>
         <p className="mt-4 text-[var(--mid)] leading-relaxed">
-          The interesting decisions here are all about what{" "}
+          Most of the work here went into what{" "}
           <em className="not-italic text-[var(--ink)] font-medium">
             does not
           </em>{" "}
@@ -127,10 +127,10 @@ export default function Colophon() {
           and a rollback is the previous immutable build.
         </p>
         <p className="mt-4 text-[var(--mid)] leading-relaxed">
-          That is deliberate. My argument on the rest of this site is that most
-          teams reach for infrastructure they have not earned yet, and it would
-          be a poor look to run a personal site on a Kubernetes cluster to prove
-          I can. This is rung one, and rung one is correct here.
+          I could run this on EKS. It would be a silly thing to do. The rest of
+          this site argues that most teams climb before they need to, so putting
+          a personal site on a cluster to show off would make the point badly.
+          This is rung one. Rung one is right here.
         </p>
         <p className="mt-4 text-[var(--mid)] leading-relaxed">
           Source is public at{" "}

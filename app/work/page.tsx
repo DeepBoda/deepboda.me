@@ -24,8 +24,8 @@ export default function WorkPage() {
       </h1>
       <p className="lede mt-5 max-w-[58ch] reveal">
         Sole or lead infrastructure engineer on every one of these, and lead
-        backend developer on most. Client and product names are withheld. The
-        engineering decisions are mine to describe; the names are not.
+        backend developer on most. I have left the client and product names
+        out. The decisions are mine to talk about. The names are not.
       </p>
 
       <ol className="mt-16 space-y-0">
@@ -82,8 +82,8 @@ export default function WorkPage() {
 
       <aside className="mt-16 pt-10 border-t border-[var(--hair)] max-w-[64ch] reveal">
         <p className="text-[var(--mid)] leading-relaxed">
-          Happy to go into any of these in detail on a call, including the
-          decisions I would make differently now.{" "}
+          Happy to go through any of these properly on a call, including the
+          bits I would do differently now.{" "}
           <a href={`mailto:${SITE.email}`} className="link-u text-[var(--ink)]">
             {SITE.email}
           </a>
