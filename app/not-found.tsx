@@ -3,7 +3,7 @@ import { SITE } from "@/lib/content";
 
 export default function NotFound() {
   return (
-    <main className="wrap flex-1 grid place-items-center py-28">
+    <main id="top" className="wrap flex-1 grid place-items-center py-28">
       <div className="max-w-[52ch]">
         <p className="mono text-[var(--accent)]">404</p>
         <h1 className="h2 mt-4">This one is not here.</h1>

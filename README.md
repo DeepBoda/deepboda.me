@@ -95,8 +95,8 @@ case study.
 | `/` | The request path. Six layers, pinned trace, 3D cluster, release lanes, timeline |
 | `/work` | Seven live products, anonymised |
 | `/writing` | Seven posts, MDX |
-| `/uses` | Hardware, editor, tools |
-| `/colophon` | Real build metadata, read at build time |
+| `/tools` | Hardware, editor, tools |
+| `/how-this-site-is-built` | Real build metadata, read at build time |
 | `/og` | Dynamic 1200x630 social cards |
 | `/writing/rss.xml` | Feed |
 
@@ -106,8 +106,8 @@ case study.
 - [x] Dynamic OG images, per page and per post
 - [x] GSAP + Lenis pinned request trace
 - [x] 3D cluster model, gated and code-split
-- [x] `/uses` and `/colophon`
+- [x] `/tools` and `/how-this-site-is-built`
 - [x] RSS feed at `/writing/rss.xml`
-- [x] Real build metadata on /colophon, read at build time
+- [x] Real build metadata on /how-this-site-is-built, read at build time
 - [x] `/work` case studies and a real 404
 - [ ] Live uptime panel, once there is an endpoint worth pulling

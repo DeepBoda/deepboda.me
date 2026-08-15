@@ -6,15 +6,15 @@ import { sortedPosts } from "@/lib/posts";
 const PAGES = [
   { href: "/work", label: "Work" },
   { href: "/writing", label: "Writing" },
-  { href: "/uses", label: "Uses" },
-  { href: "/colophon", label: "Colophon" },
+  { href: "/tools", label: "Tools I use" },
+  { href: "/how-this-site-is-built", label: "How this site is built" },
 ];
 
 export default function Footer() {
   const recent = sortedPosts().slice(0, 3);
 
   return (
-    <footer className="band grid-bg mt-auto">
+    <footer className="band band-tail grid-bg mt-auto">
       <div className="wrap pt-20 pb-10">
         {/* closing call to action */}
         <div className="grid lg:grid-cols-[1.1fr_1fr] gap-10 lg:gap-20 items-start pb-14 border-b border-[var(--line)]">
@@ -101,7 +101,7 @@ export default function Footer() {
             >
               Source
             </a>
-            <Link href="/colophon" className="mono hover:text-[var(--ink)] transition-colors">
+            <Link href="/how-this-site-is-built" className="mono hover:text-[var(--ink)] transition-colors">
               build {BUILD.sha ?? "local"}
             </Link>
             <a href="#top" className="hover:text-[var(--ink)] transition-colors">

@@ -1,5 +1,6 @@
 import Link from "next/link";
 import { SITE } from "@/lib/content";
+import { ReadingProgress, PostNav } from "../post-chrome";
 
 export default function PostLayout({
   children,
@@ -7,17 +8,30 @@ export default function PostLayout({
   children: React.ReactNode;
 }) {
   return (
-    <main className="wrap pt-10 pb-24">
-      <Link
-        href="/writing"
-        className="mono text-[var(--faint)] hover:text-[var(--accent)] transition-colors"
-      >
-        &larr; Writing
-      </Link>
+    <main id="top" className="wrap pt-10 pb-24">
+      <ReadingProgress />
+
+      <nav aria-label="Breadcrumb" className="mono text-[var(--faint)]">
+        <ol className="flex items-center gap-2">
+          <li>
+            <Link href="/" className="hover:text-[var(--accent)] transition-colors">
+              Home
+            </Link>
+          </li>
+          <li aria-hidden="true">/</li>
+          <li>
+            <Link href="/writing" className="hover:text-[var(--accent)] transition-colors">
+              Writing
+            </Link>
+          </li>
+        </ol>
+      </nav>
 
       <article className="mt-8 max-w-[68ch]">{children}</article>
 
-      <aside className="mt-20 pt-10 border-t border-[var(--hair)] max-w-[68ch]">
+      <PostNav />
+
+      <aside className="mt-14 pt-10 border-t border-[var(--hair)] max-w-[68ch]">
         <p className="eyebrow">Who wrote this</p>
         <p className="mt-3 text-[var(--mid)] leading-relaxed">
           I am a Senior DevOps and Full-Stack Engineer in Ahmedabad. Four years
@@ -40,6 +54,12 @@ export default function PostLayout({
           >
             LinkedIn
           </a>
+          <Link
+            href="/work"
+            className="inline-flex items-center h-10 px-5 rounded-full border border-[var(--line)] font-medium text-[0.88rem] hover:border-[var(--accent)] hover:text-[var(--accent)] transition-colors"
+          >
+            See the work
+          </Link>
         </div>
       </aside>
     </main>

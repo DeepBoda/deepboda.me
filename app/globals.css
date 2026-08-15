@@ -54,6 +54,10 @@
   html {
     scroll-behavior: smooth;
     -webkit-text-size-adjust: 100%;
+    /* stop the rubber band at both ends. see .band-tail for the belt and
+       braces: a dark block painted below the footer, so an overscroll that
+       does get through shows the footer colour and not a white strip. */
+    overscroll-behavior-y: none;
   }
 
   body {
@@ -64,7 +68,10 @@
     line-height: 1.6;
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
-    overflow-x: hidden;
+    /* deliberately NOT overflow-x: hidden. that hides layout bugs instead of
+       fixing them, and it makes body a scroll container, which can break the
+       sticky nav. verified clean from 320px up. */
+
   }
 
   ::selection {
@@ -164,6 +171,61 @@
     font-weight: 500;
   }
 
+  /* frosted surface. used by the nav bar and the bento tiles. */
+  .glass {
+    background: color-mix(in srgb, var(--bg-raised) 66%, transparent);
+    backdrop-filter: saturate(180%) blur(20px);
+    -webkit-backdrop-filter: saturate(180%) blur(20px);
+    border: 1px solid color-mix(in srgb, #ffffff 55%, var(--line));
+    box-shadow:
+      0 1px 0 rgba(255, 255, 255, 0.6) inset,
+      0 10px 40px -24px rgba(15, 15, 20, 0.35);
+  }
+
+  .glass-bar {
+    background: color-mix(in srgb, var(--bg) 72%, transparent);
+    backdrop-filter: saturate(180%) blur(18px);
+    -webkit-backdrop-filter: saturate(180%) blur(18px);
+    box-shadow: 0 1px 24px -16px rgba(15, 15, 20, 0.55);
+  }
+
+  /* soft colour field, so the glass tiles have something to refract */
+  .mesh {
+    position: relative;
+    isolation: isolate;
+  }
+  .mesh::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    z-index: -1;
+    background:
+      radial-gradient(38% 55% at 12% 8%, color-mix(in srgb, var(--l3) 20%, transparent), transparent 70%),
+      radial-gradient(34% 48% at 88% 22%, color-mix(in srgb, var(--l4) 18%, transparent), transparent 70%),
+      radial-gradient(40% 50% at 70% 92%, color-mix(in srgb, var(--l2) 16%, transparent), transparent 70%),
+      radial-gradient(30% 40% at 26% 88%, color-mix(in srgb, var(--l1) 15%, transparent), transparent 70%);
+    pointer-events: none;
+  }
+
+  /* bento tile. the static variant skips the lift, it holds links of its own */
+  .tile,
+  .tile-static {
+    border-radius: 20px;
+    position: relative;
+    overflow: hidden;
+  }
+  .tile {
+    transition: transform 0.32s cubic-bezier(0.22, 1, 0.36, 1),
+      box-shadow 0.32s ease, border-color 0.32s ease;
+  }
+  .tile:hover {
+    transform: translateY(-3px);
+    border-color: color-mix(in srgb, var(--tint) 50%, transparent);
+    box-shadow:
+      0 1px 0 rgba(255, 255, 255, 0.7) inset,
+      0 22px 50px -26px color-mix(in srgb, var(--tint) 70%, transparent);
+  }
+
   .link-u {
     border-bottom: 1px solid var(--line);
     transition: border-color 0.18s ease, color 0.18s ease;
@@ -219,6 +281,12 @@
       transparent 70%
     );
     pointer-events: none;
+  }
+
+  /* box-shadow paints below the footer without adding scroll height, so
+     overscrolling past the end never flashes the light canvas */
+  .band-tail {
+    box-shadow: 0 100vh 0 0 #0b0b0d;
   }
 
   /* full-bleed dark band, for the moments that should feel different */
@@ -361,4 +429,18 @@
     animation-iteration-count: 1 !important;
     transition-duration: 0.01ms !important;
   }
+}
+
+/* ============================================================
+   PAGE TRANSITION. app/template.tsx remounts on navigation.
+   ============================================================ */
+@media (prefers-reduced-motion: no-preference) {
+  .page-in {
+    animation: page-in 0.34s cubic-bezier(0.22, 1, 0.36, 1) both;
+  }
+}
+
+@keyframes page-in {
+  from { opacity: 0; }
+  to   { opacity: 1; }
 }

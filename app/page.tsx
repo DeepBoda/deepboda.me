@@ -4,6 +4,7 @@ import Cluster from "./cluster";
 import StatBand from "./stat-band";
 import IncidentChart from "./incident-chart";
 import Timeline from "./timeline";
+import NextUp from "./next-up";
 
 const NODES = [
   { x: 60, label: "Browser" },
@@ -265,50 +266,8 @@ export default function Home() {
           </div>
         </section>
 
-        {/* ---------------- CONTACT ---------------- */}
-        <section id="contact" className="section">
-          <div className="wrap">
-            <p className="eyebrow reveal">Contact</p>
-            <h2 className="h2 mt-4 max-w-[16ch] reveal">
-              Tell me what is broken.
-            </h2>
-            <p className="lede mt-5 max-w-[52ch] reveal">
-              If your deploys break, your AWS bill keeps climbing, or your
-              servers only make sense to one person, those are the three things
-              I fix. Happy to say honestly whether I am the right person.
-            </p>
-
-            <div className="mt-10 grid gap-x-10 gap-y-6 sm:grid-cols-2 max-w-[640px] reveal">
-              <div>
-                <p className="eyebrow mb-2">Email</p>
-                <a href={`mailto:${SITE.email}`} className="link-u text-[1.02rem]">
-                  {SITE.email}
-                </a>
-              </div>
-              <div>
-                <p className="eyebrow mb-2">LinkedIn</p>
-                <a
-                  href={SITE.linkedin}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="link-u text-[1.02rem]"
-                >
-                  linkedin.com/in/deep-boda
-                </a>
-              </div>
-              <div>
-                <p className="eyebrow mb-2">Phone</p>
-                <a href={`tel:${SITE.phone.replace(/\s/g, "")}`} className="link-u text-[1.02rem]">
-                  {SITE.phone}
-                </a>
-              </div>
-              <div>
-                <p className="eyebrow mb-2">Based in</p>
-                <p className="text-[1.02rem] text-[var(--mid)]">{SITE.location}</p>
-              </div>
-            </div>
-          </div>
-        </section>
+        <NextUp />
+      
       </main>
 
     </>

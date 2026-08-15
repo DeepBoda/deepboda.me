@@ -20,11 +20,35 @@ export default function ArticleHeader({ slug }: { slug: string }) {
     mainEntityOfPage: `${SITE.url}/writing/${p.slug}`,
   };
 
+  const crumbs = {
+    "@context": "https://schema.org",
+    "@type": "BreadcrumbList",
+    itemListElement: [
+      { "@type": "ListItem", position: 1, name: "Home", item: SITE.url },
+      {
+        "@type": "ListItem",
+        position: 2,
+        name: "Writing",
+        item: `${SITE.url}/writing`,
+      },
+      {
+        "@type": "ListItem",
+        position: 3,
+        name: p.title,
+        item: `${SITE.url}/writing/${p.slug}`,
+      },
+    ],
+  };
+
   return (
     <header className="not-prose">
       <script
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(ld) }}
+      />
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(crumbs) }}
       />
       <div className="flex items-center gap-3 mono text-[var(--faint)]">
         <time dateTime={p.date}>
@@ -43,19 +67,23 @@ export default function ArticleHeader({ slug }: { slug: string }) {
 
       <ul className="mt-6 flex flex-wrap gap-2">
         {p.tags.map((t) => (
-          <li key={t} className="chip">{t}</li>
+          <li key={t} className="chip">
+            {t}
+          </li>
         ))}
       </ul>
 
-      <Image
-        src={p.image}
-        alt={p.imageAlt}
-        width={1080}
-        height={1350}
-        priority
-        sizes="(max-width: 768px) 100vw, 720px"
-        className="mt-10 w-full h-auto rounded-xl border border-[var(--line)]"
-      />
+      <div className="mt-10 overflow-hidden rounded-xl border border-[var(--line)]">
+        <Image
+          src={p.image}
+          alt={p.imageAlt}
+          width={1080}
+          height={1350}
+          priority
+          sizes="(max-width: 768px) 100vw, 720px"
+          className="w-full h-auto"
+        />
+      </div>
     </header>
   );
 }

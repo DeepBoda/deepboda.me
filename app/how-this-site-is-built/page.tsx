@@ -4,15 +4,15 @@ import { POSTS } from "@/lib/posts";
 import { BUILD } from "@/lib/build-info";
 
 export const metadata: Metadata = {
-  title: "Colophon",
+  title: "How this site is built",
   description:
     "How this site is built, what it ships, and how it deploys. Read from the build, not written by hand.",
-  alternates: { canonical: `${SITE.url}/colophon` },
+  alternates: { canonical: `${SITE.url}/how-this-site-is-built` },
   openGraph: {
-    title: "Colophon",
-    url: `${SITE.url}/colophon`,
+    title: "How this site is built",
+    url: `${SITE.url}/how-this-site-is-built`,
     images: [
-      `/og?title=${encodeURIComponent("How this site is built.")}&kicker=${encodeURIComponent("Colophon")}`,
+      `/og?title=${encodeURIComponent("How this site is built.")}&kicker=${encodeURIComponent("How it is built")}`,
     ],
   },
 };
@@ -75,7 +75,7 @@ function fmt(iso: string | null) {
   );
 }
 
-export default function Colophon() {
+export default function HowThisSiteIsBuilt() {
   return (
     <main id="top">
       {/* ---------- header ---------- */}
@@ -83,7 +83,7 @@ export default function Colophon() {
         className="wrap pt-16 pb-12 md:pt-24 grid-bg glow"
         style={{ ["--tint" as string]: "var(--l6)" }}
       >
-        <p className="eyebrow reveal">Colophon</p>
+        <p className="eyebrow reveal">How this site is built</p>
         <h1 className="h2 mt-4 max-w-[20ch] reveal">
           How this site is built, and what it costs to load.
         </h1>

@@ -50,9 +50,7 @@ export default function WritingIndex() {
         </p>
 
         <div className="mt-8 flex items-center gap-x-5 gap-y-3 flex-wrap reveal">
-          <span className="mono text-[var(--faint)]">
-            {posts.length} notes
-          </span>
+          <span className="mono text-[var(--faint)]">{posts.length} notes</span>
           <span className="w-px h-4 bg-[var(--line)]" aria-hidden="true" />
           <a
             href="/writing/rss.xml"
@@ -129,7 +127,9 @@ export default function WritingIndex() {
             <li
               key={p.slug}
               className="reveal"
-              style={{ ["--tint" as string]: `var(${TINTS[(i + 1) % TINTS.length]})` }}
+              style={{
+                ["--tint" as string]: `var(${TINTS[(i + 1) % TINTS.length]})`,
+              }}
             >
               <Link
                 href={`/writing/${p.slug}`}

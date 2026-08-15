@@ -2,15 +2,15 @@ import type { Metadata } from "next";
 import { SITE } from "@/lib/content";
 
 export const metadata: Metadata = {
-  title: "Uses",
+  title: "Tools I use",
   description:
-    "The hardware, editor, terminal and tools I actually use to run production infrastructure and write the code on top of it.",
-  alternates: { canonical: `${SITE.url}/uses` },
+    "The hardware, editor, terminal and tools I actually use to run production infrastructure and write the code on top of it. No aspirational list, just what is open right now.",
+  alternates: { canonical: `${SITE.url}/tools` },
   openGraph: {
-    title: "Uses",
-    url: `${SITE.url}/uses`,
+    title: "Tools I use",
+    url: `${SITE.url}/tools`,
     images: [
-      `/og?title=${encodeURIComponent("What I actually use.")}&kicker=${encodeURIComponent("Uses")}`,
+      `/og?title=${encodeURIComponent("What I actually use.")}&kicker=${encodeURIComponent("Tools")}`,
     ],
   },
 };
@@ -74,7 +74,7 @@ const GROUPS: {
 
 const slug = (t: string) => t.toLowerCase().replace(/[^a-z]+/g, "-");
 
-export default function Uses() {
+export default function Tools() {
   return (
     <main id="top">
       {/* ---------- header ---------- */}
@@ -82,7 +82,7 @@ export default function Uses() {
         className="wrap pt-16 pb-12 md:pt-24 grid-bg glow"
         style={{ ["--tint" as string]: "var(--l2)" }}
       >
-        <p className="eyebrow reveal">Uses</p>
+        <p className="eyebrow reveal">Tools I use</p>
         <h1 className="h2 mt-4 max-w-[16ch] reveal">What I actually use.</h1>
         <p className="lede mt-5 max-w-[54ch] reveal">
           Not an aspirational list. These are the things that are open right
