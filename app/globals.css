@@ -1,7 +1,7 @@
 @import "tailwindcss";
 
 /* ============================================================
-   DESIGN TOKENS — one accent, four greys. Restraint is the design.
+   DESIGN TOKENS. one accent, four greys. Restraint is the design.
    ============================================================ */
 :root {
   --bg: #fcfcfa;
@@ -61,7 +61,7 @@
 }
 
 /* ============================================================
-   BASE — layered, so Tailwind utilities still win.
+   BASE. layered, so Tailwind utilities still win.
    ============================================================ */
 @layer base {
   html {
@@ -181,6 +181,12 @@
     border-bottom: 1px solid var(--line);
     transition: border-color 0.18s ease, color 0.18s ease;
   }
+  .no-scrollbar {
+    scrollbar-width: none;
+    -ms-overflow-style: none;
+  }
+  .no-scrollbar::-webkit-scrollbar { display: none; }
+
   .link-u:hover {
     border-color: var(--accent);
     color: var(--accent);
@@ -188,7 +194,7 @@
 }
 
 /* ============================================================
-   SCROLL-DRIVEN REVEALS — native CSS, zero JS, compositor-run.
+   SCROLL-DRIVEN REVEALS. native CSS, zero JS, compositor-run.
    ============================================================ */
 @media (prefers-reduced-motion: no-preference) {
   @supports (animation-timeline: view()) {

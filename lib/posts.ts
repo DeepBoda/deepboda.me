@@ -22,7 +22,7 @@ export const POSTS: Post[] = [
     date: "2026-08-13",
     read: "6 min",
     tags: ["DevOps", "Platform", "Debugging"],
-    image: "/writing/where-it-breaks.png",
+    image: "/writing/where-it-breaks.webp",
     imageAlt:
       "Eight sticky notes on a white grid, one per layer of a request, each naming the failure that happens there. A red arrow marks the gap between the app and the database.",
   },
@@ -34,7 +34,7 @@ export const POSTS: Post[] = [
     date: "2026-08-12",
     read: "5 min",
     tags: ["Kubernetes", "AWS", "Architecture"],
-    image: "/writing/kubernetes-ladder.png",
+    image: "/writing/kubernetes-ladder.webp",
     imageAlt:
       "A hand-drawn ladder on ruled paper with five rungs, from one EC2 with systemd at the bottom up to Kubernetes at the top.",
   },
@@ -46,7 +46,7 @@ export const POSTS: Post[] = [
     date: "2026-08-14",
     read: "4 min",
     tags: ["Hiring", "DevOps", "Career"],
-    image: "/writing/jd-vs-job.png",
+    image: "/writing/jd-vs-job.webp",
     imageAlt:
       "A hand-drawn Venn diagram. The left circle is what the job description said, the right circle is what the job actually is, and the small overlap is labelled about 20 percent.",
   },
@@ -58,7 +58,7 @@ export const POSTS: Post[] = [
     date: "2026-08-15",
     read: "5 min",
     tags: ["Terraform", "AWS", "IaC"],
-    image: "/writing/terraform-drift.png",
+    image: "/writing/terraform-drift.webp",
     imageAlt:
       "A dark terminal showing terraform plan output with three in-place changes, current values in red and desired values in green.",
   },
@@ -70,7 +70,7 @@ export const POSTS: Post[] = [
     date: "2026-08-16",
     read: "4 min",
     tags: ["SRE", "On-call", "Observability"],
-    image: "/writing/alert-fatigue.png",
+    image: "/writing/alert-fatigue.webp",
     imageAlt:
       "A phone lock screen at 2:44 AM. Five alert notifications, three dimmed as noise and two highlighted as the ones that needed a human.",
   },
@@ -82,7 +82,7 @@ export const POSTS: Post[] = [
     date: "2026-08-17",
     read: "4 min",
     tags: ["Reliability", "SRE", "DevOps"],
-    image: "/writing/boring-reliability.png",
+    image: "/writing/boring-reliability.webp",
     imageAlt:
       "A printed procedures card in monospace with seven ticked reliability items and three struck out, stamped BORING in red.",
   },
@@ -94,7 +94,7 @@ export const POSTS: Post[] = [
     date: "2026-08-18",
     read: "4 min",
     tags: ["Reliability", "Disaster Recovery", "AWS"],
-    image: "/writing/restore-time.png",
+    image: "/writing/restore-time.webp",
     imageAlt:
       "A typographic poster asking how long a full restore actually takes, with a blank fill-in line and the seven steps of a real restore listed below.",
   },
