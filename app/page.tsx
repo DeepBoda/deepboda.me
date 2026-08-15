@@ -1,6 +1,9 @@
 import { SITE, LAYERS, RELEASE, STATS, TIMELINE } from "@/lib/content";
 import RequestTrace from "./request-trace";
 import Cluster from "./cluster";
+import StatBand from "./stat-band";
+import IncidentChart from "./incident-chart";
+import Timeline from "./timeline";
 
 const NODES = [
   { x: 60, label: "Browser" },
@@ -56,7 +59,7 @@ export default function Home() {
     <>
       <main id="top">
         {/* ---------------- HERO ---------------- */}
-        <section className="wrap pt-16 pb-14 md:pt-28 md:pb-20">
+        <section className="grid-bg glow wrap pt-16 pb-14 md:pt-28 md:pb-20">
           <p className="eyebrow reveal">
             DevOps · Platform · Full-Stack · {SITE.location}
           </p>
@@ -108,17 +111,8 @@ export default function Home() {
 
         {/* ---------------- STATS ---------------- */}
         <section className="section" aria-label="Scale">
-          <div className="wrap grid grid-cols-2 md:grid-cols-4 gap-y-9 gap-x-6">
-            {STATS.map((s) => (
-              <div key={s.l} className="reveal">
-                <div className="text-[1.9rem] md:text-[2.3rem] font-bold tracking-[-0.035em] leading-none">
-                  {s.v}
-                </div>
-                <div className="mt-2.5 text-[0.85rem] text-[var(--soft)] leading-snug max-w-[22ch]">
-                  {s.l}
-                </div>
-              </div>
-            ))}
+          <div className="wrap">
+            <StatBand />
           </div>
         </section>
 
@@ -141,7 +135,7 @@ export default function Home() {
         </section>
 
         {/* ---------------- CLUSTER ---------------- */}
-        <section id="cluster" className="section">
+        <section id="cluster" className="band grid-bg section border-t-0">
           <div className="wrap grid lg:grid-cols-[1fr_1.1fr] gap-12 lg:gap-16 items-center">
             <div>
               <p className="eyebrow reveal">The cluster</p>
@@ -169,6 +163,25 @@ export default function Home() {
 
             <div className="reveal-slow">
               <Cluster />
+            </div>
+          </div>
+        </section>
+
+        {/* ---------------- INCIDENT CHART ---------------- */}
+        <section id="incident" className="section glow" style={{ ["--tint" as string]: "var(--l4)" }}>
+          <div className="wrap grid lg:grid-cols-[0.85fr_1.15fr] gap-12 lg:gap-20 items-start">
+            <div>
+              <p className="eyebrow reveal">On-call</p>
+              <h2 className="h2 mt-4 max-w-[14ch] reveal">
+                Where a two hour incident actually goes.
+              </h2>
+              <p className="lede mt-5 max-w-[42ch] reveal">
+                I timed one properly out of curiosity, then timed four more.
+                The numbers were consistent enough to change how I work.
+              </p>
+            </div>
+            <div className="reveal-slow">
+              <IncidentChart />
             </div>
           </div>
         </section>
@@ -236,29 +249,7 @@ export default function Home() {
               Four years, from backend to the whole stack.
             </h2>
 
-            <ol className="mt-14 space-y-0">
-              {TIMELINE.map((t, i) => (
-                <li
-                  key={t.year}
-                  className={`reveal grid md:grid-cols-[88px_1fr] gap-x-8 gap-y-2 py-7 ${
-                    i === 0 ? "" : "border-t border-[var(--hair)]"
-                  }`}
-                >
-                  <div className="mono text-[var(--accent)] font-medium pt-1">
-                    {t.year}
-                  </div>
-                  <div>
-                    <h3 className="font-semibold tracking-[-0.018em] text-[1.02rem]">
-                      {t.title}
-                    </h3>
-                    <p className="text-[0.9rem] text-[var(--soft)] mt-0.5">{t.org}</p>
-                    <p className="text-[0.92rem] text-[var(--mid)] mt-2.5 max-w-[58ch]">
-                      {t.note}
-                    </p>
-                  </div>
-                </li>
-              ))}
-            </ol>
+            <Timeline />
           </div>
         </section>
 

@@ -15,6 +15,8 @@ export const SITE = {
 
 export type Layer = {
   n: string;
+  tint: string;
+  weight: number;
   id: string;
   layer: string;
   sub: string;
@@ -31,6 +33,8 @@ export type Layer = {
 export const LAYERS: Layer[] = [
   {
     n: "01",
+    tint: "var(--l1)",
+    weight: 14,
     id: "edge",
     layer: "The edge",
     sub: "DNS · TLS · CDN",
@@ -41,6 +45,8 @@ export const LAYERS: Layer[] = [
   },
   {
     n: "02",
+    tint: "var(--l2)",
+    weight: 18,
     id: "balancer",
     layer: "The load balancer",
     sub: "ALB · target groups · health checks",
@@ -51,6 +57,8 @@ export const LAYERS: Layer[] = [
   },
   {
     n: "03",
+    tint: "var(--l3)",
+    weight: 26,
     id: "cluster",
     layer: "The cluster",
     sub: "Kubernetes · ECS · Terraform",
@@ -70,6 +78,8 @@ export const LAYERS: Layer[] = [
   },
   {
     n: "04",
+    tint: "var(--l4)",
+    weight: 21,
     id: "app",
     layer: "The application",
     sub: "Node.js · Next.js · React",
@@ -88,6 +98,8 @@ export const LAYERS: Layer[] = [
   },
   {
     n: "05",
+    tint: "var(--l5)",
+    weight: 13,
     id: "data",
     layer: "The data",
     sub: "PostgreSQL · Redis · Elasticsearch",
@@ -98,6 +110,8 @@ export const LAYERS: Layer[] = [
   },
   {
     n: "06",
+    tint: "var(--l6)",
+    weight: 8,
     id: "machine",
     layer: "The machine",
     sub: "Linux · Nginx · PM2",

@@ -77,7 +77,8 @@ export default function RequestTrace({ layers }: { layers: Layer[] }) {
             end: "bottom center",
             onToggle: ({ isActive }) => {
               gsap.to(ring, {
-                stroke: isActive ? "var(--accent)" : "var(--line)",
+                opacity: isActive ? 1 : 0.4,
+                stroke: isActive ? ring?.getAttribute("data-tint") ?? "var(--accent)" : "var(--line)",
                 scale: isActive ? 1.35 : 1,
                 transformOrigin: "center",
                 duration: 0.35,
@@ -108,7 +109,9 @@ export default function RequestTrace({ layers }: { layers: Layer[] }) {
             className="reveal relative scroll-mt-24 lg:min-h-[420px]"
           >
             <div className="flex items-baseline gap-3 flex-wrap">
-              <span className="mono text-[var(--accent)]">{l.n}</span>
+              <span className="mono font-semibold" style={{ color: l.tint }}>
+                {l.n}
+              </span>
               <h3 className="h3">{l.layer}</h3>
               <span className="mono text-[var(--faint)]">{l.sub}</span>
             </div>
@@ -121,7 +124,10 @@ export default function RequestTrace({ layers }: { layers: Layer[] }) {
               {l.body}
             </p>
 
-            <p className="bite mt-6 max-w-[54ch] text-[0.95rem] leading-relaxed">
+            <p
+              className="bite mt-6 max-w-[54ch] text-[0.95rem] leading-relaxed"
+              style={{ borderColor: l.tint }}
+            >
               {l.bite}
             </p>
 
@@ -169,8 +175,9 @@ export default function RequestTrace({ layers }: { layers: Layer[] }) {
               <g key={l.id} data-node transform={`translate(0 ${14 + i * 92})`}>
                 <circle
                   data-ring
+                  data-tint={l.tint}
                   cx="26" cy="0" r="7"
-                  fill="var(--bg)" stroke="var(--line)" strokeWidth="2"
+                  fill="var(--bg)" stroke={l.tint} strokeWidth="2" opacity="0.4"
                   style={{ transformBox: "fill-box", transformOrigin: "center" }}
                 />
                 <text

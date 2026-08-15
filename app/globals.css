@@ -14,6 +14,17 @@
   --hair: #eeeff2;
   --accent: #c8365a;
 
+  /* the request path is colour-coded end to end */
+  --l1: #d97b2b;   /* edge      */
+  --l2: #0f9b8e;   /* balancer  */
+  --l3: #5b5bd6;   /* cluster   */
+  --l4: #c8365a;   /* app       */
+  --l5: #2f7fe8;   /* data      */
+  --l6: #4a8f5b;   /* machine   */
+
+  --grid: rgba(29, 29, 31, 0.05);
+  --glow: 0.11;
+
   --max: 1120px;
   --gutter: 24px;
   --font-sans: var(--font-inter), -apple-system, "Helvetica Neue", Arial, sans-serif;
@@ -31,6 +42,10 @@
     --line: #26262b;
     --hair: #1b1b1f;
     --accent: #ff5c7a;
+    --l1: #f0a05c; --l2: #3ecfbf; --l3: #8b8bff;
+    --l4: #ff5c7a; --l5: #62a8ff; --l6: #6fc785;
+    --grid: rgba(245, 245, 247, 0.055);
+    --glow: 0.2;
   }
 }
 
@@ -44,6 +59,10 @@
   --line: #26262b;
   --hair: #1b1b1f;
   --accent: #ff5c7a;
+  --l1: #f0a05c; --l2: #3ecfbf; --l3: #8b8bff;
+  --l4: #ff5c7a; --l5: #62a8ff; --l6: #6fc785;
+  --grid: rgba(245, 245, 247, 0.055);
+  --glow: 0.2;
 }
 
 @theme inline {
@@ -190,6 +209,87 @@
   .link-u:hover {
     border-color: var(--accent);
     color: var(--accent);
+  }
+}
+
+/* ============================================================
+   ATMOSPHERE
+   ============================================================ */
+@layer components {
+  /* fine engineering grid, sits under everything */
+  .grid-bg {
+    position: relative;
+    isolation: isolate;
+  }
+  .grid-bg::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    z-index: -1;
+    background-image:
+      linear-gradient(var(--grid) 1px, transparent 1px),
+      linear-gradient(90deg, var(--grid) 1px, transparent 1px);
+    background-size: 56px 56px;
+    mask-image: radial-gradient(ellipse 80% 60% at 50% 0%, #000 40%, transparent 100%);
+  }
+
+  /* coloured light behind a section */
+  .glow {
+    position: relative;
+    isolation: isolate;
+  }
+  .glow::after {
+    content: "";
+    position: absolute;
+    z-index: -1;
+    inset-inline: 0;
+    top: -10%;
+    height: 60%;
+    background: radial-gradient(
+      ellipse 55% 100% at 50% 0%,
+      color-mix(in srgb, var(--tint, var(--accent)) calc(var(--glow) * 100%), transparent),
+      transparent 70%
+    );
+    pointer-events: none;
+  }
+
+  /* full-bleed dark band, for the moments that should feel different */
+  .band {
+    background: #0b0b0d;
+    color: #f5f5f7;
+    --ink: #f5f5f7;
+    --mid: #c6c6cd;
+    --soft: #9a9aa2;
+    --faint: #74747e;
+    --line: #2a2a31;
+    --hair: #1d1d22;
+    --bg: #0b0b0d;
+    --bg-raised: #16161b;
+    --grid: rgba(245, 245, 247, 0.06);
+  }
+
+  /* stat block with a value that can animate */
+  .stat-card {
+    position: relative;
+    padding: 22px 22px 20px;
+    border: 1px solid var(--line);
+    border-radius: 16px;
+    background: var(--bg-raised);
+    overflow: hidden;
+  }
+  .stat-card::before {
+    content: "";
+    position: absolute;
+    inset: 0 auto auto 0;
+    width: 100%;
+    height: 2px;
+    background: linear-gradient(90deg, var(--tint, var(--accent)), transparent);
+  }
+
+  .tint-dot {
+    width: 8px; height: 8px; border-radius: 50%;
+    background: var(--tint, var(--accent));
+    box-shadow: 0 0 0 4px color-mix(in srgb, var(--tint, var(--accent)) 16%, transparent);
   }
 }
 
