@@ -80,7 +80,7 @@ export default function HowThisSiteIsBuilt() {
     <main id="top">
       {/* ---------- header ---------- */}
       <section
-        className="wrap pt-16 pb-12 md:pt-24 grid-bg glow"
+        className="wrap page-head pb-12 grid-bg glow"
         style={{ ["--tint" as string]: "var(--l6)" }}
       >
         <p className="eyebrow reveal">How this site is built</p>
@@ -160,8 +160,8 @@ export default function HowThisSiteIsBuilt() {
               />
               <Row
                 k="three.js"
-                v="triple-gated"
-                note="The 3D cluster loads only above 1024px, without prefers-reduced-motion, and once scrolled into view. Everyone else gets a static isometric SVG that says the same thing. A phone never pays for it."
+                v="removed"
+                note="There was a WebGL cluster here. It cost 883KB, only ran above 1024px, and the fallback everyone else saw explained nothing. A legible diagram that works on a phone was worth more than a 3D one that most people never loaded."
               />
               <Row
                 k="fonts"
@@ -170,8 +170,8 @@ export default function HowThisSiteIsBuilt() {
               />
               <Row
                 k="client components"
-                v="three"
-                note="Smooth scroll, request trace, cluster. Everything else is a server component and arrives as HTML."
+                v="four"
+                note="Smooth scroll, request trace, cluster board, reading progress. Everything else is a server component and arrives as HTML."
               />
               <Row
                 k="analytics"

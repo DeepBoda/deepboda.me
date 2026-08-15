@@ -37,7 +37,7 @@ export default function WritingIndex() {
     <main id="top">
       {/* ---------- header ---------- */}
       <section
-        className="wrap pt-16 pb-12 md:pt-24 grid-bg glow"
+        className="wrap page-head pb-12 grid-bg glow"
         style={{ ["--tint" as string]: "var(--l4)" }}
       >
         <p className="eyebrow reveal">Writing</p>

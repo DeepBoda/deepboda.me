@@ -84,16 +84,16 @@ export const LAYERS: Layer[] = [
     layer: "The application",
     sub: "Node.js · Next.js · React",
     title: "I write this part too.",
-    body: "Node.js and Express services, REST APIs, Socket.io streaming live market data, Next.js with SSR on the front, React admin dashboards behind it. Plus a desktop DevOps terminal built in Rust with Tauri, with an LLM wired into the same core so it explains and writes commands mid-incident.",
+    body: "Node.js and Express services, REST APIs, Socket.io streaming live market data, Next.js with SSR on the front, React admin dashboards behind it. On my own product it is NestJS on Fastify with Prisma and PostgreSQL, and a Flutter app talking to it.",
     bite: "One un-awaited promise blocks the event loop, and every user waits for one user's request.",
     tools: [
       "Node.js",
       "Express",
+      "NestJS",
       "Socket.io",
       "Next.js",
       "React",
-      "Rust",
-      "Tauri",
+      "Flutter",
     ],
   },
   {
@@ -186,7 +186,7 @@ export const TIMELINE = [
     year: "2026",
     title: "Senior DevOps & Full-Stack Engineer",
     org: "Sole or lead infra engineer across the portfolio",
-    note: "And building CtrlOps, a desktop DevOps terminal in Rust.",
+    note: "And shipping Anonymous India, my own product, solo.",
   },
 ];
 
@@ -194,7 +194,7 @@ export type Work = {
   id: string;
   name: string;
   role: string;
-  kind: "Client platform" | "Internal product";
+  kind: "Client platform" | "Company product" | "My own product";
   summary: string;
   points: string[];
   stack: string[];
@@ -241,26 +241,43 @@ export const WORK: Work[] = [
     imageAlt: "Architecture diagram: an ALB feeding four separate ECS services, with the Socket.io service marked in red as the only one that scales during market hours.",
   },
   {
-    id: "ctrlops",
-    name: "DevOps Desktop Application",
-    role: "Product engineer",
-    kind: "Internal product",
-    summary: "A desktop terminal and SSH client with an LLM wired into the core.",
+id: "anonymous",
+    name: "Anonymous India",
+    role: "Sole engineer, product to production",
+    kind: "My own product",
+    scale: "4 codebases, 1 person",
+    summary:
+      "A social product I own end to end: Flutter app, NestJS API, public site and an admin console.",
     points: [
-      "Migrated the app from Electron to Tauri 2.0 with a Rust core. Far lighter on memory and noticeably faster.",
-      "xterm.js driving a real PTY, with SSH sessions streamed over IPC rather than shelling out to a subprocess.",
-      "The AI part is useful rather than decorative: it explains unfamiliar commands and writes them mid-incident, inside the terminal you are already in.",
-      "Signed and notarised for macOS on both Apple Silicon and Intel.",
+      "Everything is mine on this one. Product decisions, the data model, the API, the app, the infrastructure and the store releases.",
+      "NestJS on the Fastify adapter with Prisma over PostgreSQL 16, Redis 7 for sessions, rate limits and the Socket.io adapter, so realtime works across more than one API container.",
+      "Auth is device-based rather than email or phone. A hashed device id, JWT signed RS256, refresh tokens that can be invalidated the moment somebody is banned.",
+      "Rate limiting, profanity filtering, reports, bans and an audit log all run server side, because moderation that lives in the client is not moderation.",
+      "Multi-stage Docker build on node:20-alpine running as a non-root user, with Postgres, Redis, the API and Nginx composed together for production.",
+      "Flutter on the front with Firebase for push, crashlytics and analytics, RevenueCat for subscriptions and AdMob underneath the free tier.",
     ],
-    stack: ["Rust", "Tokio", "ssh2", "Tauri 2.0", "React", "Vite", "xterm.js", "macOS notarisation"],
-    image: "/work/ctrlops.webp",
-    imageAlt: "Diagram of a Tauri desktop application: React and xterm.js on top, a Rust core on Tokio and ssh2 streaming PTY sessions over IPC, connected to remote Linux hosts and an LLM.",
+    stack: [
+      "Flutter",
+      "NestJS",
+      "Fastify",
+      "Prisma",
+      "PostgreSQL 16",
+      "Redis 7",
+      "Socket.io",
+      "Docker",
+      "Nginx",
+      "Firebase",
+      "RevenueCat",
+    ],
+    image: "/work/anonymous.webp",
+    imageAlt:
+      "Architecture diagram of Anonymous India: a Flutter app and a Next.js site and admin console calling an Nginx front door, then a NestJS API on Fastify, with PostgreSQL, Redis and Firebase Storage behind it and Socket.io pushing realtime updates.",
   },
   {
     id: "aitools",
     name: "AI Tools Directory",
     role: "Backend & infrastructure lead",
-    kind: "Internal product",
+    kind: "Company product",
     summary: "Search and discovery platform for AI tools, owned end to end.",
     points: [
       "Product direction, backend and infrastructure, all mine.",
@@ -297,7 +314,7 @@ export const WORK: Work[] = [
     name: "Enterprise ERP",
     role: "Backend engineer",
     kind: "Client platform",
-    summary: "Internal ERP for a renewable energy group.",
+    summary: "Back-office ERP for a renewable energy group.",
     points: [
       "Backend services and APIs for the core business modules, with PostgreSQL schema design and Redis caching.",
     ],

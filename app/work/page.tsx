@@ -5,7 +5,7 @@ import { SITE, WORK } from "@/lib/content";
 export const metadata: Metadata = {
   title: "Work",
   description:
-    "Live products across travel, fintech, developer tooling, mobile and enterprise. Infrastructure lead or sole engineer on most of them.",
+    "Live products across travel, fintech, mobile and enterprise, plus Anonymous India, which I own end to end. Infrastructure lead or sole engineer on all of them.",
   alternates: { canonical: `${SITE.url}/work` },
   openGraph: {
     title: "Work",
@@ -21,25 +21,26 @@ export const metadata: Metadata = {
 const TINTS = ["--l1", "--l2", "--l3", "--l4", "--l5", "--l6", "--l2"];
 
 const FACTS: { k: string; v: string; note: string; tint: string }[] = [
-  { k: "01", v: "4 yrs", note: "one company, client and internal work", tint: "--l1" },
+  { k: "01", v: "4 yrs", note: "one employer, plus my own product on the side", tint: "--l1" },
   { k: "02", v: "Millions", note: "requests a day on the largest platform", tint: "--l4" },
   { k: "03", v: "2", note: "container platforms in production, EKS and ECS", tint: "--l3" },
-  { k: "04", v: "5", note: "stores and registries I release through", tint: "--l6" },
+  { k: "04", v: "1", note: "product that is entirely mine, shipped solo", tint: "--l6" },
 ];
 
 export default function WorkPage() {
   return (
     <main id="top">
       {/* ---------- header ---------- */}
-      <section className="wrap pt-16 pb-14 md:pt-24 grid-bg glow" style={{ ["--tint" as string]: "var(--l3)" }}>
+      <section className="wrap page-head pb-14 grid-bg glow" style={{ ["--tint" as string]: "var(--l3)" }}>
         <p className="eyebrow reveal">Work</p>
-        <h1 className="h2 mt-4 max-w-[18ch] reveal">
-          Four years, across client platforms and internal products.
+        <h1 className="h2 mt-4 max-w-[20ch] reveal">
+          Four years of client platforms, company products, and one of my own.
         </h1>
-        <p className="lede mt-5 max-w-[58ch] reveal">
+        <p className="lede mt-5 max-w-[60ch] reveal">
           Sole or lead infrastructure engineer on every one of these, and lead
-          backend developer on most. I have left the client and product names
-          out. The decisions are mine to talk about. The names are not.
+          backend developer on most. Client and company names are left out on
+          purpose. The decisions are mine to talk about, the names are not. The
+          one at the bottom of that list is mine, so it gets its real name.
         </p>
 
         {/* at a glance */}

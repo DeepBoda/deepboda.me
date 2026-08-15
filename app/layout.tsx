@@ -4,6 +4,7 @@ import { SITE } from "@/lib/content";
 import Nav from "./nav";
 import Footer from "./footer";
 import SmoothScroll from "./smooth-scroll";
+import RevealFallback from "./reveal-fallback";
 import "./globals.css";
 
 const inter = Inter({
@@ -127,6 +128,7 @@ export default function RootLayout({
           dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
         />
         <SmoothScroll />
+        <RevealFallback />
         <Nav />
         {children}
         <Footer />

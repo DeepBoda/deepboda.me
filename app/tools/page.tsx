@@ -35,7 +35,7 @@ const GROUPS: {
     items: [
       ["VS Code", "With Vim keybindings. I have tried to leave and keep coming back."],
       ["iTerm2 + zsh", "Split panes, one per environment. Colour-coded so prod looks different from staging."],
-      ["CtrlOps", "A desktop DevOps terminal I built in Rust with Tauri. SSH sessions over IPC and an LLM wired into the same core to explain commands mid-incident."],
+      ["k9s", "Faster than kubectl for the ninety percent of cluster work that is just looking at things."],
     ],
   },
   {
@@ -45,7 +45,6 @@ const GROUPS: {
     items: [
       ["AWS Console + CLI", "EKS, ECS, RDS, S3, CloudFront, IAM."],
       ["Terraform", "Everything, including the things we swore we would only do once."],
-      ["k9s", "Faster than kubectl for the ninety percent of cluster work that is just looking."],
       ["ArgoCD", "GitOps delivery. A bad release is one reverted commit."],
       ["Grafana + Prometheus", "Alerts tuned so a page means a human has to act."],
     ],
@@ -56,7 +55,8 @@ const GROUPS: {
     items: [
       ["Node.js + Express", "Most of the backends I write."],
       ["Next.js + React", "Including this site."],
-      ["Rust", "For CtrlOps. Tokio and ssh2."],
+      ["NestJS + Prisma", "The API behind my own product. Fastify adapter, PostgreSQL, Redis."],
+      ["Flutter", "The mobile side of it. One codebase, both stores."],
       ["Postman", "For the APIs I did not write."],
     ],
   },
@@ -79,7 +79,7 @@ export default function Tools() {
     <main id="top">
       {/* ---------- header ---------- */}
       <section
-        className="wrap pt-16 pb-12 md:pt-24 grid-bg glow"
+        className="wrap page-head pb-12 grid-bg glow"
         style={{ ["--tint" as string]: "var(--l2)" }}
       >
         <p className="eyebrow reveal">Tools I use</p>

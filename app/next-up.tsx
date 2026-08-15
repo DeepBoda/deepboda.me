@@ -45,7 +45,6 @@ export default function NextUp() {
             <ul className="mt-auto pt-8 flex flex-wrap gap-2">
               {WORK.slice(0, 5).map((w) => (
                 <li key={w.id} className="chip">
-                  {w.kind === "Internal product" ? "Internal" : "Client"} ·{" "}
                   {w.name.replace(" Platform", "").replace(" Application", "")}
                 </li>
               ))}

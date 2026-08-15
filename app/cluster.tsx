@@ -1,104 +1,191 @@
 "use client";
 
-import dynamic from "next/dynamic";
 import { useEffect, useRef, useState } from "react";
 
 /**
- * three.js is ~600KB. It must never reach a phone or a reduced-motion user.
+ * What autoscaling actually looks like, as the thing you would see in a
+ * console: four worker nodes, pods coloured by service, and one service
+ * scaling on its own while the other three stay exactly where they were.
  *
- * Gates, in order:
- *   1. viewport >= 1024px
- *   2. no prefers-reduced-motion
- *   3. the section has actually scrolled into view
- *
- * Until all three pass, the static SVG below is what renders, and it is a
- * complete explanation on its own.
+ * This replaced a WebGL scene. The scene cost 883KB, only ran above 1024px,
+ * and its fallback was four dark diamonds that explained nothing. A diagram
+ * that is legible on a phone and readable at a glance is worth more here.
  */
-const ClusterScene = dynamic(() => import("./cluster-scene"), {
-  ssr: false,
-  loading: () => null,
-});
 
-function StaticCluster() {
-  const slabs = [
-    { x: 150, y: 196, pods: 4, hot: false },
-    { x: 310, y: 150, pods: 3, hot: false },
-    { x: 150, y: 270, pods: 2, hot: false },
-    { x: 310, y: 224, pods: 5, hot: true },
-  ];
+type Svc = "api" | "stream" | "jobs" | "admin";
 
-  return (
-    <svg
-      viewBox="0 0 620 400"
-      className="w-full h-auto max-h-[420px]"
-      role="img"
-      aria-label="An isometric diagram of a Kubernetes cluster: four worker nodes carrying pods, with one pod highlighted as it scales."
-    >
-      {slabs.map((s, i) => (
-        <g key={i}>
-          <path
-            d={`M${s.x} ${s.y} l90 -46 l90 46 l-90 46 Z`}
-            fill="var(--bg-raised)"
-            stroke="var(--line)"
-            strokeWidth="1.5"
-          />
-          {Array.from({ length: s.pods }).map((_, p) => {
-            const cx = s.x + 42 + (p % 3) * 30 + Math.floor(p / 3) * 15;
-            const cy = s.y - 4 + (p % 3) * -14 + Math.floor(p / 3) * 8;
-            const on = s.hot && p === 0;
-            return (
-              <path
-                key={p}
-                d={`M${cx} ${cy} l14 -7 l14 7 l-14 7 Z`}
-                fill={on ? "var(--accent)" : "var(--line)"}
-                stroke={on ? "var(--accent)" : "var(--faint)"}
-                strokeWidth="1"
-                opacity={on ? 1 : 0.85}
-              />
-            );
-          })}
-        </g>
-      ))}
-    </svg>
-  );
-}
+const SERVICE: Record<Svc, { label: string; tint: string }> = {
+  api: { label: "api", tint: "var(--l5)" },
+  stream: { label: "market-data", tint: "var(--l4)" },
+  jobs: { label: "jobs", tint: "var(--l1)" },
+  admin: { label: "admin", tint: "var(--l2)" },
+};
+
+type Node = {
+  name: string;
+  type: string;
+  base: Svc[];
+  added?: Svc[];
+  cpu: number;
+  cpuPeak?: number;
+};
+
+const NODES: Node[] = [
+  { name: "ip-10-0-1-42", type: "t3.large", base: ["api", "api", "jobs", "admin"], cpu: 38 },
+  { name: "ip-10-0-2-11", type: "t3.large", base: ["api", "api", "admin"], cpu: 41 },
+  { name: "ip-10-0-3-08", type: "t3.large", base: ["jobs", "admin"], cpu: 22 },
+  {
+    name: "ip-10-0-4-27",
+    type: "t3.large",
+    base: ["stream", "stream"],
+    added: ["stream", "stream", "stream", "stream"],
+    cpu: 34,
+    cpuPeak: 71,
+  },
+];
 
 export default function Cluster() {
   const ref = useRef<HTMLDivElement>(null);
-  const [live, setLive] = useState(false);
+  /* SSR ships the scaled-up state, so no-JS and crawlers see the real thing */
+  const [scaled, setScaled] = useState(true);
 
   useEffect(() => {
-    const big = window.matchMedia("(min-width: 1024px)").matches;
-    const ok = !window.matchMedia("(prefers-reduced-motion: reduce)").matches;
-    if (!big || !ok || !ref.current) return;
+    const el = ref.current;
+    if (!el) return;
+    if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) return;
 
     const io = new IntersectionObserver(
       ([e]) => {
-        if (e.isIntersecting) {
-          setLive(true);
-          io.disconnect();
-        }
+        if (!e.isIntersecting) return;
+        io.disconnect();
+        setScaled(false);
+        const t = setTimeout(() => setScaled(true), 520);
+        return () => clearTimeout(t);
       },
-      { rootMargin: "200px" }
+      { rootMargin: "-10% 0px -10% 0px" }
     );
-    io.observe(ref.current);
+    io.observe(el);
     return () => io.disconnect();
   }, []);
 
+  const total = NODES.reduce(
+    (n, x) => n + x.base.length + (scaled ? x.added?.length ?? 0 : 0),
+    0
+  );
+
   return (
-    <div ref={ref} className="relative aspect-[62/40] w-full">
-      {live ? (
-        <ClusterScene />
-      ) : (
-        <div className="grid h-full place-items-center">
-          <StaticCluster />
+    <div ref={ref} className="w-full">
+      <div className="rounded-2xl border border-[var(--line)] bg-[var(--bg-raised)] overflow-hidden">
+        {/* header */}
+        <div className="flex items-center gap-3 px-4 sm:px-5 h-11 border-b border-[var(--hair)]">
+          <span className="mono text-[0.72rem] text-[var(--faint)]">
+            eks · production
+          </span>
+          <span className="mono ml-auto text-[0.72rem] text-[var(--soft)]">
+            {total} pods
+          </span>
+          <span className="mono text-[0.72rem] text-[var(--faint)] hidden sm:inline">
+            hpa target 65%
+          </span>
         </div>
-      )}
-      {live && (
-        <p className="absolute bottom-0 left-0 mono text-[var(--faint)] pointer-events-none">
-          drag to rotate
-        </p>
-      )}
+
+        {/* nodes */}
+        <div className="grid grid-cols-2 lg:grid-cols-4">
+          {NODES.map((n, i) => {
+            const hot = Boolean(n.added);
+            const pods = [...n.base, ...(scaled && n.added ? n.added : [])];
+            const cpu = scaled && n.cpuPeak ? n.cpuPeak : n.cpu;
+            return (
+              <div
+                key={n.name}
+                className={`p-4 sm:p-5 border-[var(--hair)] ${
+                  i % 2 === 0 ? "border-r" : ""
+                } lg:border-r lg:last:border-r-0 ${i < 2 ? "border-b lg:border-b-0" : ""}`}
+              >
+                <p className="mono text-[0.7rem] text-[var(--soft)] truncate">
+                  {n.name}
+                </p>
+                <p className="mono text-[0.66rem] text-[var(--faint)] mt-0.5">
+                  {n.type}
+                </p>
+
+                {/* pods */}
+                <ul className="mt-4 flex flex-wrap gap-1.5 min-h-[54px] content-start">
+                  {pods.map((s, p) => {
+                    const isNew = p >= n.base.length;
+                    return (
+                      <li
+                        key={p}
+                        aria-hidden="true"
+                        className="w-4 h-4 rounded-[4px] transition-all duration-300"
+                        style={{
+                          background: SERVICE[s].tint,
+                          opacity: isNew ? 1 : 0.85,
+                          transform: isNew ? "scale(1)" : undefined,
+                          transitionDelay: isNew
+                            ? `${(p - n.base.length) * 110}ms`
+                            : "0ms",
+                          boxShadow: isNew
+                            ? `0 0 0 3px color-mix(in srgb, ${SERVICE[s].tint} 22%, transparent)`
+                            : "none",
+                        }}
+                      />
+                    );
+                  })}
+                </ul>
+
+                {/* cpu */}
+                <div className="mt-4 flex items-center gap-2">
+                  <div className="h-1.5 flex-1 rounded-full bg-[var(--hair)] overflow-hidden">
+                    <div
+                      className="h-full rounded-full transition-[width] duration-700 ease-out"
+                      style={{
+                        width: `${cpu}%`,
+                        background: hot ? "var(--l4)" : "var(--soft)",
+                      }}
+                    />
+                  </div>
+                  <span className="mono text-[0.66rem] text-[var(--faint)] tabular-nums w-8 text-right">
+                    {cpu}%
+                  </span>
+                </div>
+
+                <p className="mono text-[0.66rem] mt-2.5 h-4">
+                  {hot ? (
+                    <span style={{ color: "var(--l4)" }}>
+                      scaling {n.base.length} → {n.base.length + (n.added?.length ?? 0)}
+                    </span>
+                  ) : (
+                    <span className="text-[var(--faint)]">steady</span>
+                  )}
+                </p>
+              </div>
+            );
+          })}
+        </div>
+
+        {/* legend */}
+        <div className="flex flex-wrap items-center gap-x-5 gap-y-2 px-4 sm:px-5 py-3.5 border-t border-[var(--hair)]">
+          {(Object.keys(SERVICE) as Svc[]).map((s) => (
+            <span key={s} className="flex items-center gap-2">
+              <span
+                aria-hidden="true"
+                className="w-2.5 h-2.5 rounded-[3px]"
+                style={{ background: SERVICE[s].tint }}
+              />
+              <span className="mono text-[0.7rem] text-[var(--soft)]">
+                {SERVICE[s].label}
+              </span>
+            </span>
+          ))}
+        </div>
+      </div>
+
+      <p className="mt-4 text-[0.88rem] text-[var(--soft)] leading-relaxed max-w-[62ch]">
+        Only market-data moved. The API, the batch jobs and the admin stayed on
+        the same pod count and the same CPU, on the same nodes. That containment
+        is the entire point of splitting them.
+      </p>
     </div>
   );
 }

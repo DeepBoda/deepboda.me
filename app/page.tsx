@@ -60,7 +60,7 @@ export default function Home() {
     <>
       <main id="top">
         {/* ---------------- HERO ---------------- */}
-        <section className="grid-bg glow wrap pt-16 pb-14 md:pt-28 md:pb-20">
+        <section className="grid-bg glow wrap page-head-lg pb-14 md:pb-20">
           <p className="eyebrow reveal">
             DevOps · Platform · Full-Stack · {SITE.location}
           </p>

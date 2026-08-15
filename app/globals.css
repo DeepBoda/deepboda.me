@@ -27,6 +27,7 @@
 
   color-scheme: light;
 
+  --nav-h: 64px;
   --max: 1120px;
   --gutter: 24px;
   --font-sans: var(--font-inter), -apple-system, "Helvetica Neue", Arial, sans-serif;
@@ -138,6 +139,28 @@
     max-width: var(--max);
     margin-inline: auto;
     padding-inline: var(--gutter);
+  }
+
+  /* the first section of a page runs UNDER the sticky nav, so the grid and
+     the colour wash start at the very top of the viewport and the nav floats
+     on them. without this there is a hard seam exactly at the nav height. */
+  .page-head {
+    margin-top: calc(var(--nav-h) * -1);
+    padding-top: calc(var(--nav-h) + 56px);
+  }
+  @media (min-width: 768px) {
+    .page-head {
+      padding-top: calc(var(--nav-h) + 88px);
+    }
+  }
+  .page-head-lg {
+    margin-top: calc(var(--nav-h) * -1);
+    padding-top: calc(var(--nav-h) + 64px);
+  }
+  @media (min-width: 768px) {
+    .page-head-lg {
+      padding-top: calc(var(--nav-h) + 112px);
+    }
   }
 
   .section {
@@ -403,6 +426,26 @@
   .packet {
     animation: packet-run 2.8s cubic-bezier(0.55, 0, 0.25, 1) infinite;
   }
+}
+
+/* Safari has no animation-timeline. app/reveal-fallback.tsx adds .js-reveal
+   to <html> only when the native version is missing, so nothing here can hide
+   content from a browser without JavaScript. */
+.js-reveal .reveal,
+.js-reveal .reveal-slow {
+  opacity: 0;
+  transform: translateY(20px);
+  transition:
+    opacity 0.62s cubic-bezier(0.22, 1, 0.36, 1),
+    transform 0.62s cubic-bezier(0.22, 1, 0.36, 1);
+  will-change: opacity, transform;
+}
+
+.js-reveal .reveal.is-in,
+.js-reveal .reveal-slow.is-in {
+  opacity: 1;
+  transform: none;
+  will-change: auto;
 }
 
 @keyframes reveal-in {
