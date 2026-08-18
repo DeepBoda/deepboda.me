@@ -4,7 +4,9 @@ import { BUILD } from "@/lib/build-info";
 import { sortedPosts } from "@/lib/posts";
 
 const PAGES = [
+  { href: "/hire", label: "Hire me" },
   { href: "/work", label: "Work" },
+  { href: "/experience", label: "Experience" },
   { href: "/writing", label: "Writing" },
   { href: "/tools", label: "Tools I use" },
   { href: "/how-this-site-is-built", label: "How this site is built" },
@@ -34,7 +36,7 @@ export default function Footer() {
             <div className="mt-7 flex flex-wrap gap-3">
               <a
                 href={`mailto:${SITE.email}`}
-                className="inline-flex items-center h-11 px-6 rounded-full bg-[var(--ink)] text-[#0b0b0d] font-medium text-[0.92rem] hover:opacity-90 transition-opacity"
+                className="inline-flex items-center h-11 px-6 rounded-full bg-[var(--ink)] text-[#0b0b0d] font-medium t-body hover:opacity-90 transition-opacity"
               >
                 {SITE.email}
               </a>
@@ -42,14 +44,14 @@ export default function Footer() {
                 href={SITE.linkedin}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="inline-flex items-center h-11 px-6 rounded-full border border-[var(--line)] font-medium text-[0.92rem] hover:border-[var(--accent)] hover:text-[var(--accent)] transition-colors"
+                className="btn"
               >
                 LinkedIn
               </a>
               <a
                 href={SITE.cv}
                 download
-                className="inline-flex items-center h-11 px-6 rounded-full border border-[var(--line)] font-medium text-[0.92rem] hover:border-[var(--accent)] hover:text-[var(--accent)] transition-colors"
+                className="btn"
               >
                 Download CV
               </a>
@@ -59,7 +61,7 @@ export default function Footer() {
           <div className="grid grid-cols-2 gap-8 sm:gap-10 lg:pt-3">
             <nav aria-label="Pages">
               <p className="eyebrow mb-4">Pages</p>
-              <ul className="space-y-2.5 text-[0.92rem]">
+              <ul className="space-y-2.5 t-body">
                 {PAGES.map((p) => (
                   <li key={p.href}>
                     <Link href={p.href} className="text-[var(--mid)] hover:text-[var(--ink)] transition-colors">
@@ -72,7 +74,7 @@ export default function Footer() {
 
             <nav aria-label="Recent writing">
               <p className="eyebrow mb-4">Recent</p>
-              <ul className="space-y-2.5 text-[0.92rem]">
+              <ul className="space-y-2.5 t-body">
                 {recent.map((p) => (
                   <li key={p.slug}>
                     <Link
@@ -94,7 +96,7 @@ export default function Footer() {
         </div>
 
         {/* meta bar */}
-        <div className="pt-7 flex flex-wrap items-center justify-between gap-x-6 gap-y-3 text-[0.8rem] text-[var(--faint)]">
+        <div className="pt-7 flex flex-wrap items-center justify-between gap-x-6 gap-y-3 t-sm text-[var(--faint)]">
           <span>
             © {new Date().getFullYear()} {SITE.name} · {SITE.location}
           </span>

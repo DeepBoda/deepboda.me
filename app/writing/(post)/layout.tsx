@@ -42,7 +42,7 @@ export default function PostLayout({
         <div className="mt-5 flex flex-wrap gap-3">
           <a
             href={`mailto:${SITE.email}`}
-            className="inline-flex items-center h-10 px-5 rounded-full bg-[var(--ink)] text-[var(--bg)] font-medium text-[0.88rem] hover:opacity-90 transition-opacity"
+            className="inline-flex items-center h-10 px-5 rounded-full bg-[var(--ink)] text-[var(--bg)] font-medium t-sm hover:opacity-90 transition-opacity"
           >
             Get in touch
           </a>
@@ -50,13 +50,13 @@ export default function PostLayout({
             href={SITE.linkedin}
             target="_blank"
             rel="noopener noreferrer"
-            className="inline-flex items-center h-10 px-5 rounded-full border border-[var(--line)] font-medium text-[0.88rem] hover:border-[var(--accent)] hover:text-[var(--accent)] transition-colors"
+            className="inline-flex items-center h-10 px-5 rounded-full border border-[var(--line)] font-medium t-sm hover:border-[var(--accent)] hover:text-[var(--accent)] transition-colors"
           >
             LinkedIn
           </a>
           <Link
             href="/work"
-            className="inline-flex items-center h-10 px-5 rounded-full border border-[var(--line)] font-medium text-[0.88rem] hover:border-[var(--accent)] hover:text-[var(--accent)] transition-colors"
+            className="inline-flex items-center h-10 px-5 rounded-full border border-[var(--line)] font-medium t-sm hover:border-[var(--accent)] hover:text-[var(--accent)] transition-colors"
           >
             See the work
           </Link>

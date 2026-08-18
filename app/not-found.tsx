@@ -14,19 +14,19 @@ export default function NotFound() {
         <div className="mt-9 flex flex-wrap gap-3">
           <Link
             href="/"
-            className="inline-flex items-center h-11 px-6 rounded-full bg-[var(--ink)] text-[var(--bg)] font-medium text-[0.92rem] hover:opacity-90 transition-opacity"
+            className="btn-primary"
           >
             Home
           </Link>
           <Link
             href="/writing"
-            className="inline-flex items-center h-11 px-6 rounded-full border border-[var(--line)] font-medium text-[0.92rem] hover:border-[var(--accent)] hover:text-[var(--accent)] transition-colors"
+            className="btn"
           >
             Writing
           </Link>
           <a
             href={`mailto:${SITE.email}`}
-            className="inline-flex items-center h-11 px-6 rounded-full border border-[var(--line)] font-medium text-[0.92rem] hover:border-[var(--accent)] hover:text-[var(--accent)] transition-colors"
+            className="btn"
           >
             Tell me what broke
           </a>

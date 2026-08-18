@@ -4,6 +4,7 @@ import { SITE } from "@/lib/content";
 import Nav from "./nav";
 import Footer from "./footer";
 import SmoothScroll from "./smooth-scroll";
+import UiEffects from "./ui-effects";
 import RevealFallback from "./reveal-fallback";
 import "./globals.css";
 
@@ -128,6 +129,7 @@ export default function RootLayout({
           dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
         />
         <SmoothScroll />
+        <UiEffects />
         <RevealFallback />
         <Nav />
         {children}

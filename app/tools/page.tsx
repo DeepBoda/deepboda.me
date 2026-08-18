@@ -79,7 +79,7 @@ export default function Tools() {
     <main id="top">
       {/* ---------- header ---------- */}
       <section
-        className="wrap page-head pb-12 grid-bg glow"
+        className="wrap page-head pb-9 grid-bg glow"
         style={{ ["--tint" as string]: "var(--l2)" }}
       >
         <p className="eyebrow reveal">Tools I use</p>
@@ -113,13 +113,13 @@ export default function Tools() {
       </section>
 
       {/* ---------- groups ---------- */}
-      <div className="wrap pb-8">
+      <div className="wrap pb-4">
         <div className="grid lg:grid-cols-2 gap-5 items-start">
           {GROUPS.map((g, i) => (
             <section
               key={g.title}
               id={slug(g.title)}
-              className="layer-card scroll-mt-24 reveal p-6 md:p-8"
+              className="layer-card scroll-mt-14 reveal pad"
               style={{ ["--tint" as string]: `var(${g.tint})` }}
             >
               <span aria-hidden="true" className="ghost-n">
@@ -132,7 +132,7 @@ export default function Tools() {
               </div>
 
               {g.note && (
-                <p className="mt-2.5 text-[0.92rem] text-[var(--soft)] leading-relaxed">
+                <p className="mt-2.5 t-body text-[var(--soft)] leading-relaxed">
                   {g.note}
                 </p>
               )}
@@ -151,7 +151,7 @@ export default function Tools() {
                       />
                       {k}
                     </dt>
-                    <dd className="mt-1 pl-[17px] text-[0.94rem] text-[var(--mid)] leading-relaxed">
+                    <dd className="mt-1 pl-[17px] t-body text-[var(--mid)] leading-relaxed">
                       {v}
                     </dd>
                   </div>
@@ -163,8 +163,8 @@ export default function Tools() {
       </div>
 
       {/* ---------- close ---------- */}
-      <section className="wrap pb-24 pt-8">
-        <div className="card p-7 md:p-9 max-w-[64ch] reveal">
+      <section className="wrap pb-4 page-end">
+        <div className="card pad-lg max-w-[64ch] reveal">
           <p className="text-[var(--mid)] leading-relaxed">
             Nothing here is a recommendation. It is what survived four years of
             actually having to fix things at odd hours. If you want to know why

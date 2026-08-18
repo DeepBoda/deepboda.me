@@ -11,7 +11,7 @@ export const SITE = {
   tagline:
     "I run production infrastructure, and I write the code that runs on it.",
   description:
-    "Senior DevOps and Full-Stack Engineer. Four years running production on AWS: Kubernetes on EKS serving millions of requests a day, ECS microservices behind a platform with 100,000+ users, Terraform, CI/CD, and the Node.js backends on top.",
+    "Senior DevOps and Full-Stack Engineer in Ahmedabad. Four years running production on AWS: Kubernetes on EKS, ECS microservices, Terraform and the Node.js on top. Available from 1 September.",
 };
 
 export type Layer = {
@@ -199,6 +199,7 @@ export type Work = {
   summary: string;
   points: string[];
   stack: string[];
+  caseStudy?: string;
   scale?: string;
   image?: string;
   imageAlt?: string;
@@ -270,6 +271,7 @@ id: "anonymous",
       "Firebase",
       "RevenueCat",
     ],
+    caseStudy: "/work/anonymous-india",
     image: "/work/anonymous.webp",
     imageAlt:
       "Architecture diagram of Anonymous India: a Flutter app and a Next.js site and admin console calling an Nginx front door, then a NestJS API on Fastify, with PostgreSQL, Redis and Firebase Storage behind it and Socket.io pushing realtime updates.",
@@ -320,5 +322,41 @@ id: "anonymous",
       "Backend services and APIs for the core business modules, with PostgreSQL schema design and Redis caching.",
     ],
     stack: ["Node.js", "Express", "PostgreSQL", "Redis"],
+  },
+];
+
+/**
+ * The creed. Every line here is argued out properly in one of the posts.
+ */
+export const PRINCIPLES = [
+  {
+    tint: "--l1",
+    rule: "Climb only when the rung below actually hurts.",
+    why: "One EC2 box with systemd is not embarrassing. Moving to a cluster before the current setup causes real pain buys you complexity you then have to run.",
+  },
+  {
+    tint: "--l2",
+    rule: "An alert that never needs action is not monitoring.",
+    why: "It is noise with a pager attached. Muting the one that fires nightly is not laziness, it is the work. The rest only mean something once the noise is gone.",
+  },
+  {
+    tint: "--l3",
+    rule: "You do not have backups until you have timed a restore.",
+    why: "Everyone asks whether backups exist. Almost nobody asks how long the restore takes, and only one of those questions matters at 3 AM.",
+  },
+  {
+    tint: "--l4",
+    rule: "Containment beats capacity.",
+    why: "One service spiking should never be able to take the other three with it. Splitting workloads so a spike stays where it started is most of what reliability actually is.",
+  },
+  {
+    tint: "--l5",
+    rule: "Write it down the same day, while it still hurts.",
+    why: "A runbook written a week later is missing the part you only knew at 2 AM. Being the only person who understands something is not job security, it is a bill somebody pays later.",
+  },
+  {
+    tint: "--l6",
+    rule: "The boring things are the ones that worked.",
+    why: "Four years of this and the changes that genuinely moved reliability were unglamorous. The exciting migrations mostly moved the problem somewhere new.",
   },
 ];

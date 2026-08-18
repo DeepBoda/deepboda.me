@@ -15,6 +15,18 @@ export type Post = {
  */
 export const POSTS: Post[] = [
   {
+    slug: "one-service-took-everything",
+    title: "The night one service took everything with it",
+    summary:
+      "A real postmortem, written the way I write them internally. One host, no isolation, a spike at market open, and every other service on the box went down with it.",
+    date: "2026-08-19",
+    read: "6 min",
+    tags: ["Postmortem", "SRE", "On-call", "Architecture"],
+    image: "/writing/one-service-took-everything.webp",
+    imageAlt:
+      "A dark incident report showing a relative timeline from T+0 to T+40 minutes, with the row at T+6 highlighted where a user reported the outage before any alert fired, and a list of the four things that changed afterwards.",
+  },
+  {
     slug: "where-it-breaks",
     title: "Where it actually breaks",
     summary:

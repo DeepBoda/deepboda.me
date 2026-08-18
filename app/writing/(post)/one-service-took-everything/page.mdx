@@ -1,0 +1,79 @@
+import ArticleHeader from "@/app/writing/article-header";
+import { postBySlug } from "@/lib/posts";
+
+export const metadata = {
+  title: postBySlug("one-service-took-everything").title,
+  description: postBySlug("one-service-took-everything").summary,
+  alternates: { canonical: "https://deepboda.me/writing/one-service-took-everything" },
+  openGraph: {
+    type: "article",
+    url: "https://deepboda.me/writing/one-service-took-everything",
+    title: postBySlug("one-service-took-everything").title,
+    description: postBySlug("one-service-took-everything").summary,
+    images: ["/og/one-service-took-everything.png"],
+  },
+};
+
+<ArticleHeader slug="one-service-took-everything" />
+
+Most incident stories get told as war stories. The point of a postmortem is that it is not a story. It is a document, it has a shape, and the shape is what makes it useful to somebody who was not there.
+
+So here is one of mine, written the way I write them internally. Times are relative to the first failed request, because the wall clock does not matter and the gaps between the rows do.
+
+## Summary
+
+A real-time market data service, running on the same box as everything else, was overwhelmed by a traffic spike at market open. It exhausted shared resources on that host, and every other service on it went down with it. The platform was fully unavailable, then degraded, before it recovered.
+
+Nothing was wrong with the code that failed. The code did exactly what it was written to do, on infrastructure that had been correct eighteen months earlier.
+
+## Impact
+
+- Full unavailability of the API, the web front end and the admin panel.
+- Live price streaming stopped, which for a trading product is the feature.
+- Recovery was manual and required a person who knew the restart order.
+
+## Timeline
+
+| | |
+| --- | --- |
+| **T+0** | Market opens. Socket connections climb far faster than any previous day. |
+| **T+2m** | The real-time service saturates CPU on the host. |
+| **T+3m** | The API, sharing that host, starts timing out. Health checks begin failing. |
+| **T+6m** | First user report. Not an alert. A person. |
+| **T+9m** | I am on the box. Load average is unrecoverable, SSH is slow. |
+| **T+14m** | Real-time service killed manually. The rest of the host recovers within a minute. |
+| **T+22m** | Real-time restarted alone. Connections reconnect in a thundering herd and it saturates again. |
+| **T+31m** | Restarted with connection limits in place. Holds. |
+| **T+40m** | Full service, degraded streaming. |
+
+The row that matters is **T+6m**. A user found this before monitoring did.
+
+## Root cause
+
+One host, several processes, no isolation between them. The real-time service had no ceiling on connections and no reservation of its own resources, so when demand spiked it was free to take everything the machine had. Everything else on that machine was collateral.
+
+The trigger was traffic. The cause was topology.
+
+## Contributing factors
+
+- **We were a rung too low.** The product had grown into needing separate, independently scalable services months before this. It stayed on one box because one box had never failed, which is not evidence, it is luck running out slowly.
+- **The alert that mattered did not exist.** We monitored whether the API responded. We did not monitor connection count on the service most likely to spike.
+- **No restart order was written down.** The recovery worked because I happened to know it. That is the definition of a bus factor.
+- **Reconnects were unbounded.** The second outage at T+22m was self-inflicted. Every dropped client came back at once and killed the thing again.
+
+## What changed
+
+- Services were split so the real-time workload scales on its own and cannot exhaust anything the API needs. This is the whole argument for separate task definitions, learned the expensive way.
+- Connection count became a first class alert with a threshold below the failure point rather than at it.
+- Exponential backoff with jitter on the client, so a recovery cannot immediately cause the next outage.
+- A restart runbook, written that same week while it still hurt.
+
+## What I would tell you
+
+The instinct after an outage like this is to reach for the biggest tool available. That night, someone said Kubernetes.
+
+We did not need Kubernetes. We needed one rung up, and we needed it four months earlier.
+
+> Climbing too early costs money. Climbing too late costs you a night.
+
+The other thing, and this is the one I actually carry: **the fix took fourteen minutes and the noticing took six.** Almost half of that outage was the gap before anyone knew. If you want shorter incidents, do not get faster at fixing. Get faster at knowing.

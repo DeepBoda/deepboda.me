@@ -106,7 +106,7 @@ export default function RequestTrace({ layers }: { layers: Layer[] }) {
             key={l.id}
             id={l.id}
             data-step
-            className="reveal relative scroll-mt-24 lg:min-h-[380px]"
+            className="reveal relative scroll-mt-14 lg:min-h-[380px]"
             style={{ ["--tint" as string]: l.tint }}
           >
             <article className="layer-card">
@@ -118,7 +118,7 @@ export default function RequestTrace({ layers }: { layers: Layer[] }) {
                 <span className="mono text-[var(--faint)]">{l.sub}</span>
               </div>
 
-              <p className="mt-4 text-[1.08rem] md:text-[1.24rem] font-semibold tracking-[-0.024em] max-w-[34ch]">
+              <p className="mt-4 t-md md:h4 font-semibold tracking-[-0.024em] max-w-[34ch]">
                 {l.title}
               </p>
 
@@ -126,7 +126,7 @@ export default function RequestTrace({ layers }: { layers: Layer[] }) {
                 {l.body}
               </p>
 
-              <p className="bite-box mt-6 max-w-[52ch] text-[0.94rem] leading-relaxed">
+              <p className="bite-box mt-6 max-w-[52ch] t-body leading-relaxed">
                 {l.bite}
               </p>
 

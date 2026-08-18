@@ -23,7 +23,7 @@ export default function NextUp() {
           {/* ---- work, the anchor tile ---- */}
           <Link
             href="/work"
-            className="glass tile group md:col-span-2 md:row-span-2 p-7 md:p-9 flex flex-col"
+            className="glass tile group md:col-span-2 md:row-span-2 pad-lg flex flex-col"
             style={{ ["--tint" as string]: "var(--l3)" }}
           >
             <div className="flex items-center gap-3">
@@ -34,7 +34,7 @@ export default function NextUp() {
               <Arrow />
             </div>
 
-            <h3 className="mt-4 text-[1.5rem] md:text-[2rem] font-semibold tracking-[-0.038em] leading-[1.1] max-w-[16ch]">
+            <h3 className="mt-4 h3-lg font-semibold tracking-[-0.038em] leading-[1.1] max-w-[16ch]">
               The platforms I built and still run.
             </h3>
             <p className="mt-3 text-[var(--mid)] leading-relaxed max-w-[46ch]">
@@ -55,7 +55,7 @@ export default function NextUp() {
           {/* ---- writing ---- */}
           <Link
             href="/writing"
-            className="glass tile group p-7 flex flex-col"
+            className="glass tile group pad flex flex-col"
             style={{ ["--tint" as string]: "var(--l4)" }}
           >
             <div className="flex items-center gap-3">
@@ -65,10 +65,10 @@ export default function NextUp() {
               </span>
               <Arrow />
             </div>
-            <h3 className="mt-4 text-[1.15rem] font-semibold tracking-[-0.03em] leading-snug">
+            <h3 className="mt-4 t-lg font-semibold tracking-[-0.03em] leading-snug">
               Things that broke, and what they cost.
             </h3>
-            <p className="mt-auto pt-6 text-[0.88rem] text-[var(--soft)] leading-snug">
+            <p className="mt-auto pt-6 t-sm text-[var(--soft)] leading-snug">
               Latest:{" "}
               <span className="text-[var(--ink)]">{latest.title}</span>
             </p>
@@ -77,7 +77,7 @@ export default function NextUp() {
           {/* ---- tools ---- */}
           <Link
             href="/tools"
-            className="glass tile group p-7 flex flex-col"
+            className="glass tile group pad flex flex-col"
             style={{ ["--tint" as string]: "var(--l2)" }}
           >
             <div className="flex items-center gap-3">
@@ -87,10 +87,10 @@ export default function NextUp() {
               </span>
               <Arrow />
             </div>
-            <h3 className="mt-4 text-[1.15rem] font-semibold tracking-[-0.03em] leading-snug">
+            <h3 className="mt-4 t-lg font-semibold tracking-[-0.03em] leading-snug">
               What is actually open right now.
             </h3>
-            <p className="mt-auto pt-6 text-[0.88rem] text-[var(--soft)] leading-snug">
+            <p className="mt-auto pt-6 t-sm text-[var(--soft)] leading-snug">
               Machine, terminal, infrastructure, and what I ship with.
             </p>
           </Link>
@@ -98,7 +98,7 @@ export default function NextUp() {
           {/* ---- how this site is built ---- */}
           <Link
             href="/how-this-site-is-built"
-            className="glass tile group p-7 flex flex-col"
+            className="glass tile group pad flex flex-col"
             style={{ ["--tint" as string]: "var(--l6)" }}
           >
             <div className="flex items-center gap-3">
@@ -108,17 +108,17 @@ export default function NextUp() {
               </span>
               <Arrow />
             </div>
-            <h3 className="mt-4 text-[1.15rem] font-semibold tracking-[-0.03em] leading-snug">
+            <h3 className="mt-4 t-lg font-semibold tracking-[-0.03em] leading-snug">
               This site, documented from the build.
             </h3>
-            <p className="mt-auto pt-6 mono text-[0.78rem] text-[var(--faint)]">
+            <p className="mt-auto pt-6 mono t-sm text-[var(--faint)]">
               build {BUILD.sha ?? "local"}
             </p>
           </Link>
 
           {/* ---- reach me ---- */}
           <div
-            className="glass tile-static md:col-span-2 p-7 md:p-8"
+            className="glass tile-static md:col-span-2 pad"
             style={{ ["--tint" as string]: "var(--l1)" }}
           >
             <div className="flex items-center gap-3">
@@ -148,13 +148,13 @@ export default function NextUp() {
             </div>
 
             <div className="mt-6 pt-5 border-t border-[var(--hair)] flex flex-wrap items-center gap-x-4 gap-y-3">
-              <p className="text-[0.88rem] text-[var(--soft)]">
+              <p className="t-sm text-[var(--soft)]">
                 Based in {SITE.location}. {SITE.available}, and open to remote.
               </p>
               <a
                 href={SITE.cv}
                 download
-                className="ml-auto inline-flex items-center gap-2 h-9 px-4 rounded-full bg-[var(--ink)] text-[var(--bg)] text-[0.83rem] font-medium hover:opacity-90 transition-opacity"
+                className="ml-auto inline-flex items-center gap-2 h-9 px-4 rounded-full bg-[var(--ink)] text-[var(--bg)] t-sm font-medium hover:opacity-90 transition-opacity"
               >
                 Download CV
               </a>
@@ -196,7 +196,7 @@ function Reach({
         {...(external
           ? { target: "_blank", rel: "noopener noreferrer" }
           : {})}
-        className="link-u text-[0.98rem] text-[var(--ink)] break-all"
+        className="link-u t-body text-[var(--ink)] break-all"
       >
         {value}
       </a>

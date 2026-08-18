@@ -7,6 +7,7 @@ import { SITE } from "@/lib/content";
 
 const LINKS = [
   { href: "/work", label: "Work", note: "Platforms I built and run" },
+  { href: "/experience", label: "Experience", note: "Four years, year by year" },
   { href: "/writing", label: "Writing", note: "Notes from production" },
   { href: "/tools", label: "Tools I use", note: "What is open right now" },
   {
@@ -61,13 +62,13 @@ export default function Nav() {
       <nav aria-label="Primary" className="wrap flex items-center gap-4 h-16">
         <Link
           href="/"
-          className="shrink-0 font-semibold tracking-[-0.024em] text-[1.02rem] hover:text-[var(--accent)] transition-colors"
+          className="shrink-0 font-semibold tracking-[-0.024em] t-md hover:text-[var(--accent)] transition-colors"
         >
           {SITE.name}
         </Link>
 
         {/* desktop links */}
-        <ul className="hidden md:flex items-center gap-7 ml-auto text-[0.9rem] text-[var(--soft)]">
+        <ul className="hidden lg:flex items-center gap-6 ml-auto t-body text-[var(--soft)]">
           {LINKS.map((l) => {
             const active = isActive(path, l.href);
             return (
@@ -92,16 +93,16 @@ export default function Nav() {
           })}
         </ul>
 
-        <a
-          href={`mailto:${SITE.email}`}
-          className="hidden md:inline-flex items-center gap-2 h-9 pl-3 pr-4 rounded-full border border-[var(--line)] text-[0.83rem] font-medium hover:border-[var(--accent)] hover:text-[var(--accent)] transition-colors"
+        <Link
+          href="/hire"
+          className="hidden lg:inline-flex items-center gap-2 h-9 pl-3 pr-4 rounded-full border border-[var(--line-strong)] t-sm font-medium hover:border-[var(--accent)] hover:text-[var(--accent)] transition-colors"
         >
           <span className="relative flex w-1.5 h-1.5" aria-hidden="true">
             <span className="absolute inline-flex w-full h-full rounded-full bg-[var(--accent)] opacity-70 motion-safe:animate-ping" />
             <span className="relative inline-flex w-1.5 h-1.5 rounded-full bg-[var(--accent)]" />
           </span>
-          Available
-        </a>
+          Hire me
+        </Link>
 
         {/* mobile trigger */}
         <button
@@ -110,7 +111,7 @@ export default function Nav() {
           aria-expanded={open}
           aria-controls="mobile-menu"
           aria-label={open ? "Close menu" : "Open menu"}
-          className="md:hidden ml-auto grid place-items-center w-10 h-10 -mr-1 rounded-full hover:bg-[var(--hair)] transition-colors"
+          className="lg:hidden ml-auto grid place-items-center w-10 h-10 -mr-1 rounded-full hover:bg-[var(--hair)] transition-colors"
         >
           <span className="relative block w-[18px] h-[12px]" aria-hidden="true">
             <span
@@ -136,9 +137,13 @@ export default function Nav() {
       <div
         id="mobile-menu"
         ref={panelRef}
+        /* focus moves here when the sheet opens so screen readers follow, but
+           it is tabIndex -1 and unreachable by keyboard, so the ring would only
+           ever be a stray accent line across the panel */
         tabIndex={-1}
-        className={`md:hidden overflow-hidden transition-[max-height,opacity] duration-400 ease-[cubic-bezier(0.22,1,0.36,1)] ${
-          open ? "max-h-[520px] opacity-100" : "max-h-0 opacity-0"
+        style={{ outline: "none" }}
+        className={`lg:hidden overflow-hidden transition-[max-height,opacity] duration-400 ease-[cubic-bezier(0.22,1,0.36,1)] ${
+          open ? "max-h-[640px] opacity-100" : "max-h-0 opacity-0"
         }`}
       >
         <div className="wrap pb-6 pt-1">
@@ -155,18 +160,18 @@ export default function Nav() {
                       transitionDelay: open ? `${60 + i * 45}ms` : "0ms",
                     }}
                   >
-                    <span className="mono text-[0.7rem] text-[var(--faint)] w-5 shrink-0">
+                    <span className="mono t-xs text-[var(--faint)] w-5 shrink-0">
                       {String(i + 1).padStart(2, "0")}
                     </span>
                     <span className="min-w-0">
                       <span
-                        className={`block text-[1.15rem] font-semibold tracking-[-0.03em] ${
+                        className={`block t-lg font-semibold tracking-[-0.03em] ${
                           active ? "text-[var(--accent)]" : "text-[var(--ink)]"
                         }`}
                       >
                         {l.label}
                       </span>
-                      <span className="block text-[0.86rem] text-[var(--soft)] mt-0.5">
+                      <span className="block t-sm text-[var(--soft)] mt-0.5">
                         {l.note}
                       </span>
                     </span>
@@ -182,17 +187,17 @@ export default function Nav() {
             })}
           </ul>
 
-          <a
-            href={`mailto:${SITE.email}`}
+          <Link
+            href="/hire"
             className="mt-6 flex items-center justify-center gap-2.5 h-12 rounded-full bg-[var(--ink)] text-[var(--bg)] font-medium"
           >
             <span className="relative flex w-1.5 h-1.5" aria-hidden="true">
               <span className="absolute inline-flex w-full h-full rounded-full bg-[var(--bg)] opacity-70 motion-safe:animate-ping" />
               <span className="relative inline-flex w-1.5 h-1.5 rounded-full bg-[var(--bg)]" />
             </span>
-            {SITE.email}
-          </a>
-          <p className="mt-3 text-center text-[0.82rem] text-[var(--soft)]">
+            Hire me
+          </Link>
+          <p className="mt-3 text-center t-sm text-[var(--soft)]">
             {SITE.available}
           </p>
         </div>

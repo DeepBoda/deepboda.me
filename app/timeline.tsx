@@ -4,7 +4,7 @@ const TINTS = ["var(--l1)", "var(--l2)", "var(--l3)", "var(--l4)", "var(--l5)", 
 
 export default function Timeline() {
   return (
-    <ol className="relative mt-14">
+    <ol className="relative mt-10">
       <span
         aria-hidden="true"
         className="absolute left-[7px] md:left-1/2 md:-translate-x-1/2 top-2 bottom-2 w-px bg-[var(--line)]"
@@ -35,11 +35,11 @@ export default function Timeline() {
               >
                 {t.year}
               </span>
-              <h3 className="mt-1.5 font-semibold tracking-[-0.02em] text-[1.05rem]">
+              <h3 className="mt-1.5 font-semibold tracking-[-0.02em] t-md">
                 {t.title}
               </h3>
-              <p className="text-[0.9rem] text-[var(--soft)] mt-0.5">{t.org}</p>
-              <p className="text-[0.92rem] text-[var(--mid)] mt-2.5 leading-relaxed max-w-[46ch] md:inline-block">
+              <p className="t-body text-[var(--soft)] mt-0.5">{t.org}</p>
+              <p className="t-body text-[var(--mid)] mt-2.5 leading-relaxed max-w-[46ch] md:inline-block">
                 {t.note}
               </p>
             </div>

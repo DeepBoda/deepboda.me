@@ -4,6 +4,7 @@ import Cluster from "./cluster";
 import StatBand from "./stat-band";
 import IncidentChart from "./incident-chart";
 import Timeline from "./timeline";
+import Principles from "./principles";
 import NextUp from "./next-up";
 
 const NODES = [
@@ -65,7 +66,7 @@ export default function Home() {
     <>
       <main id="top">
         {/* ---------------- HERO ---------------- */}
-        <section className="grid-bg glow wrap page-head-lg pb-14 md:pb-20">
+        <section className="grid-bg glow wrap page-head-lg pb-10 md:pb-14">
           <p className="eyebrow reveal">
             DevOps · Platform · Full-Stack · {SITE.location}
           </p>
@@ -81,10 +82,10 @@ export default function Home() {
             Node.js services running on top of all of it.
           </p>
 
-          <div className="mt-9 flex flex-wrap items-center gap-3 reveal">
+          <div className="mt-8 flex flex-wrap items-center gap-3 reveal">
             <a
               href={`mailto:${SITE.email}`}
-              className="inline-flex items-center h-11 px-6 rounded-full bg-[var(--ink)] text-[var(--bg)] font-medium text-[0.92rem] hover:opacity-90 transition-opacity"
+              className="btn-primary"
             >
               Get in touch
             </a>
@@ -92,21 +93,21 @@ export default function Home() {
               href={SITE.linkedin}
               target="_blank"
               rel="noopener noreferrer"
-              className="inline-flex items-center h-11 px-6 rounded-full border border-[var(--line)] font-medium text-[0.92rem] hover:border-[var(--accent)] hover:text-[var(--accent)] transition-colors"
+              className="btn"
             >
               LinkedIn
             </a>
             <a
               href={SITE.cv}
               download
-              className="inline-flex items-center gap-2 h-11 px-6 rounded-full border border-[var(--line)] font-medium text-[0.92rem] hover:border-[var(--accent)] hover:text-[var(--accent)] transition-colors"
+              className="btn"
             >
               Download CV
-              <span aria-hidden="true" className="mono text-[0.68rem] text-[var(--faint)]">
+              <span aria-hidden="true" className="mono t-xs text-[var(--faint)]">
                 PDF
               </span>
             </a>
-            <span className="inline-flex items-center gap-2 h-11 px-4 text-[0.86rem] text-[var(--soft)]">
+            <span className="inline-flex items-center gap-2 h-11 px-4 t-sm text-[var(--soft)]">
               <span className="relative flex w-2 h-2">
                 <span className="absolute inline-flex w-full h-full rounded-full bg-[var(--accent)] opacity-60 motion-safe:animate-ping" />
                 <span className="relative inline-flex w-2 h-2 rounded-full bg-[var(--accent)]" />
@@ -115,10 +116,10 @@ export default function Home() {
             </span>
           </div>
 
-          <div className="mt-16 md:mt-24 reveal-slow">
+          <div className="mt-9 lg:mt-12 reveal-slow">
             <p className="eyebrow mb-5">One request, top to bottom</p>
             <RequestPath />
-            <p className="mt-5 text-[0.9rem] text-[var(--soft)] max-w-[62ch]">
+            <p className="mt-5 t-body text-[var(--soft)] max-w-[62ch]">
               This page follows that path. Every stop is a layer I am
               responsible for, and the thing that tends to break there. Pick one
               and it will take you straight to it.
@@ -145,7 +146,7 @@ export default function Home() {
               the gaps between them, where neither side is looking.
             </p>
 
-            <div className="mt-16 md:mt-24">
+            <div className="mt-9 lg:mt-12">
               <RequestTrace layers={LAYERS} />
             </div>
           </div>
@@ -219,7 +220,7 @@ export default function Home() {
                 >
                   <div className="flex items-center gap-3">
                     <span className="tint-dot" />
-                    <h3 className="font-semibold text-[1.08rem] tracking-[-0.02em]">
+                    <h3 className="font-semibold t-md tracking-[-0.02em]">
                       {lane.name}
                     </h3>
                     <span className="mono text-[var(--faint)]">{lane.sub}</span>
@@ -231,7 +232,7 @@ export default function Home() {
                       return (
                         <li key={step} className="flex items-center">
                           <span
-                            className="inline-flex items-center gap-2 h-9 px-3.5 rounded-lg border text-[0.88rem] font-medium whitespace-nowrap"
+                            className="inline-flex items-center gap-2 h-9 px-3.5 rounded-lg border t-sm font-medium whitespace-nowrap"
                             style={{
                               borderColor: last
                                 ? ["var(--l1)", "var(--l2)", "var(--l3)"][li]
@@ -242,7 +243,7 @@ export default function Home() {
                               background: "var(--bg)",
                             }}
                           >
-                            <span className="mono text-[0.68rem] opacity-60">
+                            <span className="mono t-xs opacity-60">
                               {String(i + 1).padStart(2, "0")}
                             </span>
                             {step}
@@ -261,7 +262,7 @@ export default function Home() {
               ))}
             </div>
 
-            <p className="mt-9 text-[0.95rem] text-[var(--soft)] max-w-[64ch] reveal">
+            <p className="mt-9 t-body text-[var(--soft)] max-w-[64ch] reveal">
               I also set up and run the store accounts themselves. App Store
               Connect and Google Play Console from first enrolment onward: team
               roles, app records, bundle IDs, signing certificates, API keys for
@@ -281,6 +282,8 @@ export default function Home() {
             <Timeline />
           </div>
         </section>
+
+        <Principles />
 
         <NextUp />
       

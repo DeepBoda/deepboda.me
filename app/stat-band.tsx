@@ -77,7 +77,7 @@ function Card({ s, on }: { s: Stat; on: boolean }) {
         <span className="mono text-[var(--faint)]">{s.label}</span>
       </div>
 
-      <div className="mt-4 text-[2.4rem] md:text-[2.9rem] font-bold tracking-[-0.045em] leading-none tabular-nums">
+      <div className="mt-4 stat-n font-bold tracking-[-0.045em] leading-none tabular-nums">
         {s.text ?? (
           <>
             {s.prefix}
@@ -87,7 +87,7 @@ function Card({ s, on }: { s: Stat; on: boolean }) {
         )}
       </div>
 
-      <p className="mt-2 text-[0.85rem] text-[var(--soft)] leading-snug min-h-[2.4em]">
+      <p className="mt-2 t-sm text-[var(--soft)] leading-snug min-h-[2.4em]">
         {s.sub}
       </p>
 

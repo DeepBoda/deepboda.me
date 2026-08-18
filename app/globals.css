@@ -9,8 +9,9 @@
   --ink: #1d1d1f;
   --mid: #45454a;
   --soft: #66666b;
-  --faint: #8a8a92;
+  --faint: #74747c;          /* 4.51:1 on --bg. was #8a8a92 at 3.33 */
   --line: #e2e3e7;
+  --line-strong: #8e8f95;    /* 3.14:1. outlined controls need a 3:1 edge (WCAG 1.4.11) */
   --hair: #eeeff2;
   --accent: #c8365a;
 
@@ -53,7 +54,9 @@
    ============================================================ */
 @layer base {
   html {
-    scroll-behavior: smooth;
+    /* deliberately NOT scroll-behavior: smooth. Lenis is the smooth scroll,
+       and the CSS one turns every router scroll into an animation that Lenis
+       then overwrites, which is how a navigation lands mid page. */
     -webkit-text-size-adjust: 100%;
     /* stop the rubber band at both ends. see .band-tail for the belt and
        braces: a dark block painted below the footer, so an overscroll that
@@ -94,7 +97,7 @@
    ============================================================ */
 @layer components {
   .display {
-    font-size: clamp(2.5rem, 7vw, 4.9rem);
+    font-size: clamp(2.5rem, 6vw + 1rem, 5.2rem);
     font-weight: 700;
     letter-spacing: -0.04em;
     line-height: 1.03;
@@ -134,6 +137,36 @@
     font-size: 0.8rem;
   }
 
+  /* ---- ONE TYPE SCALE --------------------------------------------------
+     There were about forty ad hoc font sizes on this site, five of them
+     within 0.07rem of each other. These five plus the headings replace all
+     of them. Anything not on this scale is a mistake. */
+  .t-xs   { font-size: 0.72rem; }
+  .t-sm   { font-size: 0.86rem; }
+  .t-body { font-size: 0.95rem; }
+  .t-md   { font-size: 1.06rem; }
+  .t-lg   { font-size: 1.18rem; }
+  .stat-n {
+    font-size: clamp(1.6rem, 4vw, 2.9rem);
+    font-weight: 700;
+    letter-spacing: -0.045em;
+    line-height: 1;
+  }
+
+  /* two heading steps between .h3 and .h2 that were being hand rolled */
+  .h4 {
+    font-size: clamp(1.08rem, 1.5vw, 1.2rem);
+    font-weight: 600;
+    letter-spacing: -0.025em;
+    line-height: 1.3;
+  }
+  .h3-lg {
+    font-size: clamp(1.32rem, 2.6vw, 1.72rem);
+    font-weight: 600;
+    letter-spacing: -0.033em;
+    line-height: 1.2;
+  }
+
   .wrap {
     width: 100%;
     max-width: var(--max);
@@ -146,27 +179,99 @@
      on them. without this there is a hard seam exactly at the nav height. */
   .page-head {
     margin-top: calc(var(--nav-h) * -1);
-    padding-top: calc(var(--nav-h) + 56px);
+    padding-top: calc(var(--nav-h) + 40px);
   }
   @media (min-width: 768px) {
     .page-head {
-      padding-top: calc(var(--nav-h) + 88px);
+      padding-top: calc(var(--nav-h) + 60px);
     }
   }
   .page-head-lg {
     margin-top: calc(var(--nav-h) * -1);
-    padding-top: calc(var(--nav-h) + 64px);
+    padding-top: calc(var(--nav-h) + 44px);
   }
   @media (min-width: 768px) {
     .page-head-lg {
-      padding-top: calc(var(--nav-h) + 112px);
+      padding-top: calc(var(--nav-h) + 72px);
+    }
+  }
+
+  /* ---- ONE SPACING SCALE ----------------------------------------------
+     There were 13 different section rhythms and 12 card paddings on this
+     site. Two card sizes and one stack gap replace all of them. If a value
+     is not here it should not be used. */
+
+  /* stacked blocks on a sub page. one gap, everywhere. */
+  .stack > * + * {
+    margin-top: clamp(16px, 1.6vw, 20px);
+  }
+
+  /* the space a page ends on */
+  .page-end {
+    padding-bottom: clamp(52px, 6vw, 80px);
+  }
+
+  /* the space between a page header and the first block */
+  .page-body {
+    padding-top: clamp(4px, 1vw, 8px);
+  }
+
+  /* card padding. two sizes, nothing else. */
+  .pad {
+    padding: 24px;
+  }
+  .pad-lg {
+    padding: 26px;
+  }
+  @media (min-width: 768px) {
+    .pad {
+      padding: 32px;
+    }
+    .pad-lg {
+      padding: 40px;
     }
   }
 
   .section {
-    padding-block: clamp(72px, 11vw, 136px);
+    padding-block: clamp(48px, 6vw, 84px);
     border-top: 1px solid var(--hair);
   }
+
+  /* the outlined control. its border is what identifies it, so it has to
+     clear 3:1, which --line does not. */
+  .btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    height: 44px;
+    padding-inline: 24px;
+    border-radius: 999px;
+    font-weight: 500;
+    font-size: 0.92rem;
+    border: 1px solid var(--line-strong);
+    color: var(--ink);
+    background: var(--bg-raised);
+    transition: border-color 0.2s ease, color 0.2s ease, background 0.2s ease;
+  }
+  .btn:hover {
+    border-color: var(--accent);
+    color: var(--accent);
+  }
+  .btn-primary {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    height: 44px;
+    padding-inline: 24px;
+    border-radius: 999px;
+    font-weight: 500;
+    font-size: 0.92rem;
+    border: 1px solid var(--ink);
+    background: var(--ink);
+    color: var(--bg);
+    transition: opacity 0.2s ease;
+  }
+  .btn-primary:hover { opacity: 0.9; }
 
   .chip {
     display: inline-flex;
@@ -207,9 +312,10 @@
 
   .glass-bar {
     background: color-mix(in srgb, var(--bg) 72%, transparent);
-    backdrop-filter: saturate(180%) blur(18px);
-    -webkit-backdrop-filter: saturate(180%) blur(18px);
+    backdrop-filter: saturate(200%) blur(24px);
+    -webkit-backdrop-filter: saturate(200%) blur(24px);
     box-shadow: 0 1px 24px -16px rgba(15, 15, 20, 0.55);
+    border-bottom: 1px solid color-mix(in srgb, var(--line) 50%, transparent);
   }
 
   /* soft colour field, so the glass tiles have something to refract */
@@ -241,12 +347,29 @@
     transition: transform 0.32s cubic-bezier(0.22, 1, 0.36, 1),
       box-shadow 0.32s ease, border-color 0.32s ease;
   }
+  .tile::after {
+    content: "";
+    position: absolute; z-index: 0;
+    inset: -1px;
+    background: radial-gradient(
+      500px circle at var(--mouse-x, 50%) var(--mouse-y, 50%), 
+      color-mix(in srgb, var(--tint) 20%, transparent), 
+      transparent 40%
+    );
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity 0.4s ease;
+  }
+  .tile > * { position: relative; z-index: 1; }
   .tile:hover {
     transform: translateY(-3px);
     border-color: color-mix(in srgb, var(--tint) 50%, transparent);
     box-shadow:
       0 1px 0 rgba(255, 255, 255, 0.7) inset,
       0 22px 50px -26px color-mix(in srgb, var(--tint) 70%, transparent);
+  }
+  .tile:hover::after {
+    opacity: 1;
   }
 
   /* the request path in the hero is a set of links, so it needs to look like one */
@@ -333,8 +456,10 @@
     --ink: #f5f5f7;
     --mid: #c6c6cd;
     --soft: #9a9aa2;
-    --faint: #74747e;
+    --faint: #787882;          /* 4.50:1 on the band */
+    --accent: #e0708c;         /* 4.9:1 on the band. #c8365a was 3.87 */
     --line: #2a2a31;
+    --line-strong: #5e5e6a;    /* 3.08:1 on the band */
     --hair: #1d1d22;
     --bg: #0b0b0d;
     --bg-raised: #16161b;
@@ -377,16 +502,24 @@
   .layer-card::after {
     content: "";
     position: absolute; z-index: 0;
-    width: 320px; height: 320px; right: -120px; top: -140px;
-    border-radius: 50%;
-    background: radial-gradient(circle, color-mix(in srgb, var(--tint) 15%, transparent), transparent 68%);
+    inset: -1px;
+    background: radial-gradient(
+      600px circle at var(--mouse-x, 80%) var(--mouse-y, 0%), 
+      color-mix(in srgb, var(--tint) 15%, transparent), 
+      transparent 40%
+    );
+    opacity: 0.6;
     pointer-events: none;
+    transition: opacity 0.4s ease;
   }
   .layer-card > * { position: relative; z-index: 1; }
   .layer-card:hover {
     border-color: color-mix(in srgb, var(--tint) 45%, var(--line));
     transform: translateY(-2px);
     box-shadow: 0 12px 34px -18px color-mix(in srgb, var(--tint) 55%, transparent);
+  }
+  .layer-card:hover::after {
+    opacity: 1;
   }
 
   /* the big ghost number behind each layer */
@@ -407,6 +540,35 @@
     font-weight: 500;
   }
 
+  /* a pod in the cluster panel. state drives the look, not a class name. */
+  .pod {
+    width: 16px;
+    height: 16px;
+    border-radius: 4px;
+    opacity: 0.9;
+    transition: opacity 0.45s ease, transform 0.45s cubic-bezier(0.22, 1, 0.36, 1),
+      box-shadow 0.45s ease, filter 0.45s ease;
+  }
+  .pod[data-state="pending"] {
+    opacity: 0.45;
+    transform: scale(0.72);
+    box-shadow: 0 0 0 3px color-mix(in srgb, currentColor 0%, transparent);
+  }
+  .pod[data-state="crash"] {
+    filter: grayscale(0.15);
+    box-shadow: 0 0 0 3px rgba(224, 112, 140, 0.35);
+    animation: pod-crash 1s ease-in-out infinite;
+  }
+
+  @keyframes pod-crash {
+    0%, 100% { opacity: 0.95; }
+    50% { opacity: 0.35; }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .pod { transition: none; animation: none; }
+  }
+
   .tint-dot {
     width: 8px; height: 8px; border-radius: 50%;
     background: var(--tint, var(--accent));
@@ -422,12 +584,12 @@
     .reveal {
       animation: reveal-in linear both;
       animation-timeline: view();
-      animation-range: entry 4% cover 24%;
+      animation-range: entry 2% cover 14%;
     }
     .reveal-slow {
       animation: reveal-in linear both;
       animation-timeline: view();
-      animation-range: entry 0% cover 36%;
+      animation-range: entry 0% cover 20%;
     }
     .rail-fill {
       animation: rail linear both;

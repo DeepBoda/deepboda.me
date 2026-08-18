@@ -5,7 +5,7 @@ const components: MDXComponents = {
     h2: (p) => <h2 className="h3 mt-14 mb-4 scroll-mt-24" {...p} />,
     h3: (p) => (
       <h3
-        className="mt-10 mb-3 font-semibold text-[1.05rem] tracking-[-0.02em]"
+        className="mt-10 mb-3 font-semibold t-md tracking-[-0.02em]"
         {...p}
       />
     ),
@@ -25,6 +25,25 @@ const components: MDXComponents = {
       />
     ),
     hr: () => <hr className="my-12 border-0 border-t border-[var(--hair)]" />,
+    table: (p) => (
+      <div className="my-8 -mx-1 overflow-x-auto">
+        <table className="w-full min-w-[26rem] border-collapse text-left" {...p} />
+      </div>
+    ),
+    thead: (p) => <thead className="border-b border-[var(--line)]" {...p} />,
+    th: (p) => (
+      <th
+        className="py-2.5 pr-6 font-semibold t-sm uppercase tracking-[0.1em] text-[var(--faint)]"
+        {...p}
+      />
+    ),
+    tr: (p) => <tr className="border-b border-[var(--hair)] last:border-0" {...p} />,
+    td: (p) => (
+      <td
+        className="py-3 pr-6 align-top text-[var(--mid)] leading-relaxed first:whitespace-nowrap first:font-medium first:text-[var(--ink)] first:w-[5.5rem]"
+        {...p}
+      />
+    ),
     a: (p) => <a className="link-u text-[var(--ink)]" {...p} />,
     code: (p) => (
       <code

@@ -18,6 +18,11 @@ const nextConfig: NextConfig = {
   images: { unoptimized: true },
 };
 
-const withMDX = createMDX({});
+/* GFM, so the incident timeline in the postmortem renders as a real table.
+   Turbopack serialises loader options, so the plugin goes in by name and not
+   as an imported function. */
+const withMDX = createMDX({
+  options: { remarkPlugins: [["remark-gfm", {}]] },
+});
 
 export default withMDX(nextConfig);

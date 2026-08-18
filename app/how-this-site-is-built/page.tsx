@@ -6,7 +6,7 @@ import { BUILD } from "@/lib/build-info";
 export const metadata: Metadata = {
   title: "How this site is built",
   description:
-    "How this site is built, what it ships, and how it deploys. Read from the build, not written by hand.",
+    "How this site is built, what it ships, and how it deploys. Static Next.js, native CSS scroll reveals, no analytics. Every number here is read from the build rather than typed by hand.",
   alternates: { canonical: `${SITE.url}/how-this-site-is-built` },
   openGraph: {
     title: "How this site is built",
@@ -24,7 +24,7 @@ function Row({ k, v, note }: { k: string; v: string; note?: string }) {
       <dd>
         <span className="text-[var(--ink)] font-medium">{v}</span>
         {note && (
-          <span className="block text-[0.9rem] text-[var(--soft)] mt-1 max-w-[54ch] leading-relaxed">
+          <span className="block t-body text-[var(--soft)] mt-1 max-w-[54ch] leading-relaxed">
             {note}
           </span>
         )}
@@ -46,7 +46,7 @@ function Panel({
 }) {
   return (
     <section
-      className="layer-card reveal p-6 md:p-8"
+      className="layer-card reveal pad"
       style={{ ["--tint" as string]: `var(${tint})` }}
     >
       <span aria-hidden="true" className="ghost-n">
@@ -80,7 +80,7 @@ export default function HowThisSiteIsBuilt() {
     <main id="top">
       {/* ---------- header ---------- */}
       <section
-        className="wrap page-head pb-12 grid-bg glow"
+        className="wrap page-head pb-9 grid-bg glow"
         style={{ ["--tint" as string]: "var(--l6)" }}
       >
         <p className="eyebrow reveal">How this site is built</p>
@@ -101,20 +101,20 @@ export default function HowThisSiteIsBuilt() {
             <span className="w-2.5 h-2.5 rounded-full bg-[#3a3a44]" />
             <span className="w-2.5 h-2.5 rounded-full bg-[#3a3a44]" />
             <span className="w-2.5 h-2.5 rounded-full bg-[#3a3a44]" />
-            <span className="mono ml-3 text-[0.72rem] text-[#74747e] truncate">
+            <span className="mono ml-3 t-xs text-[#74747e] truncate">
               deepboda.me
             </span>
-            <span className="mono ml-auto shrink-0 text-[0.72rem] text-[#6fc785] flex items-center gap-2">
+            <span className="mono ml-auto shrink-0 t-xs text-[#6fc785] flex items-center gap-2">
               <span className="w-1.5 h-1.5 rounded-full bg-[#6fc785]" />
               {BUILD.env}
             </span>
           </div>
 
-          <div className="p-6 md:p-8">
-            <p className="mono text-[0.78rem] text-[#74747e]">
+          <div className="pad">
+            <p className="mono t-sm text-[#74747e]">
               <span className="text-[#6fc785]">$</span> git log -1 --oneline
             </p>
-            <p className="mono mt-2 text-[0.9rem] md:text-[1rem] text-[#f5f5f7] break-words">
+            <p className="mono mt-2 t-body text-[#f5f5f7] break-words">
               <span className="text-[#f0a05c]">{BUILD.sha ?? "unknown"}</span>{" "}
               {BUILD.message ?? ""}
             </p>
@@ -128,7 +128,7 @@ export default function HowThisSiteIsBuilt() {
               <Row k="routes" v={`${POSTS.length + 5} prerendered`} />
             </dl>
 
-            <p className="mt-6 text-[0.9rem] text-[#9a9aa2] leading-relaxed max-w-[58ch]">
+            <p className="mt-6 t-body text-[#9a9aa2] leading-relaxed max-w-[58ch]">
               Everything except the OG image endpoint is static HTML, generated
               at build and served from the edge.
             </p>
@@ -137,7 +137,7 @@ export default function HowThisSiteIsBuilt() {
       </section>
 
       {/* ---------- panels ---------- */}
-      <div className="wrap pt-5 pb-24">
+      <div className="wrap pb-4 page-end">
         <div className="grid lg:grid-cols-2 gap-5 items-start">
           <Panel n="01" title="What it ships" tint="--l3">
             <p className="mt-3 text-[var(--mid)] leading-relaxed">

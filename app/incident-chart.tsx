@@ -46,7 +46,7 @@ export default function IncidentChart() {
         {ROWS.map((r, i) => (
           <li key={r.label} className="grid grid-cols-[1fr] sm:grid-cols-[200px_1fr_54px] items-center gap-x-5 gap-y-1.5">
             <span
-              className={`text-[0.92rem] sm:text-right ${
+              className={`t-body sm:text-right ${
                 r.hero ? "text-[var(--ink)] font-semibold" : "text-[var(--mid)]"
               }`}
             >
@@ -76,7 +76,7 @@ export default function IncidentChart() {
         ))}
       </ul>
 
-      <p className="mt-8 bite max-w-[52ch] text-[0.95rem] leading-relaxed">
+      <p className="mt-8 bite max-w-[52ch] t-body leading-relaxed">
         The fix is the smallest bar. It always is. If you want shorter
         incidents, do not get faster at fixing. Get faster at noticing and at
         working out what broke.

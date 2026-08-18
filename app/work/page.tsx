@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import Image from "next/image";
+import Link from "next/link";
 import { SITE, WORK } from "@/lib/content";
 
 export const metadata: Metadata = {
@@ -31,7 +32,7 @@ export default function WorkPage() {
   return (
     <main id="top">
       {/* ---------- header ---------- */}
-      <section className="wrap page-head pb-14 grid-bg glow" style={{ ["--tint" as string]: "var(--l3)" }}>
+      <section className="wrap page-head pb-9 grid-bg glow" style={{ ["--tint" as string]: "var(--l3)" }}>
         <p className="eyebrow reveal">Work</p>
         <h1 className="h2 mt-4 max-w-[20ch] reveal">
           Four years of client platforms, company products, and one of my own.
@@ -48,10 +49,10 @@ export default function WorkPage() {
           {FACTS.map((f) => (
             <li key={f.k} className="stat-card" style={{ ["--tint" as string]: `var(${f.tint})` }}>
               <span className="mono text-[var(--faint)]">{f.k}</span>
-              <p className="mt-2 text-[1.5rem] md:text-[1.85rem] font-bold tracking-[-0.04em] leading-none">
+              <p className="mt-2 h3-lg md:h3-lg font-bold tracking-[-0.04em] leading-none">
                 {f.v}
               </p>
-              <p className="mt-2 text-[0.84rem] text-[var(--soft)] leading-snug">{f.note}</p>
+              <p className="mt-2 t-sm text-[var(--soft)] leading-snug">{f.note}</p>
             </li>
           ))}
         </ul>
@@ -77,13 +78,13 @@ export default function WorkPage() {
       </section>
 
       {/* ---------- projects ---------- */}
-      <div className="wrap pb-8">
+      <div className="wrap pb-4">
         <ol className="space-y-5 md:space-y-7">
           {WORK.map((w, i) => (
             <li
               key={w.id}
               id={w.id}
-              className="layer-card scroll-mt-24 reveal p-6 md:p-9"
+              className="layer-card scroll-mt-14 reveal pad-lg"
               style={{ ["--tint" as string]: `var(${TINTS[i % TINTS.length]})` }}
             >
               <span aria-hidden="true" className="ghost-n">
@@ -105,9 +106,35 @@ export default function WorkPage() {
                     )}
                   </div>
 
-                  <h2 className="mt-3.5 text-[1.35rem] md:text-[1.75rem] font-semibold tracking-[-0.035em] leading-tight">
-                    {w.name}
+                  <h2 className="mt-3.5 h3-lg font-semibold tracking-[-0.035em] leading-tight">
+                    {w.caseStudy ? (
+                      <Link
+                        href={w.caseStudy}
+                        className="group inline-flex items-baseline gap-2.5 hover:text-[var(--accent)] transition-colors"
+                      >
+                        {w.name}
+                        <span
+                          aria-hidden="true"
+                          className="text-[0.7em] text-[var(--faint)] transition-transform duration-300 group-hover:translate-x-1"
+                        >
+                          &rarr;
+                        </span>
+                      </Link>
+                    ) : (
+                      w.name
+                    )}
                   </h2>
+                  {w.caseStudy && (
+                    <p className="mt-1.5">
+                      <Link
+                        href={w.caseStudy}
+                        className="mono t-xs link-u"
+                        style={{ color: "var(--tint)" }}
+                      >
+                        Read the full case study
+                      </Link>
+                    </p>
+                  )}
                   <p className="mt-2 text-[var(--soft)] max-w-[52ch]">{w.summary}</p>
 
                   {w.image && (
@@ -116,7 +143,7 @@ export default function WorkPage() {
                         <span className="w-2.5 h-2.5 rounded-full bg-[var(--line)]" />
                         <span className="w-2.5 h-2.5 rounded-full bg-[var(--line)]" />
                         <span className="w-2.5 h-2.5 rounded-full bg-[var(--line)]" />
-                        <span className="mono ml-2.5 text-[0.7rem] text-[var(--faint)] truncate">
+                        <span className="mono ml-2.5 t-xs text-[var(--faint)] truncate">
                           {w.id}.architecture
                         </span>
                       </div>
@@ -163,8 +190,8 @@ export default function WorkPage() {
       </div>
 
       {/* ---------- close ---------- */}
-      <section className="wrap pb-24 pt-10">
-        <div className="card p-7 md:p-10 max-w-[68ch] reveal">
+      <section className="wrap pb-4 page-end">
+        <div className="card pad-lg max-w-[68ch] reveal">
           <h2 className="h3">Want the parts I left out?</h2>
           <p className="mt-3 text-[var(--mid)] leading-relaxed">
             Happy to go through any of these properly on a call, including the

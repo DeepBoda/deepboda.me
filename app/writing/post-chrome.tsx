@@ -59,7 +59,7 @@ export function PostNav() {
       {newer ? (
         <Link
           href={`/writing/${newer.slug}`}
-          className="layer-card group p-6"
+          className="layer-card group pad"
           style={{ ["--tint" as string]: "var(--l2)" }}
         >
           <span className="eyebrow flex items-center gap-2">
@@ -68,7 +68,7 @@ export function PostNav() {
           <span className="mt-3 block font-semibold tracking-[-0.028em] leading-snug group-hover:text-[var(--accent)] transition-colors">
             {newer.title}
           </span>
-          <span className="mono mt-3 block text-[0.74rem] text-[var(--faint)]">
+          <span className="mono mt-3 block t-xs text-[var(--faint)]">
             {newer.read}
           </span>
         </Link>
@@ -77,7 +77,7 @@ export function PostNav() {
       {older && (
         <Link
           href={`/writing/${older.slug}`}
-          className={`layer-card group p-6 ${both ? "sm:text-right" : ""}`}
+          className={`layer-card group pad ${both ? "sm:text-right" : ""}`}
           style={{ ["--tint" as string]: "var(--l5)" }}
         >
           <span
@@ -90,7 +90,7 @@ export function PostNav() {
           <span className="mt-3 block font-semibold tracking-[-0.028em] leading-snug group-hover:text-[var(--accent)] transition-colors">
             {older.title}
           </span>
-          <span className="mono mt-3 block text-[0.74rem] text-[var(--faint)]">
+          <span className="mono mt-3 block t-xs text-[var(--faint)]">
             {older.read}
           </span>
         </Link>
