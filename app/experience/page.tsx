@@ -79,6 +79,16 @@ const OWNED = [
     ],
   },
   {
+    t: "Mobile and realtime",
+    tint: "--l5",
+    items: [
+      "Flutter across a large portfolio of apps, on a consistent toolchain: GetX for state, Dio for the API layer, and Firebase for auth, push and crash reporting.",
+      "Socket.io on both ends. Server side for live prices, leaderboards and notifications, and socket_io_client in the apps consuming them.",
+      "Push delivery end to end: Firebase Cloud Messaging, local notifications, permission handling and the token lifecycle that quietly breaks when nobody owns it.",
+      "Media pipelines behind the apps: Multer uploads, Sharp resizing, S3 storage and CloudFront delivery, so a content-heavy screen still loads on a bad connection.",
+    ],
+  },
+  {
     t: "Release engineering",
     tint: "--l1",
     items: [
@@ -91,22 +101,32 @@ const OWNED = [
     t: "Backend and full-stack delivery",
     tint: "--l4",
     items: [
-      "Backend development across the portfolio: Node.js and Express services, REST APIs, WebSocket and Socket.io services, and PostgreSQL or MySQL schema design.",
+      "Backend development across the portfolio: Node.js, Express and NestJS services, REST APIs, WebSocket and Socket.io services, and schema design across PostgreSQL, MySQL and MongoDB.",
+      "Architecture across all three shapes: monolithic where it fit, microservices where a workload needed to scale alone, and event-driven with SQS, Lambda and Redis pub/sub for anything that did not belong on the request path.",
+      "AI features in shipped products, not demos: prompt-based search over a catalogue via the OpenAI API, and card recognition that turns a photographed business card into a contact.",
       "Next.js and React front ends, so technical scope of a request runs from requirements to rendering.",
+      "Security as part of the build rather than a later pass: JWT auth, bcrypt, Helmet, per-route rate limiting and role based access, applied consistently across the portfolio rather than per project.",
       "Client delivery directly, not through a layer. Urgent releases and production fixes outside business hours, often in languages and codebases I did not write.",
     ],
   },
 ];
 
 const SKILLS: [string, string[]][] = [
-  ["Cloud", ["AWS", "GCP", "EC2", "EKS", "ECS", "Fargate", "ECR", "RDS", "S3", "CloudFront", "IAM", "CloudWatch"]],
-  ["Containers and orchestration", ["Docker", "Kubernetes", "Helm", "ArgoCD", "HPA", "Cluster Autoscaler"]],
-  ["Infrastructure as code", ["Terraform", "Docker Compose", "Nginx", "PM2", "systemd", "Bash"]],
-  ["CI/CD", ["Jenkins", "ArgoCD", "CircleCI", "AWS CodeBuild", "CodePipeline", "GitHub Actions", "Xcode Cloud"]],
-  ["Backend", ["Node.js", "Express", "NestJS", "Fastify", "Prisma", "Socket.io", "REST", "WebSockets"]],
-  ["Front end and mobile", ["Next.js", "React", "TypeScript", "Tailwind", "Flutter"]],
-  ["Data", ["PostgreSQL", "MySQL", "Redis", "Elasticsearch", "MongoDB"]],
+  ["Cloud", ["AWS", "Azure", "GCP", "EC2", "EKS", "ECS", "ECR", "RDS", "S3", "CloudFront", "Lambda", "SNS", "SES", "SQS", "IAM", "CloudWatch"]],
+  ["Containers and orchestration", ["Docker", "Docker Compose", "Kubernetes", "Helm", "ArgoCD", "HPA", "Cluster Autoscaler"]],
+  ["Infrastructure as code", ["Terraform", "Nginx", "PM2", "systemd", "Bash"]],
+  ["CI/CD", ["Jenkins", "ArgoCD", "CircleCI", "AWS CodeBuild", "CodePipeline", "Azure Pipelines", "GitHub Actions", "Xcode Cloud"]],
+  ["Backend", ["Node.js", "Express", "NestJS", "Fastify", "TypeScript", "REST", "WebSockets", "Socket.io"]],
+  ["Data and ORMs", ["MySQL", "PostgreSQL", "MongoDB", "Redis", "Elasticsearch", "Sequelize", "TypeORM", "Prisma", "Mongoose"]],
+  ["Queues and async", ["Amazon SQS", "AWS Lambda", "Redis pub/sub", "node-cron", "Scheduled workers"]],
+  ["Media pipeline", ["Multer", "Sharp", "S3", "CloudFront", "Image resizing"]],
+  ["Front end", ["Next.js", "React", "TypeScript", "Tailwind"]],
+  ["Mobile", ["Flutter", "Dart", "GetX", "Dio", "Firebase Messaging", "Local notifications", "socket_io_client"]],
+  ["AI in production", ["OpenAI API", "Prompt-based search", "Image and card recognition"]],
+  ["Security", ["JWT", "bcrypt", "Helmet", "Rate limiting", "RBAC", "IAM policy", "Secrets management"]],
   ["Observability", ["Prometheus", "Grafana", "CloudWatch", "Alert tuning", "Runbooks"]],
+  ["Firebase", ["Auth", "Cloud Messaging", "Storage", "Crashlytics", "Analytics", "App Check"]],
+  ["Integrations", ["Stripe", "Razorpay", "PayPal", "Msg91", "Twilio", "Nodemailer", "RevenueCat"]],
   ["Release", ["App Store Connect", "Google Play Console", "TestFlight", "notarytool", "Code signing"]],
 ];
 
