@@ -2,6 +2,7 @@
 
 import { useEffect, useRef } from "react";
 import type { Layer } from "@/lib/content";
+import LayerFigure from "./layer-figure";
 
 /**
  * The centrepiece: a pinned vertical stack diagram on the right,
@@ -129,6 +130,9 @@ export default function RequestTrace({ layers }: { layers: Layer[] }) {
               <p className="bite-box mt-6 max-w-[52ch] t-body leading-relaxed">
                 {l.bite}
               </p>
+
+              {/* the same failure, drawn */}
+              <LayerFigure id={l.id} tint={l.tint} />
 
               <ul className="mt-6 flex flex-wrap gap-2">
                 {l.tools.map((t) => (

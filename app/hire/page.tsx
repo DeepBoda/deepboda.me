@@ -1,6 +1,6 @@
 import type { Metadata } from "next";
 import Link from "next/link";
-import { SITE } from "@/lib/content";
+import { SITE, AVAILABLE_NOW } from "@/lib/content";
 
 export const metadata: Metadata = {
   title: "Hire me",
@@ -47,7 +47,9 @@ const FIRST_MONTH = [
 const FAQ = [
   {
     q: "When can you start?",
-    a: "1 September 2026. My last day at my current company is 31 August, and I am not asking anyone to wait.",
+    a: AVAILABLE_NOW
+      ? "Now. My last day was 31 August, notice fully served."
+      : "1 September 2026. My last day at my current company is 31 August, and I am not asking anyone to wait.",
   },
   {
     q: "Notice period?",
@@ -100,7 +102,8 @@ export default function Hire() {
       >
         <p className="eyebrow reveal">Hire me</p>
         <h1 className="h2 mt-4 max-w-[20ch] reveal">
-          Available from 1 September. Here is everything you would ask first.
+          {AVAILABLE_NOW ? "Open to work, right now." : "Available from 1 September."}{" "}
+          Here is everything you would ask first.
         </h1>
         <p className="lede mt-5 max-w-[60ch] reveal">
           Four years running production on AWS at a services company, which
@@ -133,7 +136,7 @@ export default function Hire() {
 
         <dl className="mt-12 grid grid-cols-2 lg:grid-cols-4 gap-3 md:gap-4 reveal">
           {[
-            ["Available", "1 Sept 2026", "--l6"],
+            ["Available", AVAILABLE_NOW ? "Now" : "1 Sept 2026", "--l6"],
             ["Notice", "None, served", "--l2"],
             ["Based", "Ahmedabad, IN", "--l3"],
             ["Open to", "Remote / hybrid", "--l1"],
@@ -283,6 +286,10 @@ export default function Hire() {
             {" · "}
             <Link href="/experience" className="link-u text-[var(--ink)]">
               Experience
+            </Link>
+            {" · "}
+            <Link href="/services" className="link-u text-[var(--ink)]">
+              Project work
             </Link>
             {" · "}
             <Link href="/writing" className="link-u text-[var(--ink)]">

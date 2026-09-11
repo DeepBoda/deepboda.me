@@ -68,7 +68,7 @@ export default function Home() {
         {/* ---------------- HERO ---------------- */}
         <section className="grid-bg glow wrap page-head-lg pb-10 md:pb-14">
           <p className="eyebrow reveal">
-            DevOps · Platform · Full-Stack · {SITE.location}
+            DevOps · Full-Stack · Cloud · Platform
           </p>
 
           <h1 className="display mt-5 max-w-[16ch] reveal">
@@ -153,7 +153,7 @@ export default function Home() {
         </section>
 
         {/* ---------------- CLUSTER ---------------- */}
-        <section id="cluster" className="band grid-bg section border-t-0">
+        <section id="autoscaling" className="band grid-bg section border-t-0">
           <div className="wrap grid lg:grid-cols-[1fr_1.1fr] gap-12 lg:gap-16 items-center">
             <div>
               <p className="eyebrow reveal">The cluster</p>
@@ -161,9 +161,7 @@ export default function Home() {
                 What autoscaling actually looks like.
               </h2>
               <p className="lede mt-5 max-w-[46ch] reveal">
-                Four worker nodes, pods spread across them, and one service
-                scaling on its own while the rest stay flat. That last part is
-                the whole design.
+                One application, six workloads, and the two statefulsets that hold the state. Only the socket service moves. That last part is the whole design.
               </p>
               <p className="mt-5 text-[var(--mid)] max-w-[48ch] leading-relaxed reveal">
                 Splitting workloads so a spike stays contained is the difference
@@ -171,7 +169,7 @@ export default function Home() {
                 hot pod exhausts shared capacity and takes the platform with it.
               </p>
               <ul className="mt-7 flex flex-wrap gap-2 reveal">
-                {["EKS", "HPA", "Cluster Autoscaler", "ECS", "Fargate", "Helm"].map(
+                {["EKS", "ArgoCD", "HPA", "StatefulSets", "Redis", "Elasticsearch", "Helm"].map(
                   (t) => (
                     <li key={t} className="chip">{t}</li>
                   )
@@ -286,7 +284,7 @@ export default function Home() {
         <Principles />
 
         <NextUp />
-      
+
       </main>
 
     </>

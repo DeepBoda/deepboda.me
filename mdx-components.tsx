@@ -45,6 +45,14 @@ const components: MDXComponents = {
       />
     ),
     a: (p) => <a className="link-u text-[var(--ink)]" {...p} />,
+    /* Fenced blocks scroll inside themselves. Without this a single long
+       line pushes the whole page sideways on a phone. */
+    pre: (p) => (
+      <pre
+        className="my-8 overflow-x-auto rounded-xl border border-[var(--hair)] bg-[var(--bg-raised)] px-4 py-3.5 t-sm leading-[1.75]"
+        {...p}
+      />
+    ),
     code: (p) => (
       <code
         className="mono px-1.5 py-0.5 rounded bg-[var(--hair)] text-[var(--ink)]"

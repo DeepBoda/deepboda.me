@@ -18,7 +18,9 @@ function useCountUp(target: number, on: boolean, ms = 1100) {
     let raf = 0;
     const t0 = performance.now();
     const tick = (t: number) => {
-      const p = Math.min((t - t0) / ms, 1);
+      // clamp low as well as high: a first frame at t < t0 makes (1-p)^3 > 1,
+      // which briefly rendered "-3K+" on the 100K card
+      const p = Math.min(Math.max((t - t0) / ms, 0), 1);
       setN(Math.round(target * (1 - Math.pow(1 - p, 3))));
       if (p < 1) raf = requestAnimationFrame(tick);
     };

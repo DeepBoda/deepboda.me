@@ -5,6 +5,7 @@ import { sortedPosts } from "@/lib/posts";
 
 const PAGES = [
   { href: "/hire", label: "Hire me" },
+  { href: "/services", label: "Services" },
   { href: "/work", label: "Work" },
   { href: "/experience", label: "Experience" },
   { href: "/writing", label: "Writing" },

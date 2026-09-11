@@ -13,6 +13,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
   return [
     { url: SITE.url, lastModified: BUILT, changeFrequency: "monthly", priority: 1 },
     { url: `${SITE.url}/hire`, lastModified: BUILT, changeFrequency: "weekly", priority: 0.95 },
+    { url: `${SITE.url}/services`, lastModified: BUILT, changeFrequency: "monthly", priority: 0.95 },
     { url: `${SITE.url}/work`, lastModified: BUILT, changeFrequency: "monthly", priority: 0.9 },
     { url: `${SITE.url}/work/anonymous-india`, lastModified: BUILT, changeFrequency: "monthly", priority: 0.85 },
     { url: `${SITE.url}/experience`, lastModified: BUILT, changeFrequency: "monthly", priority: 0.9 },

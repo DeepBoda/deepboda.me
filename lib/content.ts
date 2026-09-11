@@ -1,3 +1,9 @@
+/* Evaluated once, at build time, because this is a static export. Rebuild on or
+   after 1 September and every place that reads SITE.available flips from a
+   promise to a fact, without anyone editing five files. */
+export const AVAILABLE_NOW =
+  Date.now() >= new Date("2026-09-01T00:00:00+05:30").getTime();
+
 export const SITE = {
   cv: "/Deep-Boda-DevOps-Engineer-CV.pdf",
   name: "Deep Boda",
@@ -7,11 +13,11 @@ export const SITE = {
   phone: "+91 8128769896",
   linkedin: "https://linkedin.com/in/deep-boda",
   location: "Ahmedabad, India",
-  available: "Available from 1 September",
+  available: AVAILABLE_NOW ? "Open to work now" : "Available from 1 September",
   tagline:
     "I run production infrastructure, and I write the code that runs on it.",
   description:
-    "Senior DevOps and Full-Stack Engineer in Ahmedabad. Four years running production on AWS: Kubernetes on EKS, ECS microservices, Terraform and the Node.js on top. Available from 1 September.",
+    "Senior DevOps and Full-Stack Engineer in Ahmedabad. Four years running production on AWS: Kubernetes on EKS, ECS microservices, Terraform and the Node.js on top. Open to work.",
 };
 
 export type Layer = {

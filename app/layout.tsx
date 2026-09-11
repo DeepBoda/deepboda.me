@@ -85,10 +85,10 @@ const jsonLd = {
   name: SITE.name,
   url: SITE.url,
   email: `mailto:${SITE.email}`,
-  jobTitle: "Senior DevOps Engineer",
+  jobTitle: "Senior DevOps & Full-Stack Engineer",
   description: SITE.description,
   address: {
-    "@type": "PostalPlace",
+    "@type": "PostalAddress",
     addressLocality: "Ahmedabad",
     addressCountry: "IN",
   },

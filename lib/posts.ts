@@ -15,6 +15,18 @@ export type Post = {
  */
 export const POSTS: Post[] = [
   {
+    slug: "three-lakh-api-calls",
+    title: "Ten API calls. Three of them were the same question.",
+    summary:
+      "The ask was more servers. I spent a day counting instead. One screen, ten calls, one lakh opens a day, and three lakh requests that never needed to exist.",
+    date: "2026-08-25",
+    read: "7 min",
+    tags: ["API design", "Architecture", "Postgres", "Cost"],
+    image: "/writing/three-lakh-api-calls.webp",
+    imageAlt:
+      "Two network panels stacked. The top one lists ten GET requests for a single home screen with five of them marked in red, and the bottom one lists the same screen rebuilt with 7 requests, the merged call marked in green. A handwritten note between them reads that four of these read the same one row.",
+  },
+  {
     slug: "one-service-took-everything",
     title: "The night one service took everything with it",
     summary:

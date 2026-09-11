@@ -74,6 +74,27 @@ export default function NextUp() {
             </p>
           </Link>
 
+          {/* ---- services ---- */}
+          <Link
+            href="/services"
+            className="glass tile group p-7 flex flex-col"
+            style={{ ["--tint" as string]: "var(--l1)" }}
+          >
+            <div className="flex items-center gap-3">
+              <span className="tint-dot" aria-hidden="true" />
+              <span className="eyebrow" style={{ color: "var(--tint)" }}>
+                Services
+              </span>
+              <Arrow />
+            </div>
+            <h3 className="mt-4 t-lg font-semibold tracking-[-0.03em] leading-snug">
+              One person, the whole product.
+            </h3>
+            <p className="mt-auto pt-6 t-sm text-[var(--soft)] leading-snug">
+              Projects, monthly retainers, and one week audits.
+            </p>
+          </Link>
+
           {/* ---- tools ---- */}
           <Link
             href="/tools"

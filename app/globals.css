@@ -663,3 +663,27 @@
   from { opacity: 0; }
   to   { opacity: 1; }
 }
+
+/* Block code is not inline code. The <code> component styles the inline
+   case; inside a <pre> that chrome is wrong and the padding double-counts. */
+pre > code {
+  display: block;
+  padding: 0;
+  background: none;
+  border-radius: 0;
+  color: var(--ink);
+  white-space: pre;
+}
+
+/* The single moving element inside a layer figure. It marks the thing that is
+   failing, so it should breathe rather than blink. */
+.fig-pulse {
+  animation: fig-pulse 2.4s ease-in-out infinite;
+}
+@keyframes fig-pulse {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0.42; }
+}
+@media (prefers-reduced-motion: reduce) {
+  .fig-pulse { animation: none; }
+}

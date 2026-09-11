@@ -1,0 +1,128 @@
+import ArticleHeader from "@/app/writing/article-header";
+import { postBySlug } from "@/lib/posts";
+
+export const metadata = {
+  title: postBySlug("three-lakh-api-calls").title,
+  description: postBySlug("three-lakh-api-calls").summary,
+  alternates: { canonical: "https://deepboda.me/writing/three-lakh-api-calls" },
+  openGraph: {
+    type: "article",
+    url: "https://deepboda.me/writing/three-lakh-api-calls",
+    title: postBySlug("three-lakh-api-calls").title,
+    description: postBySlug("three-lakh-api-calls").summary,
+    images: ["/og/three-lakh-api-calls.png"],
+  },
+};
+
+<ArticleHeader slug="three-lakh-api-calls" />
+
+The ask was more servers. The app felt slow in the evening, the bill went up every month, and the obvious next move was to give the cluster more room.
+
+I asked for a day before anyone bought anything, and I spent it counting.
+
+## One screen, ten calls
+
+The busiest screen in the product made ten API calls every time it opened. Not ten over a session. Ten on open.
+
+About one lakh people open that screen every day. So:
+
+```
+10 calls  x  1,00,000 opens  =  10,00,000 requests a day
+```
+
+Ten lakh requests, for one screen. Not the app. One screen.
+
+That number is not interesting on its own. Every busy product has a number like it. What is interesting is what happens when you read the ten calls instead of counting them.
+
+## The three that were one user
+
+The first three were these.
+
+| Call | What it returned |
+| --- | --- |
+| `GET /user/profile` | name, avatar |
+| `GET /wallet/balance` | available balance |
+| `GET /loyalty/points` | reward points |
+
+Three separate endpoints, three separate handlers, three separate round trips. All of them keyed on the same `user_id`. All three tables sitting in the same database, next to each other.
+
+The server now runs one query instead:
+
+```sql
+SELECT u.name, w.balance, l.points
+FROM users u
+JOIN wallets w ON w.user_id = u.id
+JOIN loyalty l ON l.user_id = u.id
+WHERE u.id = ?
+```
+
+Three calls became one. Nothing left the screen. The user sees the same name, the same balance, the same points.
+
+## The one that was already free
+
+The next two were worse, in the way that is easy to miss.
+
+```
+GET /orders/recent    ->  SELECT * FROM orders WHERE user_id = ? LIMIT 3
+GET /orders/count     ->  SELECT COUNT(*) FROM orders WHERE user_id = ?
+```
+
+Same table. Same filter. Two round trips.
+
+The second call exists to put a number in a small badge. We were opening a connection, taking a slot in the pool, and asking the database to count rows that the first call had just handed us.
+
+The fix is not clever. It is response shape.
+
+```json
+{ "meta": { "total": 12 }, "data": [ ... ] }
+```
+
+Two calls became one.
+
+## What that adds up to
+
+Three calls removed per open. Ten became 7.
+
+```
+before   10 x 1,00,000  =  10,00,000 a day
+after     7 x 1,00,000  =   7,00,000 a day
+                           ----------
+                            3,00,000 a day, gone
+```
+
+Nobody wrote bad code to get here. Ten correct APIs, built by different people, in different sprints, over a couple of years. Each one reviewed, each one working. Correct APIs, wrong total.
+
+That is the part worth sitting with. There was no bug to find. There was only a number nobody had added up.
+
+## The half that is my actual job
+
+Here is where it stops being a backend story.
+
+Every one of those calls walks the same path. It hits the load balancer, which means a TLS handshake and a routing decision. It reaches a pod, and holds a worker while it waits. It takes a connection out of the pool, which is the narrowest part of the whole path. Then it queries Postgres.
+
+Six hops, ten times per open, one lakh times a day.
+
+Take three of the ten away and the pool stops running hot in the evening. CPU stops touching the scale up threshold. The autoscaler, which was working perfectly the whole time, simply stops finding a reason to add pods. Peak replicas came down. The bill followed, without anybody choosing an instance type.
+
+We did not buy a single server.
+
+## Why the DevOps person should be reading the API list
+
+I get called when the cluster is unhappy. That is the job on paper. But a fair amount of the time the cluster is unhappy because of a decision made in a controller three months earlier, by somebody who had no reason to think about pods.
+
+You cannot autoscale your way out of an API that asks the same question three times. You can only pay for it, every month, at a slightly higher rate each time you grow.
+
+So I read the API list. I decide what a screen is allowed to ask for. I decide how the app talks to the backend, and what one response carries. That decision sets the shape of the infrastructure long before any Terraform runs.
+
+Running the platform and designing what runs on it is the same job. Splitting it across two people is how you end up with ten correct APIs and a bill nobody can explain.
+
+## Try it on your own product
+
+Open your busiest screen. Open the network tab. Count.
+
+Then read the list, and ask two questions about it.
+
+1. **Are any of these the same record?** Anything keyed on the same id, coming back from separate endpoints, is a join you have not written yet.
+2. **Is anything here derivable from something else here?** Counts, totals, flags and badges are usually free inside a response you are already sending.
+
+If the answer to either is yes, the number you just counted is bigger than it needs to be, and you are paying for the difference every single day.
