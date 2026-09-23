@@ -7,6 +7,13 @@
   command = "npm run build"
   publish = "out"
 
+# ===========================================================================
+# Everything BELOW this line is copied into out/ by scripts/finish-export.mjs,
+# so a drag-and-drop deploy keeps the headers and redirects. The [build] block
+# above must NOT go with it: out/ has no package.json, so Netlify would try to
+# build an already-built folder and fail with ENOENT.
+# ===========================================================================
+
 # ---------------------------------------------------------------------------
 # Redirects
 # ---------------------------------------------------------------------------

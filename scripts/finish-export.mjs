@@ -71,7 +71,12 @@ for (const [from, to] of REDIRECTS) {
 // A drag-and-drop deploy reads netlify.toml from inside the published folder.
 // Copy it in, otherwise a manual deploy silently drops the security headers
 // and the netlify.app redirect.
-await copyFile("netlify.toml", join(OUT, "netlify.toml"));
+const MARKER = "# ===========================================================================";
+const toml = await readFile("netlify.toml", "utf8");
+const i = toml.indexOf(MARKER);
+if (i === -1) throw new Error("netlify.toml is missing the copy marker");
+// only the headers and redirects travel with the export, never the build block
+await writeFile(join(OUT, "netlify.toml"), toml.slice(i));
 
 console.log(
   `export finished: ${mirrored} directory index files, ${REDIRECTS.length} redirects`
