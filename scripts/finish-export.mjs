@@ -1,4 +1,4 @@
-import { readFile, writeFile, mkdir, readdir, stat } from "node:fs/promises";
+import { readFile, writeFile, mkdir, readdir, stat, copyFile } from "node:fs/promises";
 import { join, dirname, relative } from "node:path";
 
 const OUT = "out";
@@ -67,6 +67,11 @@ for (const [from, to] of REDIRECTS) {
   await writeFile(join(OUT, from, "index.html"), body);
   await writeFile(join(OUT, `${from}.html`), body);
 }
+
+// A drag-and-drop deploy reads netlify.toml from inside the published folder.
+// Copy it in, otherwise a manual deploy silently drops the security headers
+// and the netlify.app redirect.
+await copyFile("netlify.toml", join(OUT, "netlify.toml"));
 
 console.log(
   `export finished: ${mirrored} directory index files, ${REDIRECTS.length} redirects`
