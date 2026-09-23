@@ -91,7 +91,7 @@ export default function Nav() {
         <nav
           aria-label="Primary"
           data-stuck={stuck || open}
-          className="nav-island pointer-events-auto flex items-center gap-3 h-14 pl-5 pr-2"
+          className="nav-island pointer-events-auto flex items-center gap-3 h-16 pl-5 pr-2"
         >
           <Link
             href="/"
@@ -141,7 +141,7 @@ export default function Nav() {
 
           <Link
             href="/hire"
-            className="hidden lg:inline-flex items-center gap-2 h-10 pl-3.5 pr-4 rounded-full bg-[var(--ink)] text-[var(--bg)] t-sm font-medium hover:opacity-90 transition-opacity shrink-0"
+            className="hidden lg:inline-flex items-center gap-2 h-11 pl-4 pr-5 rounded-full bg-[var(--ink)] text-[var(--bg)] t-sm font-medium hover:opacity-90 transition-opacity shrink-0"
           >
             <span className="relative flex w-1.5 h-1.5" aria-hidden="true">
               <span className="absolute inline-flex w-full h-full rounded-full bg-[var(--bg)] opacity-70 motion-safe:animate-ping" />

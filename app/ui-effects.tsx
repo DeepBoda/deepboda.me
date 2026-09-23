@@ -8,12 +8,18 @@ export default function UiEffects() {
   const path = usePathname();
 
   useEffect(() => {
+    /* declared here, not inside the timeout, so the effect's own cleanup can
+       reach it. It used to live inside the setTimeout callback: the outer
+       effect only ever returned clearTimeout(timer), so every listener
+       attached below leaked on every navigation. */
+    const cleanups: (() => void)[] = [];
+    let cancelled = false;
+
     // wait for the DOM to settle after a page transition
     const timer = setTimeout(() => {
+      if (cancelled) return;
       if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) return;
       if (window.matchMedia("(pointer: coarse)").matches) return; // skip on touch devices
-
-      const cleanups: (() => void)[] = [];
 
       // 1. Magnetic Buttons
       const buttons = document.querySelectorAll<HTMLElement>(".btn, .btn-primary");
@@ -41,6 +47,7 @@ export default function UiEffects() {
         cleanups.push(() => {
           btn.removeEventListener("mousemove", onMouseMove);
           btn.removeEventListener("mouseleave", onMouseLeave);
+          gsap.set(btn, { x: 0, y: 0 });
         });
       });
 
@@ -60,13 +67,13 @@ export default function UiEffects() {
           card.removeEventListener("mousemove", onMouseMove);
         });
       });
-
-      return () => {
-        cleanups.forEach((c) => c());
-      };
     }, 100);
 
-    return () => clearTimeout(timer);
+    return () => {
+      cancelled = true;
+      clearTimeout(timer);
+      cleanups.forEach((c) => c());
+    };
   }, [path]);
 
   return null;

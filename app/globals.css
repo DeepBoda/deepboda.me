@@ -28,11 +28,19 @@
 
   color-scheme: light;
 
-  --nav-h: 72px;
+  /* mobile: pt-3 (12px) + h-16 island (64px) = 76px.
+     desktop: pt-4 (16px) + h-16 island (64px) = 80px, see below. */
+  --nav-h: 76px;
   --max: 1120px;
   --gutter: 24px;
   --font-sans: var(--font-inter), -apple-system, "Helvetica Neue", Arial, sans-serif;
   --font-mono: ui-monospace, "SF Mono", Menlo, monospace;
+}
+
+@media (min-width: 768px) {
+  :root {
+    --nav-h: 80px;
+  }
 }
 
 @theme inline {
