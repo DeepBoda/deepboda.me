@@ -45,5 +45,5 @@ export const BUILD = {
         return null;
       }
     })(),
-  repo: "https://github.com/DeepBoda/deepboda.me",
+  repo: "https://github.com/DeepBoda/deepboda.in",
 };

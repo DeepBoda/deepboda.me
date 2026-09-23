@@ -53,7 +53,7 @@ for (const [from, to] of REDIRECTS) {
 <head>
 <meta charset="utf-8">
 <title>Moved</title>
-<link rel="canonical" href="https://deepboda.me${to}">
+<link rel="canonical" href="https://deepboda.in${to}">
 <meta http-equiv="refresh" content="0; url=${to}">
 <meta name="robots" content="noindex">
 </head>

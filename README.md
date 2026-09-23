@@ -1,4 +1,4 @@
-# deepboda.me
+# deepboda.in
 
 Personal site for Deep Boda, Senior DevOps & Full-Stack Engineer.
 
@@ -81,7 +81,7 @@ with `color-scheme: light`, so there is exactly one place a colour is defined.
 
 ## Deploy
 
-**Phase 1, Vercel.** Push to GitHub, import, point deepboda.me at it. Free.
+**Phase 1, Vercel.** Push to GitHub, import, point deepboda.in at it. Free.
 
 **Phase 2, own infrastructure.** `next build` with `output: "export"` gives a
 static bundle for S3 + CloudFront, provisioned with Terraform and deployed from

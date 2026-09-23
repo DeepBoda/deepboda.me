@@ -33,8 +33,8 @@ All of these work with no configuration, because the build writes both
 server {
     listen 80;
     listen [::]:80;
-    server_name deepboda.me www.deepboda.me;
-    root /var/www/deepboda.me;
+    server_name deepboda.in www.deepboda.in;
+    root /var/www/deepboda.in;
     index index.html;
 
     # /work resolves to work.html, then work/index.html
@@ -68,7 +68,7 @@ server {
 Deploy is a copy:
 
 ```bash
-rsync -av --delete out/ user@server:/var/www/deepboda.me/
+rsync -av --delete out/ user@server:/var/www/deepboda.in/
 ```
 
 ## Caddy
@@ -76,8 +76,8 @@ rsync -av --delete out/ user@server:/var/www/deepboda.me/
 Caddy needs no rewrite rules for this layout.
 
 ```caddy
-deepboda.me {
-    root * /var/www/deepboda.me
+deepboda.in {
+    root * /var/www/deepboda.in
     encode zstd gzip
     try_files {path} {path}.html {path}/index.html
     file_server

@@ -102,7 +102,7 @@ export default function HowThisSiteIsBuilt() {
             <span className="w-2.5 h-2.5 rounded-full bg-[#3a3a44]" />
             <span className="w-2.5 h-2.5 rounded-full bg-[#3a3a44]" />
             <span className="mono ml-3 t-xs text-[#74747e] truncate">
-              deepboda.me
+              deepboda.in
             </span>
             <span className="mono ml-auto shrink-0 t-xs text-[#6fc785] flex items-center gap-2">
               <span className="w-1.5 h-1.5 rounded-full bg-[#6fc785]" />
@@ -237,7 +237,7 @@ export default function HowThisSiteIsBuilt() {
               rel="noopener noreferrer"
               className="mt-6 inline-flex items-center gap-2 h-11 px-5 rounded-full bg-[var(--ink)] text-[var(--bg)] font-medium hover:opacity-90 transition-opacity"
             >
-              <span className="truncate">github.com/DeepBoda/deepboda.me</span>
+              <span className="truncate">github.com/DeepBoda/deepboda.in</span>
               <span aria-hidden="true">→</span>
             </a>
           </Panel>

@@ -8,7 +8,7 @@ export const SITE = {
   cv: "/Deep-Boda-DevOps-Engineer-CV.pdf",
   name: "Deep Boda",
   role: "Senior DevOps & Full-Stack Engineer",
-  url: "https://deepboda.me",
+  url: "https://deepboda.in",
   email: "deepboda18@gmail.com",
   phone: "+91 8128769896",
   linkedin: "https://linkedin.com/in/deep-boda",
