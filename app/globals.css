@@ -28,7 +28,7 @@
 
   color-scheme: light;
 
-  --nav-h: 64px;
+  --nav-h: 72px;
   --max: 1120px;
   --gutter: 24px;
   --font-sans: var(--font-inter), -apple-system, "Helvetica Neue", Arial, sans-serif;
@@ -538,6 +538,115 @@
     padding: 13px 16px 13px 15px;
     color: var(--ink);
     font-weight: 500;
+  }
+
+  /* ---- aurora ---------------------------------------------------------- */
+  /* Three soft light sources drifting behind a section. Clipped by its own
+     box, sits under the content, and holds still for reduced motion. On a
+     light page this has to stay faint or it reads as a decorative blob. */
+  .aurora {
+    position: absolute;
+    inset: 0;
+    z-index: -1;
+    overflow: hidden;
+    pointer-events: none;
+    border-radius: inherit;
+  }
+  .aurora .orb {
+    position: absolute;
+    border-radius: 50%;
+    filter: blur(70px);
+    will-change: transform;
+  }
+  .aurora-light .orb { opacity: 0.30; }
+  .aurora-dark .orb { opacity: 0.55; filter: blur(84px); }
+
+  .aurora .orb-a {
+    width: 38rem; height: 38rem; left: -12rem; top: -14rem;
+    background: radial-gradient(circle, var(--l3), transparent 68%);
+    animation: drift-a 26s ease-in-out infinite alternate;
+  }
+  .aurora .orb-b {
+    width: 34rem; height: 34rem; right: -10rem; top: -6rem;
+    background: radial-gradient(circle, var(--l4), transparent 68%);
+    animation: drift-b 31s ease-in-out infinite alternate;
+  }
+  .aurora .orb-c {
+    width: 30rem; height: 30rem; left: 38%; bottom: -16rem;
+    background: radial-gradient(circle, var(--l5), transparent 68%);
+    animation: drift-c 36s ease-in-out infinite alternate;
+  }
+
+  @keyframes drift-a { to { transform: translate3d(5rem, 3rem, 0) scale(1.12); } }
+  @keyframes drift-b { to { transform: translate3d(-4rem, 4rem, 0) scale(1.08); } }
+  @keyframes drift-c { to { transform: translate3d(3rem, -3rem, 0) scale(1.14); } }
+
+  @media (prefers-reduced-motion: reduce) {
+    .aurora .orb { animation: none; }
+  }
+
+  /* ---- floating glass island nav ------------------------------------- */
+  /* A detached pill rather than a full width bar. The page content runs
+     underneath it, which is the whole point of the glass. */
+  .nav-island {
+    border-radius: 999px;
+    background: color-mix(in srgb, var(--bg) 70%, transparent);
+    -webkit-backdrop-filter: saturate(180%) blur(20px);
+    backdrop-filter: saturate(180%) blur(20px);
+    border: 1px solid color-mix(in srgb, #ffffff 42%, var(--line));
+    box-shadow:
+      0 1px 0 rgba(255, 255, 255, 0.55) inset,
+      0 6px 24px -14px rgba(15, 15, 20, 0.22);
+    transition: background-color 0.35s ease, box-shadow 0.35s ease,
+      border-color 0.35s ease, transform 0.35s cubic-bezier(0.22, 1, 0.36, 1);
+  }
+  /* once the page moves, the glass firms up and the island settles slightly */
+  .nav-island[data-stuck="true"] {
+    background: color-mix(in srgb, var(--bg) 78%, transparent);
+    -webkit-backdrop-filter: saturate(200%) blur(26px);
+    backdrop-filter: saturate(200%) blur(26px);
+    border-color: color-mix(in srgb, #ffffff 55%, var(--line));
+    box-shadow:
+      0 1px 0 rgba(255, 255, 255, 0.7) inset,
+      0 12px 40px -18px rgba(15, 15, 20, 0.32);
+  }
+
+  /* the marker that slides between links, and follows the pointer */
+  .nav-pill {
+    position: absolute;
+    left: 0;
+    top: 50%;
+    height: 34px;
+    margin-top: -17px;
+    border-radius: 999px;
+    background: color-mix(in srgb, var(--ink) 7%, transparent);
+    box-shadow: inset 0 0 0 1px color-mix(in srgb, var(--ink) 8%, transparent);
+    transition: transform 0.38s cubic-bezier(0.22, 1, 0.36, 1),
+      width 0.38s cubic-bezier(0.22, 1, 0.36, 1), opacity 0.25s ease;
+    pointer-events: none;
+    will-change: transform, width;
+  }
+
+  /* the mobile sheet is its own floating panel, not an extension of the bar */
+  .nav-sheet {
+    border-radius: 22px;
+    background: color-mix(in srgb, var(--bg) 88%, transparent);
+    -webkit-backdrop-filter: saturate(200%) blur(26px);
+    backdrop-filter: saturate(200%) blur(26px);
+    border: 1px solid color-mix(in srgb, #ffffff 50%, var(--line));
+    box-shadow:
+      0 1px 0 rgba(255, 255, 255, 0.6) inset,
+      0 18px 50px -20px rgba(15, 15, 20, 0.34);
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .nav-island, .nav-pill { transition: none; }
+  }
+
+  /* Safari and Firefox without backdrop-filter would show text on text, so
+     fall back to a solid surface rather than an unreadable one. */
+  @supports not ((backdrop-filter: blur(1px)) or (-webkit-backdrop-filter: blur(1px))) {
+    .nav-island, .nav-sheet { background: var(--bg); }
   }
 
   /* a pod in the cluster panel. state drives the look, not a class name. */

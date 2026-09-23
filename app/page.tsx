@@ -1,6 +1,7 @@
 import { SITE, LAYERS, RELEASE, STATS, TIMELINE } from "@/lib/content";
 import RequestTrace from "./request-trace";
 import Cluster from "./cluster";
+import Aurora from "./aurora";
 import StatBand from "./stat-band";
 import IncidentChart from "./incident-chart";
 import Timeline from "./timeline";
@@ -67,6 +68,7 @@ export default function Home() {
       <main id="top">
         {/* ---------------- HERO ---------------- */}
         <section className="grid-bg glow wrap page-head-lg pb-10 md:pb-14">
+          <Aurora />
           <p className="eyebrow reveal">
             DevOps · Full-Stack · Cloud · Platform
           </p>
