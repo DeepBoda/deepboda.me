@@ -28,19 +28,16 @@
 
   color-scheme: light;
 
-  /* mobile: pt-3 (12px) + h-16 island (64px) = 76px.
-     desktop: pt-4 (16px) + h-16 island (64px) = 80px, see below. */
-  --nav-h: 76px;
+  /* the nav is flush and full width at rest (no margin, no padding around
+     it), so its reserved height is just the h-16 bar itself: 64px, the same
+     at every breakpoint. It only gains a 12px top margin once scrolled, but
+     by then the page has already moved past the point --nav-h exists to
+     get right, which is the alignment of whatever sits at the very top. */
+  --nav-h: 64px;
   --max: 1120px;
   --gutter: 24px;
   --font-sans: var(--font-inter), -apple-system, "Helvetica Neue", Arial, sans-serif;
   --font-mono: ui-monospace, "SF Mono", Menlo, monospace;
-}
-
-@media (min-width: 768px) {
-  :root {
-    --nav-h: 80px;
-  }
 }
 
 @theme inline {
@@ -639,27 +636,39 @@
   /* ---- floating glass island nav ------------------------------------- */
   /* A detached pill rather than a full width bar. The page content runs
      underneath it, which is the whole point of the glass. */
+  /* Two distinct states, not one pill with a lighter tint. At rest the nav
+     is flush against the top edge: full width, square corners, no glass, no
+     shadow, reading as part of the page the way any ordinary header does.
+     Only once the page has actually scrolled does it become a separate
+     object: it lifts off the edge, rounds into a pill, and the glass turns
+     on. Every property that differs between the two states is spelled out
+     here rather than left to a blanket transition, so the morph is a real
+     shape change, not a colour fade wearing a permanent pill outline. */
   .nav-island {
-    border-radius: 999px;
-    background: color-mix(in srgb, var(--bg) 70%, transparent);
-    -webkit-backdrop-filter: saturate(180%) blur(20px);
-    backdrop-filter: saturate(180%) blur(20px);
-    border: 1px solid color-mix(in srgb, #ffffff 42%, var(--line));
-    box-shadow:
-      0 1px 0 rgba(255, 255, 255, 0.55) inset,
-      0 6px 24px -14px rgba(15, 15, 20, 0.22);
-    transition: background-color 0.35s ease, box-shadow 0.35s ease,
-      border-color 0.35s ease, transform 0.35s cubic-bezier(0.22, 1, 0.36, 1);
+    margin: 0;
+    border-radius: 0;
+    background: color-mix(in srgb, var(--bg) 82%, transparent);
+    border: 1px solid transparent;
+    border-bottom-color: color-mix(in srgb, var(--line) 55%, transparent);
+    box-shadow: none;
+    transition:
+      margin 0.45s cubic-bezier(0.22, 1, 0.36, 1),
+      border-radius 0.45s cubic-bezier(0.22, 1, 0.36, 1),
+      background-color 0.4s ease,
+      border-color 0.4s ease,
+      box-shadow 0.4s ease,
+      backdrop-filter 0.4s ease;
   }
-  /* once the page moves, the glass firms up and the island settles slightly */
   .nav-island[data-stuck="true"] {
+    margin: 12px clamp(12px, 3vw, 28px) 0;
+    border-radius: 999px;
     background: color-mix(in srgb, var(--bg) 78%, transparent);
     -webkit-backdrop-filter: saturate(200%) blur(26px);
     backdrop-filter: saturate(200%) blur(26px);
     border-color: color-mix(in srgb, #ffffff 55%, var(--line));
     box-shadow:
       0 1px 0 rgba(255, 255, 255, 0.7) inset,
-      0 12px 40px -18px rgba(15, 15, 20, 0.32);
+      0 16px 44px -18px rgba(15, 15, 20, 0.32);
   }
 
   /* the marker that slides between links, and follows the pointer */
@@ -678,20 +687,40 @@
     will-change: transform, width;
   }
 
-  /* the mobile sheet is its own floating panel, not an extension of the bar */
+  /* the mobile menu is a true full-viewport overlay, not a block that grows
+     in document flow. A max-height/in-flow sheet pushes the hero down as it
+     opens and back up as it closes, which is what reads as "flicker" and
+     "the background scrolls": the page underneath is genuinely reflowing.
+     Fixed positioning and opacity/transform only means nothing beneath it
+     ever moves. */
+  .nav-scrim {
+    position: fixed;
+    inset: 0;
+    z-index: 40;
+    background: color-mix(in srgb, var(--bg) 72%, transparent);
+    -webkit-backdrop-filter: blur(14px) saturate(140%);
+    backdrop-filter: blur(14px) saturate(140%);
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity 0.35s ease;
+  }
+  .nav-scrim[data-open="true"] {
+    opacity: 1;
+    pointer-events: auto;
+  }
   .nav-sheet {
     border-radius: 22px;
-    background: color-mix(in srgb, var(--bg) 88%, transparent);
+    background: color-mix(in srgb, var(--bg) 96%, transparent);
     -webkit-backdrop-filter: saturate(200%) blur(26px);
     backdrop-filter: saturate(200%) blur(26px);
     border: 1px solid color-mix(in srgb, #ffffff 50%, var(--line));
     box-shadow:
       0 1px 0 rgba(255, 255, 255, 0.6) inset,
-      0 18px 50px -20px rgba(15, 15, 20, 0.34);
+      0 24px 60px -20px rgba(15, 15, 20, 0.38);
   }
 
   @media (prefers-reduced-motion: reduce) {
-    .nav-island, .nav-pill { transition: none; }
+    .nav-island, .nav-pill, .nav-scrim { transition: none; }
   }
 
   /* Safari and Firefox without backdrop-filter would show text on text, so

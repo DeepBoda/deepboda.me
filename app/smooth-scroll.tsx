@@ -9,7 +9,16 @@ type Lenis = {
   resize: () => void;
   raf: (t: number) => void;
   on: (e: string, cb: () => void) => void;
+  stop: () => void;
+  start: () => void;
 };
+
+/** the name nav.tsx dispatches on window when the mobile overlay opens or
+ *  closes. Lenis owns scrolling here, so body { overflow: hidden } alone
+ *  does nothing: Lenis reads wheel input directly and drives window.scrollTo
+ *  itself, native overflow never enters into it. The page kept scrolling
+ *  behind a "locked" overlay until Lenis itself was told to stop. */
+export const MENU_TOGGLE_EVENT = "app:menu-toggle";
 
 /**
  * Lenis smooth scroll, driven by GSAP's ticker so scroll-linked animations
@@ -75,8 +84,16 @@ export default function SmoothScroll() {
       };
       document.addEventListener("click", onClick);
 
+      const onMenuToggle = (e: Event) => {
+        const detail = (e as CustomEvent<{ open: boolean }>).detail;
+        if (detail?.open) lenis.stop();
+        else lenis.start();
+      };
+      window.addEventListener(MENU_TOGGLE_EVENT, onMenuToggle);
+
       cleanup = () => {
         document.removeEventListener("click", onClick);
+        window.removeEventListener(MENU_TOGGLE_EVENT, onMenuToggle);
         gsap.ticker.remove(tick);
         lenis.destroy();
         lenisRef.current = null;

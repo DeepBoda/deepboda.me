@@ -4,6 +4,7 @@ import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { useCallback, useEffect, useLayoutEffect, useRef, useState } from "react";
 import { SITE } from "@/lib/content";
+import { MENU_TOGGLE_EVENT } from "./smooth-scroll";
 
 const LINKS = [
   { href: "/work", label: "Work", note: "Platforms I built and run" },
@@ -69,8 +70,15 @@ export default function Nav() {
   /* close on navigation */
   useEffect(() => setOpen(false), [path]);
 
-  /* escape to close, and hold the page still while the sheet is open */
+  /* escape to close, and hold the page still while the overlay is open.
+     body { overflow: hidden } alone does nothing here: Lenis reads wheel
+     input directly and drives the scroll position itself, so it has to be
+     told to stop separately or the page keeps moving behind a "locked"
+     overlay. */
   useEffect(() => {
+    window.dispatchEvent(
+      new CustomEvent(MENU_TOGGLE_EVENT, { detail: { open } })
+    );
     if (!open) return;
     const key = (e: KeyboardEvent) => e.key === "Escape" && setOpen(false);
     const prev = document.body.style.overflow;
@@ -83,16 +91,20 @@ export default function Nav() {
     };
   }, [open]);
 
+  const pinned = stuck || open;
+
   return (
-    /* the header itself takes no clicks, so the gap around the island is not a
-       dead strip across the top of every page */
+    /* the header itself takes no clicks. at rest .nav-island fills it edge
+       to edge so there is no dead strip; once stuck it shrinks with a
+       margin, and that margin is where clicks need to pass through to the
+       page instead of being eaten by an invisible header box. */
     <header className="sticky top-0 z-50 pointer-events-none">
-      <div className="wrap pt-3 md:pt-4">
-        <nav
-          aria-label="Primary"
-          data-stuck={stuck || open}
-          className="nav-island pointer-events-auto flex items-center gap-3 h-16 pl-5 pr-2"
-        >
+      <nav
+        aria-label="Primary"
+        data-stuck={pinned}
+        className="nav-island pointer-events-auto block relative z-50"
+      >
+        <div className="wrap flex items-center gap-3 h-16">
           <Link
             href="/"
             className="shrink-0 font-semibold tracking-[-0.024em] t-md hover:text-[var(--accent)] transition-colors"
@@ -177,76 +189,94 @@ export default function Nav() {
               />
             </span>
           </button>
-        </nav>
+        </div>
+      </nav>
 
-        {/* mobile sheet, its own floating panel under the island */}
+      {/* ---- mobile menu: a true fixed, full-viewport overlay ----
+          Not a block that grows in document flow. A max-height sheet pushes
+          the page below it down as it opens and back up as it closes, which
+          is what reads as flicker and "the background scrolls": the page is
+          genuinely reflowing under it. This never touches layout. The scrim
+          covers the whole screen so nothing behind it is visible or
+          reachable, and the card animates purely on opacity and transform. */}
+      <div
+        className="nav-scrim lg:hidden"
+        data-open={open}
+        aria-hidden="true"
+        onClick={() => setOpen(false)}
+      />
+      <div
+        className="lg:hidden fixed inset-x-4 z-40 pointer-events-none"
+        style={{ top: "calc(var(--nav-h) + 12px)" }}
+      >
         <div
           id="mobile-menu"
           ref={panelRef}
+          role="dialog"
+          aria-modal="true"
+          aria-label="Menu"
           /* focus moves here when the sheet opens so screen readers follow, but
              it is tabIndex -1 and unreachable by keyboard, so the ring would
              only ever be a stray accent line across the panel */
           tabIndex={-1}
           style={{ outline: "none" }}
-          className={`lg:hidden pointer-events-auto overflow-hidden transition-[max-height,opacity,transform] duration-400 ease-[cubic-bezier(0.22,1,0.36,1)] ${
+          className={`nav-sheet pointer-events-auto px-4 pb-4 pt-1 transition-[opacity,transform] duration-350 ease-[cubic-bezier(0.22,1,0.36,1)] ${
             open
-              ? "max-h-[640px] opacity-100 translate-y-0 mt-2"
-              : "max-h-0 opacity-0 -translate-y-2"
+              ? "opacity-100 translate-y-0 scale-100"
+              : "opacity-0 -translate-y-2 scale-[0.97] pointer-events-none"
           }`}
         >
-          <div className="nav-sheet px-4 pb-4 pt-1">
-            <ul>
-              {LINKS.map((l, i) => {
-                const active = isActive(path, l.href);
-                return (
-                  <li key={l.href}>
-                    <Link
-                      href={l.href}
-                      aria-current={active ? "page" : undefined}
-                      className="flex items-baseline gap-3 py-3.5 border-b border-[var(--hair)] group"
-                      style={{ transitionDelay: open ? `${60 + i * 45}ms` : "0ms" }}
-                    >
-                      <span className="mono t-xs text-[var(--faint)] w-5 shrink-0">
-                        {String(i + 1).padStart(2, "0")}
-                      </span>
-                      <span className="min-w-0">
-                        <span
-                          className={`block t-lg font-semibold tracking-[-0.03em] ${
-                            active ? "text-[var(--accent)]" : "text-[var(--ink)]"
-                          }`}
-                        >
-                          {l.label}
-                        </span>
-                        <span className="block t-sm text-[var(--soft)] mt-0.5">
-                          {l.note}
-                        </span>
-                      </span>
+          <ul>
+            {LINKS.map((l, i) => {
+              const active = isActive(path, l.href);
+              return (
+                <li key={l.href}>
+                  <Link
+                    href={l.href}
+                    aria-current={active ? "page" : undefined}
+                    className="flex items-baseline gap-3 py-3.5 border-b border-[var(--hair)] group"
+                    style={{ transitionDelay: open ? `${60 + i * 45}ms` : "0ms" }}
+                  >
+                    <span className="mono t-xs text-[var(--faint)] w-5 shrink-0">
+                      {String(i + 1).padStart(2, "0")}
+                    </span>
+                    <span className="min-w-0">
                       <span
-                        aria-hidden="true"
-                        className="ml-auto self-center text-[var(--faint)] group-hover:translate-x-1 transition-transform"
+                        className={`block t-lg font-semibold tracking-[-0.03em] ${
+                          active ? "text-[var(--accent)]" : "text-[var(--ink)]"
+                        }`}
                       >
-                        &rarr;
+                        {l.label}
                       </span>
-                    </Link>
-                  </li>
-                );
-              })}
-            </ul>
+                      <span className="block t-sm text-[var(--soft)] mt-0.5">
+                        {l.note}
+                      </span>
+                    </span>
+                    <span
+                      aria-hidden="true"
+                      className="ml-auto self-center text-[var(--faint)] group-hover:translate-x-1 transition-transform"
+                    >
+                      &rarr;
+                    </span>
+                  </Link>
+                </li>
+              );
+            })}
+          </ul>
 
-            <Link
-              href="/hire"
-              className="mt-5 flex items-center justify-center gap-2.5 h-12 rounded-full bg-[var(--ink)] text-[var(--bg)] font-medium"
-            >
-              <span className="relative flex w-1.5 h-1.5" aria-hidden="true">
-                <span className="absolute inline-flex w-full h-full rounded-full bg-[var(--bg)] opacity-70 motion-safe:animate-ping" />
-                <span className="relative inline-flex w-1.5 h-1.5 rounded-full bg-[var(--bg)]" />
-              </span>
-              Hire me
-            </Link>
-            <p className="mt-3 text-center t-sm text-[var(--soft)]">
-              {SITE.available}
-            </p>
-          </div>
+          <Link
+            href="/hire"
+            className="mt-5 flex items-center justify-center gap-2.5 h-12 rounded-full bg-[var(--ink)] text-[var(--bg)] font-medium"
+          >
+            <span className="relative flex w-1.5 h-1.5" aria-hidden="true">
+              <span className="absolute inline-flex w-full h-full rounded-full bg-[var(--bg)] opacity-70 motion-safe:animate-ping" />
+              <span className="relative inline-flex w-1.5 h-1.5 rounded-full bg-[var(--bg)]" />
+            </span>
+            Hire me
+          </Link>
+          <p className="mt-3 text-center t-sm text-[var(--soft)]">
+            {SITE.available}
+          </p>
         </div>
       </div>
     </header>
