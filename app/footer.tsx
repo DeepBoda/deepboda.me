@@ -65,7 +65,7 @@ export default function Footer() {
               <ul className="space-y-2.5 t-body">
                 {PAGES.map((p) => (
                   <li key={p.href}>
-                    <Link href={p.href} className="text-[var(--mid)] hover:text-[var(--ink)] transition-colors">
+                    <Link href={p.href} className="block py-1.5 -my-1.5 text-[var(--mid)] hover:text-[var(--ink)] transition-colors">
                       {p.label}
                     </Link>
                   </li>
@@ -80,14 +80,14 @@ export default function Footer() {
                   <li key={p.slug}>
                     <Link
                       href={`/writing/${p.slug}`}
-                      className="text-[var(--mid)] hover:text-[var(--ink)] transition-colors line-clamp-1"
+                      className="block py-1.5 -my-1.5 text-[var(--mid)] hover:text-[var(--ink)] transition-colors line-clamp-1"
                     >
                       {p.title}
                     </Link>
                   </li>
                 ))}
                 <li>
-                  <Link href="/writing/rss.xml" className="text-[var(--faint)] hover:text-[var(--ink)] transition-colors">
+                  <Link href="/writing/rss.xml" className="block py-1.5 -my-1.5 text-[var(--faint)] hover:text-[var(--ink)] transition-colors">
                     RSS
                   </Link>
                 </li>
@@ -107,14 +107,14 @@ export default function Footer() {
               href={BUILD.repo}
               target="_blank"
               rel="noopener noreferrer"
-              className="hover:text-[var(--ink)] transition-colors"
+              className="inline-block py-2 hover:text-[var(--ink)] transition-colors"
             >
               Source
             </a>
-            <Link href="/how-this-site-is-built" className="mono hover:text-[var(--ink)] transition-colors">
+            <Link href="/how-this-site-is-built" className="inline-block py-2 mono hover:text-[var(--ink)] transition-colors">
               build {BUILD.sha ?? "local"}
             </Link>
-            <a href="#top" className="hover:text-[var(--ink)] transition-colors">
+            <a href="#top" className="inline-block py-2 hover:text-[var(--ink)] transition-colors">
               Back to top ↑
             </a>
           </span>
