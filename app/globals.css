@@ -369,15 +369,18 @@
     transition: opacity 0.4s ease;
   }
   .tile > * { position: relative; z-index: 1; }
+  .tile {
+    box-shadow: 0 14px 34px -28px color-mix(in srgb, var(--tint) 30%, transparent);
+  }
   .tile:hover {
     transform: translateY(-3px);
-    border-color: color-mix(in srgb, var(--tint) 50%, transparent);
+    border-color: color-mix(in srgb, var(--tint) 24%, transparent);
     box-shadow:
       0 1px 0 rgba(255, 255, 255, 0.7) inset,
-      0 22px 50px -26px color-mix(in srgb, var(--tint) 70%, transparent);
+      0 26px 54px -26px color-mix(in srgb, var(--tint) 55%, transparent);
   }
   .tile:hover::after {
-    opacity: 1;
+    opacity: 0.65;
   }
 
   /* the request path in the hero is a set of links, so it needs to look like one */
@@ -474,14 +477,42 @@
     --grid: rgba(245, 245, 247, 0.06);
   }
 
-  /* stat block with a value that can animate */
+  /* stat block with a value that can animate. same restrained language as
+     .layer-card: a hairline edge, colour carried by an ambient shadow, and a
+     spotlight that actually uses the --mouse-x/--mouse-y ui-effects.tsx was
+     already tracking for this element with nothing in CSS to show for it. */
   .stat-card {
     position: relative;
     padding: 22px 22px 20px;
-    border: 1px solid var(--line);
+    border: 1px solid color-mix(in srgb, var(--line) 70%, transparent);
     border-radius: 16px;
     background: var(--bg-raised);
     overflow: hidden;
+    box-shadow: 0 14px 34px -28px color-mix(in srgb, var(--tint) 32%, transparent);
+    transition: border-color .3s ease, transform .3s cubic-bezier(0.22, 1, 0.36, 1),
+      box-shadow .3s ease;
+  }
+  .stat-card::after {
+    content: "";
+    position: absolute; z-index: 0;
+    inset: -1px;
+    background: radial-gradient(
+      460px circle at var(--mouse-x, 50%) var(--mouse-y, 0%),
+      color-mix(in srgb, var(--tint) 16%, transparent),
+      transparent 42%
+    );
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity 0.4s ease;
+  }
+  .stat-card > * { position: relative; z-index: 1; }
+  .stat-card:hover {
+    transform: translateY(-2px);
+    border-color: color-mix(in srgb, var(--tint) 22%, var(--line));
+    box-shadow: 0 24px 50px -28px color-mix(in srgb, var(--tint) 50%, transparent);
+  }
+  .stat-card:hover::after {
+    opacity: 0.65;
   }
   .stat-card::before {
     content: "";
@@ -492,42 +523,54 @@
     background: linear-gradient(90deg, var(--tint, var(--accent)), transparent);
   }
 
-  /* a layer, as an actual object on the page */
+  /* a layer, as an actual object on the page. Apple's own card language: the
+     edge barely exists, colour lives in a soft shadow underneath instead of
+     a saturated border or an always-on internal wash. The top strip is a
+     wayfinding tag, not a border, so it stays, just quieter. */
   .layer-card {
     position: relative;
-    border: 1px solid var(--line);
+    border: 1px solid color-mix(in srgb, var(--line) 70%, transparent);
     border-radius: 18px;
     background: var(--bg-raised);
     padding: 26px 26px 24px;
     overflow: hidden;
-    transition: border-color .25s ease, transform .25s ease, box-shadow .25s ease;
+    box-shadow:
+      0 1px 0 rgba(255, 255, 255, 0.5) inset,
+      0 16px 40px -30px color-mix(in srgb, var(--tint) 40%, transparent),
+      0 2px 8px -4px rgba(15, 15, 20, 0.06);
+    transition: border-color .3s ease, transform .3s cubic-bezier(0.22, 1, 0.36, 1),
+      box-shadow .3s ease;
   }
   .layer-card::before {
     content: "";
-    position: absolute; inset: 0 0 auto 0; height: 3px;
+    position: absolute; inset: 0 0 auto 0; height: 2.5px;
     background: linear-gradient(90deg, var(--tint), transparent 72%);
+    opacity: 0.85;
   }
   .layer-card::after {
     content: "";
     position: absolute; z-index: 0;
     inset: -1px;
     background: radial-gradient(
-      600px circle at var(--mouse-x, 80%) var(--mouse-y, 0%), 
-      color-mix(in srgb, var(--tint) 15%, transparent), 
+      600px circle at var(--mouse-x, 80%) var(--mouse-y, 0%),
+      color-mix(in srgb, var(--tint) 15%, transparent),
       transparent 40%
     );
-    opacity: 0.6;
+    opacity: 0;
     pointer-events: none;
     transition: opacity 0.4s ease;
   }
   .layer-card > * { position: relative; z-index: 1; }
   .layer-card:hover {
-    border-color: color-mix(in srgb, var(--tint) 45%, var(--line));
-    transform: translateY(-2px);
-    box-shadow: 0 12px 34px -18px color-mix(in srgb, var(--tint) 55%, transparent);
+    border-color: color-mix(in srgb, var(--tint) 22%, var(--line));
+    transform: translateY(-3px);
+    box-shadow:
+      0 1px 0 rgba(255, 255, 255, 0.6) inset,
+      0 30px 60px -28px color-mix(in srgb, var(--tint) 55%, transparent),
+      0 4px 14px -6px rgba(15, 15, 20, 0.10);
   }
   .layer-card:hover::after {
-    opacity: 1;
+    opacity: 0.7;
   }
 
   /* the big ghost number behind each layer */

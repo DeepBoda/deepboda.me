@@ -23,6 +23,7 @@ export default function RequestTrace({ layers }: { layers: Layer[] }) {
     if (!el) return;
 
     let ctx: { revert: () => void } | null = null;
+    let extraCleanup = () => {};
 
     (async () => {
       const [{ gsap }, { ScrollTrigger }] = await Promise.all([
@@ -93,9 +94,30 @@ export default function RequestTrace({ layers }: { layers: Layer[] }) {
           });
         });
       }, el);
+
+      /* Every trigger's start/end pixel range is computed once, against
+         whatever layout exists at that instant. The Inter font loads with
+         display: swap, so the moment it finishes downloading, every card's
+         text reflows and every trigger below the first one is now stale,
+         some so far off their "end" never fires again. Refresh once layout
+         has actually settled, and again the moment the font swap lands,
+         rather than trusting the first measurement. */
+      const refresh = () => ScrollTrigger.refresh();
+      requestAnimationFrame(() => requestAnimationFrame(refresh));
+      document.fonts?.ready.then(refresh).catch(() => {});
+      window.addEventListener("load", refresh);
+      window.addEventListener("resize", refresh);
+
+      extraCleanup = () => {
+        window.removeEventListener("load", refresh);
+        window.removeEventListener("resize", refresh);
+      };
     })();
 
-    return () => ctx?.revert();
+    return () => {
+      extraCleanup();
+      ctx?.revert();
+    };
   }, [layers.length]);
 
   return (
