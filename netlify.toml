@@ -42,7 +42,20 @@
     Permissions-Policy = "camera=(), microphone=(), geolocation=(), interest-cohort=()"
     # 'unsafe-inline' on style is required: Next inlines critical CSS and the
     # components set CSS custom properties through the style attribute.
-    Content-Security-Policy = "default-src 'self'; script-src 'self'; style-src 'self' 'unsafe-inline'; img-src 'self' data:; font-src 'self'; connect-src 'self'; frame-ancestors 'none'; base-uri 'self'; form-action 'self'; object-src 'none'; upgrade-insecure-requests"
+    # script-src needs 'unsafe-inline'. Next emits an inline bootstrap script
+    # on every page to hydrate the server-rendered HTML, and its content is
+    # different per page and changes on every rebuild, so neither a nonce
+    # (needs a live server to mint one per request; this is a static export
+    # with none) nor a fixed hash (would need to be recomputed and pinned for
+    # every one of 21 pages, every build) can pin it down. Blocking it does
+    # not just lose an inline script: it fails hydration outright, so React
+    # never attaches to the page and every client feature on the site (nav,
+    # ScrollTrigger, the hamburger, reveal animations) goes dead. Verified
+    # live: deepboda.in threw CSP violations plus React error #412 (hydration
+    # mismatch) on this exact rule before the fix. There is no user input and
+    # no third-party content on this site, so the realistic downside of
+    # allowing inline scripts here is low.
+    Content-Security-Policy = "default-src 'self'; script-src 'self' 'unsafe-inline'; style-src 'self' 'unsafe-inline'; img-src 'self' data:; font-src 'self'; connect-src 'self'; frame-ancestors 'none'; base-uri 'self'; form-action 'self'; object-src 'none'; upgrade-insecure-requests"
 
 # Hashed build assets never change under the same name, so cache them hard.
 [[headers]]
