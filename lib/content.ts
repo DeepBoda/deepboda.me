@@ -9,6 +9,8 @@ export const SITE = {
   name: "Deep Boda",
   role: "Senior DevOps & Full-Stack Engineer",
   url: "https://deepboda.in",
+  /* GA4 property "deepboda.in". Public by design, it ships in every page. */
+  gaId: "G-HW044D1VEX",
   email: "deepboda18@gmail.com",
   phone: "+91 8128769896",
   linkedin: "https://linkedin.com/in/deep-boda",
@@ -17,7 +19,7 @@ export const SITE = {
   tagline:
     "I run production infrastructure, and I write the code that runs on it.",
   description:
-    "Senior DevOps and Full-Stack Engineer in Ahmedabad. Four years running production on AWS: Kubernetes on EKS, ECS microservices, Terraform and the Node.js on top. Open to work.",
+    "Senior DevOps and Full-Stack Engineer in Ahmedabad. 4+ years running production on AWS: EKS, ECS, Terraform, ArgoCD and the Node.js on top. Open to work now.",
 };
 
 export type Layer = {

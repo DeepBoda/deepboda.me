@@ -7,6 +7,7 @@ import IncidentChart from "./incident-chart";
 import Timeline from "./timeline";
 import Principles from "./principles";
 import NextUp from "./next-up";
+import Marquee from "./marquee";
 
 const NODES = [
   { x: 60, label: "Browser", to: "edge" },
@@ -74,7 +75,8 @@ export default function Home() {
           </p>
 
           <h1 className="display mt-5 max-w-[16ch] reveal">
-            I run production, and I write the code on it.
+            I run <span className="serif-i">production</span>, and I write the{" "}
+            <span className="mark">code</span> on it.
           </h1>
 
           <p className="lede mt-7 max-w-[60ch] reveal">
@@ -109,8 +111,8 @@ export default function Home() {
                 PDF
               </span>
             </a>
-            <span className="inline-flex items-center gap-2 h-11 px-4 t-sm text-[var(--soft)]">
-              <span className="relative flex w-2 h-2">
+            <span className="sticker sm:ml-3">
+              <span className="relative flex w-2 h-2" aria-hidden="true">
                 <span className="absolute inline-flex w-full h-full rounded-full bg-[var(--accent)] opacity-60 motion-safe:animate-ping" />
                 <span className="relative inline-flex w-2 h-2 rounded-full bg-[var(--accent)]" />
               </span>
@@ -120,7 +122,23 @@ export default function Home() {
 
           <div className="mt-9 lg:mt-12 reveal-slow">
             <p className="eyebrow mb-5">One request, top to bottom</p>
-            <RequestPath />
+            {/* the diagram is a 1000 unit wide SVG, which on a phone shrinks
+                its labels to about 6px. Phones get real tappable steps. */}
+            <div className="hidden sm:block">
+              <RequestPath />
+            </div>
+            <ol className="path-steps sm:hidden" aria-label="Jump to a layer">
+              {NODES.map((n, i) => (
+                <li key={n.label}>
+                  <a href={`#${n.to}`} className="path-step">
+                    <span className="n" aria-hidden="true">
+                      {String(i + 1).padStart(2, "0")}
+                    </span>
+                    {n.label}
+                  </a>
+                </li>
+              ))}
+            </ol>
             <p className="mt-5 t-body text-[var(--soft)] max-w-[62ch]">
               This page follows that path. Every stop is a layer I am
               responsible for, and the thing that tends to break there. Pick one
@@ -128,6 +146,8 @@ export default function Home() {
             </p>
           </div>
         </section>
+
+        <Marquee />
 
         {/* ---------------- STATS ---------------- */}
         <section className="section" aria-label="Scale">

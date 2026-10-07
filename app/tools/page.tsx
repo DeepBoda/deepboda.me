@@ -4,7 +4,7 @@ import { SITE } from "@/lib/content";
 export const metadata: Metadata = {
   title: "Tools I use",
   description:
-    "The hardware, editor, terminal and tools I actually use to run production infrastructure and write the code on top of it. No aspirational list, just what is open right now.",
+    "The hardware, editor, terminal and tools I use to run production infrastructure and write the code on top of it. What is open right now, not a wish list.",
   alternates: { canonical: `${SITE.url}/tools` },
   openGraph: {
     title: "Tools I use",

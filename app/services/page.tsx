@@ -3,12 +3,12 @@ import Link from "next/link";
 import { SITE } from "@/lib/content";
 
 export const metadata: Metadata = {
-  title: "Work with me",
+  title: "DevOps, AWS and app development services",
   description:
-    "One person who can take a product from an empty repo to both app stores and keep it running. Mobile, web, backend, infrastructure. Projects, retainers and audits.",
+    "One person who takes a product from an empty repo to both app stores and keeps it running. AWS, Kubernetes, backend and mobile. Projects, retainers, audits.",
   alternates: { canonical: `${SITE.url}/services` },
   openGraph: {
-    title: "Work with me",
+    title: "DevOps, AWS and app development services",
     url: `${SITE.url}/services`,
     images: ["/og/services.png"],
   },

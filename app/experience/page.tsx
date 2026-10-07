@@ -3,12 +3,12 @@ import Link from "next/link";
 import { SITE } from "@/lib/content";
 
 export const metadata: Metadata = {
-  title: "Experience",
+  title: "Experience: backend to Senior DevOps",
   description:
-    "Four years and seven months at one company, from backend developer to Senior DevOps and Full-Stack Engineer. What changed each year, what I owned, and the stack at each stage.",
+    "Four years and seven months at one company, from backend developer to Senior DevOps and Full-Stack Engineer. What I owned each year, and the stack.",
   alternates: { canonical: `${SITE.url}/experience` },
   openGraph: {
-    title: "Experience",
+    title: "Experience: backend to Senior DevOps",
     url: `${SITE.url}/experience`,
     images: ["/og/experience.png"],
   },
@@ -357,17 +357,6 @@ export default function Experience() {
         <h2 className="h3 reveal">Before that</h2>
         <div className="mt-6 grid md:grid-cols-2 gap-4 reveal">
           <div className="card pad">
-            <p className="eyebrow">Certification</p>
-            <h3 className="mt-3 font-semibold t-md tracking-[-0.02em]">
-              Professional Web Development
-            </h3>
-            <p className="mt-1 text-[var(--soft)]">Shree Academy, Rajkot</p>
-            <p className="mt-3 t-body text-[var(--mid)] leading-relaxed">
-              Six month programme, completed December 2021, graded A. This is
-              where the foundation actually got built.
-            </p>
-          </div>
-          <div className="card pad">
             <p className="eyebrow">Education</p>
             <h3 className="mt-3 font-semibold t-md tracking-[-0.02em]">
               Instrumentation &amp; Control Engineering
@@ -376,8 +365,19 @@ export default function Experience() {
               Vishwakarma Government Engineering College, Chandkheda
             </p>
             <p className="mt-3 t-body text-[var(--mid)] leading-relaxed">
-              2018 to 2022, not completed. I left to take the development work
+              2018 to 2022, dropped. I left to take the development work
               full time, and I would make the same call again.
+            </p>
+          </div>
+          <div className="card pad">
+            <p className="eyebrow">Certification</p>
+            <h3 className="mt-3 font-semibold t-md tracking-[-0.02em]">
+              Professional Web Development
+            </h3>
+            <p className="mt-1 text-[var(--soft)]">Shree Academy, Rajkot</p>
+            <p className="mt-3 t-body text-[var(--mid)] leading-relaxed">
+              Six month programme, completed December 2021, graded A. This is
+              where the foundation actually got built.
             </p>
           </div>
         </div>

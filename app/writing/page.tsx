@@ -6,12 +6,12 @@ import { SITE } from "@/lib/content";
 import TopicFilter from "./topic-filter";
 
 export const metadata: Metadata = {
-  title: "Writing",
+  title: "Writing on DevOps, Kubernetes and AWS",
   description:
-    "Notes on running production infrastructure: Kubernetes, AWS, Terraform, CI/CD, on-call and the parts of the job nobody writes a job description for.",
+    "Notes on running production: Kubernetes, AWS, Terraform, CI/CD, on-call, and the parts of the job nobody writes a job description for.",
   alternates: { canonical: `${SITE.url}/writing` },
   openGraph: {
-    title: "Writing",
+    title: "Writing on DevOps, Kubernetes and AWS",
     url: `${SITE.url}/writing`,
     images: [
       "/og/writing.png",

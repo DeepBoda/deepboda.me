@@ -6,7 +6,7 @@ import { BUILD } from "@/lib/build-info";
 export const metadata: Metadata = {
   title: "How this site is built",
   description:
-    "How this site is built, what it ships, and how it deploys. Static Next.js, native CSS scroll reveals, no analytics. Every number here is read from the build rather than typed by hand.",
+    "How this site is built and deployed: static Next.js, native CSS scroll reveals and one analytics tag. Every number here is read from the build.",
   alternates: { canonical: `${SITE.url}/how-this-site-is-built` },
   openGraph: {
     title: "How this site is built",
@@ -175,8 +175,8 @@ export default function HowThisSiteIsBuilt() {
               />
               <Row
                 k="analytics"
-                v="none"
-                note="No trackers, no cookie banner, nothing to consent to."
+                v="Google Analytics 4"
+                note="Loads after the page is interactive, so it never delays the first paint. The CSP allows Google's analytics domains and nothing else third-party."
               />
             </dl>
           </Panel>
@@ -185,8 +185,8 @@ export default function HowThisSiteIsBuilt() {
             <dl className="mt-6">
               <Row
                 k="type"
-                v="Inter"
-                note="Three weights. 400 for body, 600 for headings, 700 for display."
+                v="Inter, plus one serif italic"
+                note="Inter in four weights does the work. Instrument Serif italic appears only on the hero's accent word. Both are self hosted at build time."
               />
               <Row
                 k="colour"
@@ -195,8 +195,8 @@ export default function HowThisSiteIsBuilt() {
               />
               <Row
                 k="mode"
-                v="one"
-                note="No theme toggle. The dark bands are a contrast device, and a second theme would have taken that away from them."
+                v="light and dark"
+                note="Follows your system until you pick one with the toggle, and the choice is remembered. A tiny inline script applies it before first paint, so there is no flash. Every colour is a token, so the dark theme is one block of values, not a second stylesheet. The dark bands stay dark in both."
               />
               <Row
                 k="cascade"

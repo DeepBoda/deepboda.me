@@ -5,6 +5,7 @@ import { usePathname } from "next/navigation";
 import { useCallback, useEffect, useLayoutEffect, useRef, useState } from "react";
 import { SITE } from "@/lib/content";
 import { MENU_TOGGLE_EVENT } from "./smooth-scroll";
+import ThemeToggle from "./theme-toggle";
 
 const LINKS = [
   { href: "/work", label: "Work", note: "Platforms I built and run" },
@@ -151,6 +152,8 @@ export default function Nav() {
             })}
           </ul>
 
+          <ThemeToggle className="max-lg:ml-auto" />
+
           <Link
             href="/hire"
             className="hidden lg:inline-flex items-center gap-2 h-11 pl-4 pr-5 rounded-full bg-[var(--ink)] text-[var(--bg)] t-sm font-medium hover:opacity-90 transition-opacity shrink-0"
@@ -169,7 +172,7 @@ export default function Nav() {
             aria-expanded={open}
             aria-controls="mobile-menu"
             aria-label={open ? "Close menu" : "Open menu"}
-            className="lg:hidden ml-auto grid place-items-center w-11 h-11 rounded-full hover:bg-[var(--hair)] transition-colors"
+            className="lg:hidden grid place-items-center w-11 h-11 rounded-full hover:bg-[var(--hair)] transition-colors"
           >
             <span className="relative block w-[18px] h-[12px]" aria-hidden="true">
               <span

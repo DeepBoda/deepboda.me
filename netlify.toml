@@ -1,7 +1,8 @@
 # Netlify config for deepboda.in
 #
-# The site is a static export. Everything it loads is self hosted, the only
-# external references are outbound links, so the CSP can be strict.
+# The site is a static export. Everything it loads is self hosted except
+# Google Analytics (GA4), which is allowed in the CSP by exact Google domains
+# only, per Google's own CSP guide for GA4.
 
 [build]
   command = "npm run build"
@@ -53,9 +54,9 @@
     # ScrollTrigger, the hamburger, reveal animations) goes dead. Verified
     # live: deepboda.in threw CSP violations plus React error #412 (hydration
     # mismatch) on this exact rule before the fix. There is no user input and
-    # no third-party content on this site, so the realistic downside of
+    # no third-party content on this site besides the GA4 tag, so the realistic downside of
     # allowing inline scripts here is low.
-    Content-Security-Policy = "default-src 'self'; script-src 'self' 'unsafe-inline'; style-src 'self' 'unsafe-inline'; img-src 'self' data:; font-src 'self'; connect-src 'self'; frame-ancestors 'none'; base-uri 'self'; form-action 'self'; object-src 'none'; upgrade-insecure-requests"
+    Content-Security-Policy = "default-src 'self'; script-src 'self' 'unsafe-inline' https://*.googletagmanager.com; style-src 'self' 'unsafe-inline'; img-src 'self' data: https://*.google-analytics.com https://*.googletagmanager.com; font-src 'self'; connect-src 'self' https://*.google-analytics.com https://*.analytics.google.com https://*.googletagmanager.com; frame-ancestors 'none'; base-uri 'self'; form-action 'self'; object-src 'none'; upgrade-insecure-requests"
 
 # Hashed build assets never change under the same name, so cache them hard.
 [[headers]]

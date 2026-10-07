@@ -25,6 +25,8 @@
 
   --grid: rgba(29, 29, 31, 0.05);
   --glow: 0.11;
+  --hi: #ffffff;                 /* glass rim, retuned in dark */
+  --inset-hi: rgba(255, 255, 255, 0.6);
 
   color-scheme: light;
 
@@ -38,6 +40,61 @@
   --gutter: 24px;
   --font-sans: var(--font-inter), -apple-system, "Helvetica Neue", Arial, sans-serif;
   --font-mono: ui-monospace, "SF Mono", Menlo, monospace;
+}
+
+/* ============================================================
+   DARK THEME. Follows the system until the visitor picks one with the
+   toggle, which writes data-theme on <html> (see app/layout.tsx).
+   The same token set as light, retuned: every component already reads
+   these variables, so nothing below this block needs a dark variant.
+   ============================================================ */
+:root[data-theme="dark"] {
+  --bg: #111115;
+  --bg-raised: #1a1a20;
+  --ink: #f3f3f6;
+  --mid: #cbcbd3;
+  --soft: #a3a3ae;
+  --faint: #8d8d98;
+  --line: #2b2b33;
+  --line-strong: #686875;
+  --hair: #1e1e24;
+  --accent: #e0708c;
+  --l1: #f0a05c;
+  --l2: #3fc5b6;
+  --l3: #8f8ff2;
+  --l4: #e0708c;
+  --l5: #5ea2f5;
+  --l6: #6fc785;
+  --grid: rgba(245, 245, 247, 0.055);
+  --glow: 0.2;
+  --hi: #34343d;
+  --inset-hi: rgba(255, 255, 255, 0.06);
+  color-scheme: dark;
+}
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) {
+    --bg: #111115;
+    --bg-raised: #1a1a20;
+    --ink: #f3f3f6;
+    --mid: #cbcbd3;
+    --soft: #a3a3ae;
+    --faint: #8d8d98;
+    --line: #2b2b33;
+    --line-strong: #686875;
+    --hair: #1e1e24;
+    --accent: #e0708c;
+    --l1: #f0a05c;
+    --l2: #3fc5b6;
+    --l3: #8f8ff2;
+    --l4: #e0708c;
+    --l5: #5ea2f5;
+    --l6: #6fc785;
+    --grid: rgba(245, 245, 247, 0.055);
+    --glow: 0.2;
+    --hi: #34343d;
+    --inset-hi: rgba(255, 255, 255, 0.06);
+    color-scheme: dark;
+  }
 }
 
 @theme inline {
@@ -101,6 +158,11 @@
    COMPONENTS
    ============================================================ */
 @layer components {
+  /* phones only: balance stops a lone word dropping to the last line */
+  @media (max-width: 639px) {
+    .display { text-wrap: balance; }
+  }
+
   .display {
     font-size: clamp(2.5rem, 6vw + 1rem, 5.2rem);
     font-weight: 700;
@@ -309,9 +371,9 @@
     background: color-mix(in srgb, var(--bg-raised) 66%, transparent);
     backdrop-filter: saturate(180%) blur(20px);
     -webkit-backdrop-filter: saturate(180%) blur(20px);
-    border: 1px solid color-mix(in srgb, #ffffff 55%, var(--line));
+    border: 1px solid color-mix(in srgb, var(--hi) 55%, var(--line));
     box-shadow:
-      0 1px 0 rgba(255, 255, 255, 0.6) inset,
+      0 1px 0 var(--inset-hi) inset,
       0 10px 40px -24px rgba(15, 15, 20, 0.35);
   }
 
@@ -373,7 +435,7 @@
     transform: translateY(-3px);
     border-color: color-mix(in srgb, var(--tint) 24%, transparent);
     box-shadow:
-      0 1px 0 rgba(255, 255, 255, 0.7) inset,
+      0 1px 0 var(--inset-hi) inset,
       0 26px 54px -26px color-mix(in srgb, var(--tint) 55%, transparent);
   }
   .tile:hover::after {
@@ -472,6 +534,8 @@
     --bg: #0b0b0d;
     --bg-raised: #16161b;
     --grid: rgba(245, 245, 247, 0.06);
+    --hi: #34343d;
+    --inset-hi: rgba(255, 255, 255, 0.06);
   }
 
   /* stat block with a value that can animate. same restrained language as
@@ -532,7 +596,7 @@
     padding: 26px 26px 24px;
     overflow: hidden;
     box-shadow:
-      0 1px 0 rgba(255, 255, 255, 0.5) inset,
+      0 1px 0 var(--inset-hi) inset,
       0 16px 40px -30px color-mix(in srgb, var(--tint) 40%, transparent),
       0 2px 8px -4px rgba(15, 15, 20, 0.06);
     transition: border-color .3s ease, transform .3s cubic-bezier(0.22, 1, 0.36, 1),
@@ -562,7 +626,7 @@
     border-color: color-mix(in srgb, var(--tint) 22%, var(--line));
     transform: translateY(-3px);
     box-shadow:
-      0 1px 0 rgba(255, 255, 255, 0.6) inset,
+      0 1px 0 var(--inset-hi) inset,
       0 30px 60px -28px color-mix(in srgb, var(--tint) 55%, transparent),
       0 4px 14px -6px rgba(15, 15, 20, 0.10);
   }
@@ -665,9 +729,9 @@
     background: color-mix(in srgb, var(--bg) 78%, transparent);
     -webkit-backdrop-filter: saturate(200%) blur(26px);
     backdrop-filter: saturate(200%) blur(26px);
-    border-color: color-mix(in srgb, #ffffff 55%, var(--line));
+    border-color: color-mix(in srgb, var(--hi) 55%, var(--line));
     box-shadow:
-      0 1px 0 rgba(255, 255, 255, 0.7) inset,
+      0 1px 0 var(--inset-hi) inset,
       0 16px 44px -18px rgba(15, 15, 20, 0.32);
   }
 
@@ -713,9 +777,9 @@
     background: color-mix(in srgb, var(--bg) 96%, transparent);
     -webkit-backdrop-filter: saturate(200%) blur(26px);
     backdrop-filter: saturate(200%) blur(26px);
-    border: 1px solid color-mix(in srgb, #ffffff 50%, var(--line));
+    border: 1px solid color-mix(in srgb, var(--hi) 50%, var(--line));
     box-shadow:
-      0 1px 0 rgba(255, 255, 255, 0.6) inset,
+      0 1px 0 var(--inset-hi) inset,
       0 24px 60px -20px rgba(15, 15, 20, 0.38);
   }
 
@@ -876,3 +940,208 @@ pre > code {
 @media (prefers-reduced-motion: reduce) {
   .fig-pulse { animation: none; }
 }
+
+/* ============================================================
+   2026 LAYER. full bleed heroes, kinetic type, marquee, sticker,
+   theme toggle. Everything here reads the same tokens as the rest of the
+   site, so it works in both themes without a variant.
+   ============================================================ */
+@layer components {
+  /* The page heads were `wrap` + `grid-bg` + `glow` on one element, so the
+     coloured wash and the grid were clipped to the 1120px column and showed
+     as a hard edged box on any screen wider than that. Same element, but
+     the box now runs edge to edge and the padding rebuilds the column. */
+  .wrap.grid-bg,
+  .wrap.glow {
+    max-width: none;
+    padding-inline: max(
+      var(--gutter),
+      calc((100% - var(--max)) / 2 + var(--gutter))
+    );
+  }
+
+  /* ---- headline: serif italic accent words and a marker highlight ---- */
+  .serif-i {
+    font-family: var(--font-serif), Georgia, "Times New Roman", serif;
+    font-style: italic;
+    font-weight: 400;
+    letter-spacing: -0.02em;
+    font-size: 1.07em;
+  }
+  .mark {
+    background-image: linear-gradient(
+      color-mix(in srgb, var(--accent) 34%, transparent),
+      color-mix(in srgb, var(--accent) 34%, transparent)
+    );
+    background-repeat: no-repeat;
+    background-position: 0 80%;
+    background-size: 100% 0.34em;
+    padding-inline: 0.04em;
+    -webkit-box-decoration-break: clone;
+    box-decoration-break: clone;
+  }
+  @media (prefers-reduced-motion: no-preference) {
+    .mark {
+      background-size: 0% 0.34em;
+      animation: mark-in 0.9s 0.45s cubic-bezier(0.22, 1, 0.36, 1) forwards;
+    }
+  }
+  @keyframes mark-in {
+    to { background-size: 100% 0.34em; }
+  }
+
+  /* ---- sticker: the one hard edged object on an otherwise soft page ---- */
+  .sticker {
+    display: inline-flex;
+    align-items: center;
+    gap: 10px;
+    height: 44px;
+    padding-inline: 18px 20px;
+    border-radius: 999px;
+    border: 1.5px solid var(--ink);
+    background: color-mix(in srgb, var(--accent) 16%, var(--bg-raised));
+    box-shadow: 3px 3px 0 var(--ink);
+    font-size: 0.86rem;
+    font-weight: 600;
+    letter-spacing: -0.01em;
+    color: var(--ink);
+    transform: rotate(-2deg);
+    transition: transform 0.35s cubic-bezier(0.34, 1.56, 0.64, 1),
+      box-shadow 0.35s ease;
+  }
+  .sticker:hover {
+    transform: rotate(1.5deg) translateY(-2px);
+    box-shadow: 5px 5px 0 var(--ink);
+  }
+
+  /* ---- marquee ---- */
+  .marquee {
+    overflow: hidden;
+    border-block: 1px solid var(--hair);
+    -webkit-mask-image: linear-gradient(90deg, transparent, #000 7%, #000 93%, transparent);
+    mask-image: linear-gradient(90deg, transparent, #000 7%, #000 93%, transparent);
+    padding-block: 10px;
+  }
+  .marquee-row {
+    display: flex;
+    width: max-content;
+    animation: marquee var(--dur, 46s) linear infinite;
+  }
+  .marquee-row[data-rev="true"] {
+    animation-direction: reverse;
+  }
+  .marquee:hover .marquee-row {
+    animation-play-state: paused;
+  }
+  .marquee-copy {
+    display: flex;
+    flex-shrink: 0;
+    list-style: none;
+    margin: 0;
+    padding: 0;
+  }
+  .marquee-item {
+    display: flex;
+    align-items: center;
+    padding-right: 0.55em;
+    font-size: clamp(2rem, 5vw, 3.7rem);
+    font-weight: 700;
+    letter-spacing: -0.045em;
+    line-height: 1.18;
+    white-space: nowrap;
+    color: var(--ink);
+  }
+  /* Outlined words. -webkit-text-stroke traces every contour in the font,
+     including the overlapping ones inside letters like x, d and e, which
+     showed as stray lines. A ring of hard text shadows around a solid
+     background fill draws only the outside edge. */
+  .marquee-item[data-o="true"] {
+    color: var(--bg);
+    letter-spacing: -0.025em;
+    text-shadow:
+      1.4px 0 var(--ink), -1.4px 0 var(--ink), 0 1.4px var(--ink), 0 -1.4px var(--ink),
+      1px 1px var(--ink), -1px -1px var(--ink), 1px -1px var(--ink), -1px 1px var(--ink);
+  }
+  .marquee-item::after {
+    content: "";
+    width: 0.26em;
+    height: 0.26em;
+    margin-left: 0.55em;
+    border-radius: 50%;
+    background: var(--accent);
+    flex-shrink: 0;
+  }
+  @keyframes marquee {
+    to { transform: translateX(-50%); }
+  }
+  @media (prefers-reduced-motion: reduce) {
+    .marquee-row { animation: none; width: auto; flex-wrap: wrap; justify-content: center; }
+    .marquee-copy[data-dup="true"] { display: none; }
+    .marquee-copy { flex-wrap: wrap; justify-content: center; }
+  }
+
+  /* ---- theme toggle ---- */
+  .theme-toggle {
+    display: grid;
+    place-items: center;
+    width: 44px;
+    height: 44px;
+    border-radius: 999px;
+    color: var(--ink);
+    transition: background-color 0.2s ease, transform 0.35s cubic-bezier(0.34, 1.56, 0.64, 1);
+  }
+  .theme-toggle:hover { background: var(--hair); }
+  .theme-toggle:active { transform: scale(0.88) rotate(-12deg); }
+  .theme-toggle .i-sun { display: none; }
+  :root[data-theme="dark"] .theme-toggle .i-sun { display: block; }
+  :root[data-theme="dark"] .theme-toggle .i-moon { display: none; }
+  @media (prefers-color-scheme: dark) {
+    :root:not([data-theme="light"]) .theme-toggle .i-sun { display: block; }
+    :root:not([data-theme="light"]) .theme-toggle .i-moon { display: none; }
+  }
+
+  /* ---- the hero request path, as tappable steps on a phone ---- */
+  .path-steps {
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 8px;
+    list-style: none;
+    margin: 0;
+    padding: 0;
+  }
+  .path-step {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    min-height: 48px;
+    padding: 0 12px;
+    border: 1px solid var(--line-strong);
+    border-radius: 14px;
+    background: var(--bg-raised);
+    font-size: 0.9rem;
+    font-weight: 500;
+    color: var(--ink);
+    transition: border-color 0.2s ease, color 0.2s ease;
+  }
+  .path-step:hover,
+  .path-step:focus-visible {
+    border-color: var(--accent);
+    color: var(--accent);
+  }
+  .path-step .n {
+    font-family: var(--font-mono);
+    font-size: 0.7rem;
+    color: var(--faint);
+  }
+}
+
+/* circular reveal when the theme flips. The old and new snapshots are
+   stacked and the new one is clipped open from the toggle (app/theme-toggle.tsx).
+   Without this the browser cross-fades, which flashes grey mid way. */
+::view-transition-old(root),
+::view-transition-new(root) {
+  animation: none;
+  mix-blend-mode: normal;
+}
+::view-transition-old(root) { z-index: 1; }
+::view-transition-new(root) { z-index: 2; }

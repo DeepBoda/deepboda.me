@@ -6,7 +6,7 @@ import { SITE } from "@/lib/content";
 export const metadata: Metadata = {
   title: "Anonymous India, a case study",
   description:
-    "A social product I own end to end: Flutter app, NestJS API on Fastify, PostgreSQL and Redis, Docker and Nginx. The decisions behind it, the tradeoffs, and what I would do differently.",
+    "A social app I own end to end: Flutter, NestJS on Fastify, PostgreSQL, Redis, Docker and Nginx. The decisions, the tradeoffs, and what I would change.",
   alternates: { canonical: `${SITE.url}/work/anonymous-india` },
   openGraph: {
     title: "Anonymous India, a case study",

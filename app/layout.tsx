@@ -1,5 +1,6 @@
 import type { Metadata, Viewport } from "next";
-import { Inter } from "next/font/google";
+import { Inter, Instrument_Serif } from "next/font/google";
+import { GoogleAnalytics } from "@next/third-parties/google";
 import { SITE } from "@/lib/content";
 import Nav from "./nav";
 import Footer from "./footer";
@@ -15,10 +16,19 @@ const inter = Inter({
   weight: ["400", "500", "600", "700"],
 });
 
+/* One serif italic, used only for accent words in the hero. */
+const serif = Instrument_Serif({
+  subsets: ["latin"],
+  display: "swap",
+  variable: "--font-serif",
+  weight: "400",
+  style: "italic",
+});
+
 export const metadata: Metadata = {
   metadataBase: new URL(SITE.url),
   title: {
-    default: `${SITE.name} · ${SITE.role}`,
+    default: `${SITE.name} · ${SITE.role}, Ahmedabad`,
     template: `%s · ${SITE.name}`,
   },
   description: SITE.description,
@@ -35,6 +45,11 @@ export const metadata: Metadata = {
     "Ahmedabad",
     "India",
     "Deep Boda",
+    "DevOps Engineer Ahmedabad",
+    "AWS DevOps Engineer India",
+    "Remote DevOps Engineer",
+    "Amazon EKS",
+    "Hire DevOps Engineer",
   ],
   authors: [{ name: SITE.name, url: SITE.url }],
   creator: SITE.name,
@@ -74,7 +89,10 @@ export const metadata: Metadata = {
 };
 
 export const viewport: Viewport = {
-  themeColor: "#fcfcfa",
+  themeColor: [
+    { media: "(prefers-color-scheme: light)", color: "#fcfcfa" },
+    { media: "(prefers-color-scheme: dark)", color: "#111115" },
+  ],
   width: "device-width",
   initialScale: 1,
 };
@@ -92,7 +110,7 @@ const jsonLd = {
     addressLocality: "Ahmedabad",
     addressCountry: "IN",
   },
-  sameAs: [SITE.linkedin],
+  sameAs: [SITE.linkedin, "https://github.com/DeepBoda"],
   knowsAbout: [
     "Kubernetes",
     "Amazon Web Services",
@@ -116,7 +134,21 @@ export default function RootLayout({
   children: React.ReactNode;
 }) {
   return (
-    <html lang="en" className={inter.variable}>
+    <html
+      lang="en"
+      className={`${inter.variable} ${serif.variable}`}
+      suppressHydrationWarning
+    >
+      <head>
+        {/* Runs while the HTML is still being parsed, so a returning visitor
+            who chose a theme never sees the other one flash first. With no
+            saved choice it does nothing and the system setting decides. */}
+        <script
+          dangerouslySetInnerHTML={{
+            __html: `(function(){try{var t=localStorage.getItem("theme");if(t==="dark"||t==="light")document.documentElement.setAttribute("data-theme",t)}catch(e){}})()`,
+          }}
+        />
+      </head>
       <body className="min-h-dvh flex flex-col">
         <a
           href="#top"
@@ -135,6 +167,9 @@ export default function RootLayout({
         {children}
         <Footer />
       </body>
+      {/* GA4. Loads after hydration, so it never delays the first paint.
+          Page changes are picked up by GA's history-change tracking. */}
+      <GoogleAnalytics gaId={SITE.gaId} />
     </html>
   );
 }

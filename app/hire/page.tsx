@@ -3,12 +3,12 @@ import Link from "next/link";
 import { SITE, AVAILABLE_NOW } from "@/lib/content";
 
 export const metadata: Metadata = {
-  title: "Hire me",
+  title: "Hire a Senior DevOps Engineer",
   description:
-    "Senior DevOps, Platform or SRE. Available from 1 September 2026, Ahmedabad or remote. What I do, what I want, notice period, and the answers to everything a recruiter asks in the first message.",
+    "Senior DevOps, Platform or SRE role, Ahmedabad or remote. Available now, notice already served. What I do, what I want, and what recruiters ask first.",
   alternates: { canonical: `${SITE.url}/hire` },
   openGraph: {
-    title: "Hire me",
+    title: "Hire a Senior DevOps Engineer",
     url: `${SITE.url}/hire`,
     images: ["/og/hire.png"],
   },
