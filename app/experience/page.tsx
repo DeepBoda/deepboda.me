@@ -124,7 +124,7 @@ const SKILLS: [string, string[]][] = [
   ["Mobile", ["Flutter", "Dart", "GetX", "Dio", "Firebase Messaging", "Local notifications", "socket_io_client"]],
   ["AI in production", ["OpenAI API", "Prompt-based search", "Image and card recognition"]],
   ["Security", ["JWT", "bcrypt", "Helmet", "Rate limiting", "RBAC", "IAM policy", "Secrets management"]],
-  ["Observability", ["Prometheus", "Grafana", "CloudWatch", "Alert tuning", "Runbooks"]],
+  ["Observability", ["Prometheus", "Grafana", "CloudWatch"]],
   ["Firebase", ["Auth", "Cloud Messaging", "Storage", "Crashlytics", "Analytics", "App Check"]],
   ["Integrations", ["Stripe", "Razorpay", "PayPal", "Msg91", "Twilio", "Nodemailer", "RevenueCat"]],
   ["Release", ["App Store Connect", "Google Play Console", "TestFlight", "notarytool", "Code signing"]],
