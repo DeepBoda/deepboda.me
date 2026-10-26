@@ -101,7 +101,7 @@ export default function HowThisSiteIsBuilt() {
             <span className="w-2.5 h-2.5 rounded-full bg-[#3a3a44]" />
             <span className="w-2.5 h-2.5 rounded-full bg-[#3a3a44]" />
             <span className="w-2.5 h-2.5 rounded-full bg-[#3a3a44]" />
-            <span className="mono ml-3 t-xs text-[#74747e] truncate">
+            <span className="mono ml-3 t-xs text-[#85858f] truncate">
               deepboda.in
             </span>
             <span className="mono ml-auto shrink-0 t-xs text-[#6fc785] flex items-center gap-2">
@@ -111,7 +111,7 @@ export default function HowThisSiteIsBuilt() {
           </div>
 
           <div className="pad">
-            <p className="mono t-sm text-[#74747e]">
+            <p className="mono t-sm text-[#85858f]">
               <span className="text-[#6fc785]">$</span> git log -1 --oneline
             </p>
             <p className="mono mt-2 t-body text-[#f5f5f7] break-words">

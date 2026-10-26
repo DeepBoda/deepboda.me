@@ -192,7 +192,7 @@
   }
 
   .eyebrow {
-    font-size: 0.72rem;
+    font-size: 0.75rem; /* 12px floor: was 11.5px */
     font-weight: 700;
     letter-spacing: 0.2em;
     text-transform: uppercase;
@@ -208,7 +208,7 @@
      There were about forty ad hoc font sizes on this site, five of them
      within 0.07rem of each other. These five plus the headings replace all
      of them. Anything not on this scale is a mistake. */
-  .t-xs   { font-size: 0.72rem; }
+  .t-xs   { font-size: 0.75rem; }
   .t-sm   { font-size: 0.86rem; }
   .t-body { font-size: 0.95rem; }
   .t-md   { font-size: 1.06rem; }
@@ -526,7 +526,7 @@
     --ink: #f5f5f7;
     --mid: #c6c6cd;
     --soft: #9a9aa2;
-    --faint: #787882;          /* 4.50:1 on the band */
+    --faint: #82828c;          /* 5.17:1 on the band, 4.8 on raised cards inside it. was #787882 at 4.50 / 4.2 */
     --accent: #e0708c;         /* 4.9:1 on the band. #c8365a was 3.87 */
     --line: #2a2a31;
     --line-strong: #5e5e6a;    /* 3.08:1 on the band */
@@ -1130,7 +1130,7 @@ pre > code {
   }
   .path-step .n {
     font-family: var(--font-mono);
-    font-size: 0.7rem;
+    font-size: 0.75rem;
     color: var(--faint);
   }
 }
@@ -1145,3 +1145,188 @@ pre > code {
 }
 ::view-transition-old(root) { z-index: 1; }
 ::view-transition-new(root) { z-index: 2; }
+
+/* ===========================================================================
+   12 Oct pass: motion and fit fixes. Unlayered on purpose, see the top of
+   this file. Every animation here is opt-in through no-preference, so
+   reduced motion gets the finished state with nothing moving.
+   =========================================================================== */
+
+/* hero headline: each word rises out of a blur, once, on load */
+.hero-words > span { display: inline-block; }
+@media (prefers-reduced-motion: no-preference) {
+  .hero-words > span {
+    animation: word-in 0.8s cubic-bezier(0.22, 1, 0.36, 1) both;
+    animation-delay: calc(var(--i) * 55ms + 60ms);
+  }
+  /* "production" carries the site's colours, moving slowly enough to read as light, not as a banner */
+  .hero-words .serif-i {
+    background: linear-gradient(100deg, var(--ink) 20%, var(--accent) 40%, var(--l3) 55%, var(--ink) 75%);
+    background-size: 260% 100%;
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
+    animation: ink-flow 9s ease-in-out 1.2s infinite alternate;
+    padding-right: 0.05em; margin-right: -0.05em; /* room for the italic overhang without a visible gap */
+  }
+  .sticker { animation: sticker-pop 0.7s cubic-bezier(0.34, 1.56, 0.64, 1) 0.75s backwards; }
+}
+/* no opacity in here on purpose: a word at opacity 0 does not count as painted,
+   so the headline became the late LCP and mobile Lighthouse fell from 98 to 80.
+   Starting blurred but visible keeps the effect and paints on the first frame. */
+@keyframes word-in {
+  from { transform: translateY(0.35em); filter: blur(12px); }
+  to { transform: none; filter: blur(0); }
+}
+@keyframes ink-flow { from { background-position: 0% 50%; } to { background-position: 100% 50%; } }
+@keyframes sticker-pop {
+  from { opacity: 0; transform: scale(0.6) rotate(-14deg); }
+  to { opacity: 1; transform: rotate(-2deg); }
+}
+
+/* a light sweep across the primary button on hover. The colour is the page
+   background, so it reads in both themes (the button inverts with the theme). */
+.btn-primary { position: relative; overflow: hidden; isolation: isolate; }
+.btn-primary::after {
+  content: "";
+  position: absolute; inset: 0; z-index: 1;
+  background: linear-gradient(110deg, transparent 30%, color-mix(in srgb, var(--bg) 38%, transparent) 50%, transparent 70%);
+  transform: translateX(-120%);
+  pointer-events: none;
+}
+@media (prefers-reduced-motion: no-preference) {
+  .btn-primary::after { transition: transform 0.75s cubic-bezier(0.22, 1, 0.36, 1); }
+  .btn-primary:hover::after { transform: translateX(120%); }
+}
+
+/* the ghost layer number sat on top of the time-here percentage */
+.layer-card .time-row { padding-right: 104px; }
+@media (max-width: 640px) {
+  .ghost-n { font-size: 76px; right: 16px; }
+  .layer-card .time-row { padding-right: 76px; }
+}
+
+/* layer figures on a phone: they scroll instead of shrinking (labels stay
+   readable), so start them at the right end where the failure is drawn, and
+   fade the left edge so it is clear there is more to swipe back to. */
+@media (max-width: 560px) {
+  .fig-scroll {
+    direction: rtl;
+    -webkit-mask-image: linear-gradient(90deg, transparent, #000 36px);
+    mask-image: linear-gradient(90deg, transparent, #000 36px);
+    scrollbar-width: none;
+  }
+  .fig-scroll::-webkit-scrollbar { display: none; }
+  .fig-scroll > svg { direction: ltr; }
+}
+
+/* a bigger tap area for small standalone links (breadcrumbs, "read more",
+   contact values) without moving anything: the hit box grows, the text does not */
+.hit { position: relative; }
+.hit::after { content: ""; position: absolute; inset: -12px -6px; }
+
+/* ===========================================================================
+   19 Oct pass: hero layer stack (wide screens) and phone hero buttons.
+   Unlayered on purpose, see the top of this file.
+   =========================================================================== */
+
+/* two columns only where the headline still fits on two lines beside the stack */
+.hero-top { display: block; }
+.hero-stack { display: none; }
+@media (min-width: 1200px) {
+  .hero-top {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) 360px;
+    column-gap: 28px;
+    align-items: start;
+  }
+  .hero-top .display { font-size: 4.6rem; }
+  .hero-stack { display: block; margin: 0; padding-top: 4px; }
+}
+
+/* every slab is a full-size SVG layer; only painted shapes take the pointer */
+.hs-box { position: relative; aspect-ratio: 400 / 470; }
+.hs-slab, .hs-fx { position: absolute; inset: 0; }
+.hs-slab { pointer-events: none; outline: none; }
+.hs-slab svg, .hs-fx { width: 100%; height: 100%; display: block; overflow: visible; }
+.hs-slab polygon, .hs-slab text, .hs-hit { pointer-events: visiblePainted; cursor: pointer; }
+.hs-hit { fill: transparent; pointer-events: all; }
+.hs-fx { pointer-events: none; z-index: 10; }
+.hs-lift { transition: transform 0.45s cubic-bezier(0.34, 1.56, 0.64, 1); transform-box: view-box; }
+.hs-slab:hover .hs-lift,
+.hs-slab:focus-visible .hs-lift { transform: translateY(-9px); }
+/* keyboard focus: the slab lifts and its outline turns accent, the label underlines */
+.hs-slab:focus-visible .hs-top { stroke: var(--accent); stroke-width: 2.4; }
+.hs-slab:focus-visible .hs-label { fill: var(--accent); text-decoration: underline; }
+
+.hs-top {
+  fill: color-mix(in oklab, var(--tint) 13%, var(--bg-raised));
+  stroke: color-mix(in oklab, var(--tint) 62%, transparent);
+  stroke-width: 1.2;
+  stroke-linejoin: round;
+  transition: fill 0.3s ease;
+}
+.hs-left { fill: color-mix(in oklab, var(--tint) 40%, var(--bg-raised)); stroke: color-mix(in oklab, var(--tint) 62%, transparent); stroke-width: 1; stroke-linejoin: round; }
+.hs-right { fill: color-mix(in oklab, var(--tint) 26%, var(--bg-raised)); stroke: color-mix(in oklab, var(--tint) 62%, transparent); stroke-width: 1; stroke-linejoin: round; }
+.hs-inner { fill: none; stroke: color-mix(in oklab, var(--tint) 45%, transparent); stroke-width: 1; stroke-dasharray: 3 4; }
+.hs-slab:hover .hs-top,
+.hs-slab:focus-visible .hs-top { fill: color-mix(in oklab, var(--tint) 30%, var(--bg-raised)); }
+
+.hs-lead { stroke: var(--line-strong); stroke-width: 1; }
+.hs-label { font: 500 13.5px var(--font-sans); fill: var(--soft); letter-spacing: -0.01em; transition: fill 0.2s ease; }
+.hs-n { font-family: var(--font-mono); font-size: 11.5px; fill: var(--faint); }
+.hs-slab:hover .hs-label,
+.hs-slab:focus-visible .hs-label { fill: var(--tint); }
+
+.hs-shaft { stroke: var(--accent); stroke-width: 1.2; stroke-dasharray: 2 5; opacity: 0.45; }
+.hs-dot { fill: var(--accent); }
+.hs-halo { fill: color-mix(in oklab, var(--accent) 22%, transparent); }
+.hs-drop { opacity: 0; }
+
+.hs-cap {
+  display: inline-flex; align-items: center; gap: 8px;
+  margin-top: 6px; margin-left: 20px;
+  font-size: 0.75rem; color: var(--faint); letter-spacing: 0.01em;
+}
+.hs-cap-dot { width: 6px; height: 6px; border-radius: 99px; background: var(--accent); }
+
+@media (prefers-reduced-motion: no-preference) {
+  /* slabs settle in from above, one after another */
+  .hs-slab { animation: hs-in 0.8s cubic-bezier(0.22, 1, 0.36, 1) both; animation-delay: calc(0.35s + var(--k) * 70ms); }
+  /* the request falls, and each slab lights as it passes */
+  .hs-drop { animation: hs-fall var(--run) cubic-bezier(0.45, 0, 0.55, 1) 1.2s infinite; transform-box: view-box; }
+  .hs-top { animation: hs-glow 3.6s ease-out infinite; animation-delay: calc(var(--d) + 1.2s); }
+  .hs-shaft { animation: hs-shaft 1.2s linear infinite; }
+  .hs-cap-dot { animation: hs-blink 2.4s ease-in-out infinite; }
+}
+@keyframes hs-in {
+  from { opacity: 0; transform: translateY(-26px); }
+  to { opacity: 1; transform: none; }
+}
+@keyframes hs-fall {
+  0% { opacity: 0; transform: translateY(0); }
+  8% { opacity: 1; }
+  88% { opacity: 1; }
+  100% { opacity: 0; transform: translateY(var(--fall)); }
+}
+@keyframes hs-glow {
+  0%, 16%, 100% { fill: color-mix(in oklab, var(--tint) 13%, var(--bg-raised)); }
+  5% { fill: color-mix(in oklab, var(--tint) 42%, var(--bg-raised)); }
+}
+@keyframes hs-shaft { to { stroke-dashoffset: -14; } }
+@keyframes hs-blink { 50% { opacity: 0.25; } }
+.hs-slab { transform-box: view-box; }
+
+/* phones: the availability sticker leads, the two contact buttons share a row,
+   the CV gets the full width. No ragged wrapping. */
+@media (max-width: 639px) {
+  .hero-ctas {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 10px;
+  }
+  .hero-ctas > .btn,
+  .hero-ctas > .btn-primary { justify-content: center; padding-inline: 12px; }
+  .hero-ctas > .cv { grid-column: 1 / -1; }
+  .hero-ctas > .sticker { grid-column: 1 / -1; order: -1; justify-self: start; margin-bottom: 4px; }
+}

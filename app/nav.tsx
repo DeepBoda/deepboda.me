@@ -9,7 +9,7 @@ import ThemeToggle from "./theme-toggle";
 
 const LINKS = [
   { href: "/work", label: "Work", note: "Platforms I built and run" },
-  { href: "/experience", label: "Experience", note: "Four years, year by year" },
+  { href: "/experience", label: "Experience", note: "Four and a half years, year by year" },
   { href: "/services", label: "Services", note: "Projects, retainers, audits" },
   { href: "/writing", label: "Writing", note: "Notes from production" },
   { href: "/tools", label: "Tools I use", note: "What is open right now" },

@@ -22,7 +22,7 @@ export const metadata: Metadata = {
 const TINTS = ["--l1", "--l2", "--l3", "--l4", "--l5", "--l6", "--l2"];
 
 const FACTS: { k: string; v: string; note: string; tint: string }[] = [
-  { k: "01", v: "4 yrs", note: "one employer, plus my own product on the side", tint: "--l1" },
+  { k: "01", v: "4.5 yrs", note: "one employer, plus my own product on the side", tint: "--l1" },
   { k: "02", v: "Millions", note: "requests a day on the largest platform", tint: "--l4" },
   { k: "03", v: "2", note: "container platforms in production, EKS and ECS", tint: "--l3" },
   { k: "04", v: "1", note: "product that is entirely mine, shipped solo", tint: "--l6" },
@@ -35,7 +35,7 @@ export default function WorkPage() {
       <section className="wrap page-head pb-9 grid-bg glow" style={{ ["--tint" as string]: "var(--l3)" }}>
         <p className="eyebrow reveal">Work</p>
         <h1 className="h2 mt-4 max-w-[20ch] reveal">
-          Four years of client platforms, company products, and one of my own.
+          Four and a half years of client platforms, company products, and one of my own.
         </h1>
         <p className="lede mt-5 max-w-[60ch] reveal">
           Sole or lead infrastructure engineer on every one of these, and lead
@@ -128,7 +128,7 @@ export default function WorkPage() {
                     <p className="mt-1.5">
                       <Link
                         href={w.caseStudy}
-                        className="mono t-xs link-u"
+                        className="hit mono t-xs link-u"
                         style={{ color: "var(--tint)" }}
                       >
                         Read the full case study
@@ -146,15 +146,26 @@ export default function WorkPage() {
                         <span className="mono ml-2.5 t-xs text-[var(--faint)] truncate">
                           {w.id}.architecture
                         </span>
+                        {/* on a phone the diagram is too small to read in place */}
+                        <a
+                          href={w.image}
+                          target="_blank"
+                          rel="noopener"
+                          className="hit ml-auto shrink-0 mono t-xs text-[var(--faint)] hover:text-[var(--accent)] transition-colors"
+                        >
+                          Full size ↗
+                        </a>
                       </div>
-                      <Image
-                        src={w.image}
-                        alt={w.imageAlt ?? ""}
-                        width={1600}
-                        height={1200}
-                        sizes="(max-width: 1024px) 100vw, 700px"
-                        className="w-full h-auto"
-                      />
+                      <a href={w.image} target="_blank" rel="noopener" className="block cursor-zoom-in" aria-label={`Open the ${w.id} architecture diagram full size`}>
+                        <Image
+                          src={w.image}
+                          alt={w.imageAlt ?? ""}
+                          width={1600}
+                          height={1200}
+                          sizes="(max-width: 1024px) 100vw, 700px"
+                          className="w-full h-auto"
+                        />
+                      </a>
                     </figure>
                   )}
 

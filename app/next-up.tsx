@@ -119,7 +119,7 @@ export default function NextUp() {
           {/* ---- how this site is built ---- */}
           <Link
             href="/how-this-site-is-built"
-            className="glass tile group pad flex flex-col"
+            className="glass tile group md:col-span-2 pad flex flex-col"
             style={{ ["--tint" as string]: "var(--l6)" }}
           >
             <div className="flex items-center gap-3">
@@ -139,7 +139,7 @@ export default function NextUp() {
 
           {/* ---- reach me ---- */}
           <div
-            className="glass tile-static md:col-span-2 pad"
+            className="glass tile-static md:col-span-3 pad"
             style={{ ["--tint" as string]: "var(--l1)" }}
           >
             <div className="flex items-center gap-3">
@@ -217,7 +217,7 @@ function Reach({
         {...(external
           ? { target: "_blank", rel: "noopener noreferrer" }
           : {})}
-        className="link-u t-body text-[var(--ink)] break-all"
+        className="hit link-u t-body text-[var(--ink)] break-all"
       >
         {value}
       </a>

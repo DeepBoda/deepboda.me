@@ -103,6 +103,9 @@ export default function Footer() {
           </span>
 
           <span className="flex flex-wrap items-center gap-x-5 gap-y-2">
+            <a href="/sitemap.xml" className="inline-block py-2 hover:text-[var(--ink)] transition-colors">
+              Sitemap
+            </a>
             <a
               href={BUILD.repo}
               target="_blank"

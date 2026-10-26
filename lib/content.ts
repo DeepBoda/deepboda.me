@@ -374,6 +374,6 @@ export const PRINCIPLES = [
   {
     tint: "--l6",
     rule: "The boring things are the ones that worked.",
-    why: "Four years of this and the changes that genuinely moved reliability were unglamorous. The exciting migrations mostly moved the problem somewhere new.",
+    why: "Four and a half years of this and the changes that genuinely moved reliability were unglamorous. The exciting migrations mostly moved the problem somewhere new.",
   },
 ];

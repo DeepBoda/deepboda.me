@@ -14,13 +14,13 @@ export default function PostLayout({
       <nav aria-label="Breadcrumb" className="mono text-[var(--faint)]">
         <ol className="flex items-center gap-2">
           <li>
-            <Link href="/" className="hover:text-[var(--accent)] transition-colors">
+            <Link href="/" className="hit hover:text-[var(--accent)] transition-colors">
               Home
             </Link>
           </li>
           <li aria-hidden="true">/</li>
           <li>
-            <Link href="/writing" className="hover:text-[var(--accent)] transition-colors">
+            <Link href="/writing" className="hit hover:text-[var(--accent)] transition-colors">
               Writing
             </Link>
           </li>
@@ -34,7 +34,7 @@ export default function PostLayout({
       <aside className="mt-14 pt-10 border-t border-[var(--hair)] max-w-[68ch]">
         <p className="eyebrow">Who wrote this</p>
         <p className="mt-3 text-[var(--mid)] leading-relaxed">
-          I am a Senior DevOps and Full-Stack Engineer in Ahmedabad. Four years
+          I am a Senior DevOps and Full-Stack Engineer in Ahmedabad. Four and a half years
           running production on AWS: Kubernetes on EKS, ECS microservices,
           Terraform, CI/CD, and the Node.js services on top of it.{" "}
           <span className="text-[var(--ink)] font-medium">{SITE.available}.</span>

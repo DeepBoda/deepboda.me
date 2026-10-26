@@ -166,7 +166,7 @@ export default function Tools() {
       <section className="wrap pb-4 page-end">
         <div className="card pad-lg max-w-[64ch] reveal">
           <p className="text-[var(--mid)] leading-relaxed">
-            Nothing here is a recommendation. It is what survived four years of
+            Nothing here is a recommendation. It is what survived four and a half years of
             actually having to fix things at odd hours. If you want to know why
             I dropped something, ask me.{" "}
             <a

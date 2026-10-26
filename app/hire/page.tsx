@@ -57,7 +57,7 @@ const FAQ = [
   },
   {
     q: "Remote, hybrid or onsite?",
-    a: "All three work. I am in Ahmedabad, so anywhere in Gujarat is onsite if you want it. For remote I have four years of working with clients I never met in person.",
+    a: "All three work. I am in Ahmedabad, so anywhere in Gujarat is onsite if you want it. For remote I have four and a half years of working with clients I never met in person.",
   },
   {
     q: "Would you relocate?",
@@ -69,7 +69,7 @@ const FAQ = [
   },
   {
     q: "Are you on call?",
-    a: "I have been the on-call rotation, alone, for four years. I am not afraid of a pager. I do care whether alerts are tuned, because a pager that cries wolf is how teams burn out.",
+    a: "I have been the on-call rotation, alone, for four and a half years. I am not afraid of a pager. I do care whether alerts are tuned, because a pager that cries wolf is how teams burn out.",
   },
   {
     q: "Timezone overlap?",
@@ -106,7 +106,7 @@ export default function Hire() {
           Here is everything you would ask first.
         </h1>
         <p className="lede mt-5 max-w-[60ch] reveal">
-          Four years running production on AWS at a services company, which
+          Four and a half years running production on AWS at a services company, which
           means I did not get one product, I got the whole portfolio.
           Kubernetes on EKS serving millions of requests a day. ECS
           microservices behind a platform with 100,000+ users. Terraform for all
@@ -171,7 +171,7 @@ export default function Hire() {
           </ul>
           <p className="mt-8 pt-6 border-t border-[var(--hair)] text-[var(--mid)] leading-relaxed max-w-[62ch]">
             What I actually want is the role where the infrastructure and the
-            product are the same job. I have spent four years being the person
+            product are the same job. I have spent four and a half years being the person
             who owns both ends, and handing one of them away would be a step
             backwards.
           </p>

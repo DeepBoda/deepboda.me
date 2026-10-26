@@ -54,7 +54,7 @@ export default function TopicFilter({
         <span className="w-px h-4 bg-[var(--line)]" aria-hidden="true" />
         <a
           href="/writing/rss.xml"
-          className="mono text-[var(--soft)] hover:text-[var(--accent)] transition-colors"
+          className="hit mono text-[var(--soft)] hover:text-[var(--accent)] transition-colors"
         >
           RSS
         </a>

@@ -165,7 +165,7 @@ export default function RequestTrace({ layers }: { layers: Layer[] }) {
               </ul>
 
               {/* share of the time I spend at this layer */}
-              <div className="mt-7 flex items-center gap-3">
+              <div className="time-row mt-7 flex items-center gap-3">
                 <span className="mono text-[var(--faint)] shrink-0">time here</span>
                 <span className="flex-1 h-1.5 rounded-full bg-[var(--hair)] overflow-hidden">
                   <span

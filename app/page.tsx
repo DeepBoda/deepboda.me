@@ -8,6 +8,7 @@ import Timeline from "./timeline";
 import Principles from "./principles";
 import NextUp from "./next-up";
 import Marquee from "./marquee";
+import HeroStack from "./hero-stack";
 
 const NODES = [
   { x: 60, label: "Browser", to: "edge" },
@@ -63,6 +64,11 @@ function RequestPath() {
   );
 }
 
+/* one word of the hero headline, staggered by its index */
+function W({ i, children }: { i: number; children: React.ReactNode }) {
+  return <span style={{ ["--i" as string]: i }}>{children}</span>;
+}
+
 export default function Home() {
   return (
     <>
@@ -70,23 +76,29 @@ export default function Home() {
         {/* ---------------- HERO ---------------- */}
         <section className="grid-bg glow wrap page-head-lg pb-10 md:pb-14">
           <Aurora />
+          <div className="hero-top">
+          <div className="min-w-0">
           <p className="eyebrow reveal">
             DevOps · Full-Stack · Cloud · Platform
           </p>
 
-          <h1 className="display mt-5 max-w-[16ch] reveal">
-            I run <span className="serif-i">production</span>, and I write the{" "}
-            <span className="mark">code</span> on it.
+          {/* each word rises in once on load; the CSS holds them still for reduced motion */}
+          <h1 className="display mt-5 max-w-[16ch] hero-words">
+            <W i={0}>I</W> <W i={1}>run</W>{" "}
+            <W i={2}><span className="serif-i">production</span>,</W>{" "}
+            <W i={3}>and</W> <W i={4}>I</W> <W i={5}>write</W> <W i={6}>the</W>{" "}
+            <W i={7}><span className="mark">code</span></W> <W i={8}>on</W>{" "}
+            <W i={9}>it.</W>
           </h1>
 
           <p className="lede mt-7 max-w-[60ch] reveal">
-            Four years as the DevOps and backend engineer behind live products.
+            Four and a half years as the DevOps and backend engineer behind live products.
             Kubernetes on AWS EKS serving millions of requests a day, ECS
             microservices behind a platform with 100,000+ users, and the
             Node.js services running on top of all of it.
           </p>
 
-          <div className="mt-8 flex flex-wrap items-center gap-3 reveal">
+          <div className="hero-ctas mt-8 flex flex-wrap items-center gap-3 reveal">
             <a
               href={`mailto:${SITE.email}`}
               className="btn-primary"
@@ -104,7 +116,7 @@ export default function Home() {
             <a
               href={SITE.cv}
               download
-              className="btn"
+              className="btn cv"
             >
               Download CV
               <span aria-hidden="true" className="mono t-xs text-[var(--faint)]">
@@ -118,6 +130,9 @@ export default function Home() {
               </span>
               {SITE.available}
             </span>
+          </div>
+          </div>
+          <HeroStack />
           </div>
 
           <div className="mt-9 lg:mt-12 reveal-slow">
@@ -296,7 +311,7 @@ export default function Home() {
           <div className="wrap">
             <p className="eyebrow reveal">How it went</p>
             <h2 className="h2 mt-4 max-w-[20ch] reveal">
-              Four years, from backend to the whole stack.
+              Four and a half years, from backend to the whole stack.
             </h2>
 
             <Timeline />

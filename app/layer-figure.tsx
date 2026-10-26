@@ -19,7 +19,7 @@ function Frame({
   label: string;
 }) {
   return (
-    <figure className="mt-6 max-w-[52ch] -mx-1 overflow-x-auto">
+    <figure className="fig-scroll mt-6 max-w-[52ch] -mx-1 overflow-x-auto">
       {/* Below about 500px the figure would scale to half size and the labels
           stop being readable. Scroll it instead of shrinking it, same as the
           code blocks and tables. */}

@@ -102,7 +102,7 @@ const DIFFERENT = [
   },
   {
     t: "Your name never leaves my mouth",
-    b: "Look at my work page. Four years of client platforms and not one of them is named. Yours would be treated the same.",
+    b: "Look at my work page. Four and a half years of client platforms and not one of them is named. Yours would be treated the same.",
   },
 ];
 
@@ -149,7 +149,7 @@ export default function Services() {
           One person, from an empty repo to both app stores.
         </h1>
         <p className="lede mt-5 max-w-[62ch] reveal">
-          Most people you can hire do one layer. I have spent four years doing
+          Most people you can hire do one layer. I have spent four and a half years doing
           all of them, because at a services company nobody was going to do the
           other ones for me. App, API, database, infrastructure, the release,
           and the phone call when it breaks at eleven at night.
@@ -167,7 +167,7 @@ export default function Services() {
         <dl className="mt-12 grid grid-cols-2 lg:grid-cols-4 gap-3 md:gap-4 reveal">
           {[
             ["Mobile", "37", "Flutter apps shipped", "--l3"],
-            ["Backend", "4 yrs", "Node across a portfolio", "--l4"],
+            ["Backend", "4.5 yrs", "Node across a portfolio", "--l4"],
             ["Stores", "3", "Play, App Store, macOS", "--l1"],
             ["Clouds", "2", "AWS and Azure in production", "--l6"],
           ].map(([k, v, n, tint]) => (

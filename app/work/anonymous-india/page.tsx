@@ -123,13 +123,13 @@ export default function AnonymousIndia() {
         <nav aria-label="Breadcrumb" className="mono text-[var(--faint)] reveal">
           <ol className="flex items-center gap-2">
             <li>
-              <Link href="/" className="hover:text-[var(--accent)] transition-colors">
+              <Link href="/" className="hit hover:text-[var(--accent)] transition-colors">
                 Home
               </Link>
             </li>
             <li aria-hidden="true">/</li>
             <li>
-              <Link href="/work" className="hover:text-[var(--accent)] transition-colors">
+              <Link href="/work" className="hit hover:text-[var(--accent)] transition-colors">
                 Work
               </Link>
             </li>
@@ -171,7 +171,7 @@ export default function AnonymousIndia() {
 
       {/* ---------- architecture ---------- */}
       <section className="wrap pb-4">
-        <figure className="rounded-xl border border-[var(--line)] overflow-hidden bg-[var(--bg)] reveal">
+        <figure className="rounded-xl border border-[var(--line)] overflow-hidden bg-[var(--bg)]">
           <div className="flex items-center gap-1.5 px-3.5 h-9 border-b border-[var(--hair)] bg-[var(--bg-raised)]">
             <span className="w-2.5 h-2.5 rounded-full bg-[var(--line)]" />
             <span className="w-2.5 h-2.5 rounded-full bg-[var(--line)]" />
@@ -179,7 +179,16 @@ export default function AnonymousIndia() {
             <span className="mono ml-2.5 t-xs text-[var(--faint)] truncate">
               anonymous.architecture
             </span>
+            <a
+              href="/work/anonymous.webp"
+              target="_blank"
+              rel="noopener"
+              className="hit ml-auto shrink-0 mono t-xs text-[var(--faint)] hover:text-[var(--accent)] transition-colors"
+            >
+              Full size ↗
+            </a>
           </div>
+          <a href="/work/anonymous.webp" target="_blank" rel="noopener" className="block cursor-zoom-in" aria-label="Open the architecture diagram full size">
           <Image
             src="/work/anonymous.webp"
             alt="Architecture diagram of Anonymous India: a Flutter app, Next.js site and admin console calling an Nginx front door, then a NestJS API on Fastify, with PostgreSQL, Redis and Firebase behind it."
@@ -189,6 +198,7 @@ export default function AnonymousIndia() {
             sizes="(max-width: 1024px) 100vw, 1080px"
             className="w-full h-auto"
           />
+          </a>
         </figure>
       </section>
 

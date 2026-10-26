@@ -40,7 +40,10 @@ export function ReadingProgress() {
 export function PostNav() {
   const path = usePathname();
   const posts = sortedPosts();
-  const i = posts.findIndex((p) => `/writing/${p.slug}` === path);
+  /* some hosts serve /writing/x/ with a trailing slash; without this the
+     lookup missed, the nav rendered empty, and hydration failed */
+  const here = path.replace(/\/+$/, "");
+  const i = posts.findIndex((p) => `/writing/${p.slug}` === here);
   if (i === -1) return null;
 
   const newer = i > 0 ? posts[i - 1] : null;
