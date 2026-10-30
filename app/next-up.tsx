@@ -170,7 +170,7 @@ export default function NextUp() {
 
             <div className="mt-6 pt-5 border-t border-[var(--hair)] flex flex-wrap items-center gap-x-4 gap-y-3">
               <p className="t-sm text-[var(--soft)]">
-                Based in {SITE.location}. {SITE.available}, and open to remote.
+                Based in {SITE.location}. {SITE.available}, immediate joiner, open to remote or relocating anywhere in India.
               </p>
               <a
                 href={SITE.cv}

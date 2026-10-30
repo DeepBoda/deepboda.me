@@ -14,12 +14,12 @@ export const SITE = {
   email: "deepboda18@gmail.com",
   phone: "+91 8128769896",
   linkedin: "https://linkedin.com/in/deep-boda",
-  location: "Ahmedabad, India",
+  location: "Gujarat, India",
   available: AVAILABLE_NOW ? "Open to work now" : "Available from 1 September",
   tagline:
     "I run production infrastructure, and I write the code that runs on it.",
   description:
-    "Senior DevOps and Full-Stack Engineer in Ahmedabad. 4+ years running production on AWS: EKS, ECS, Terraform, ArgoCD and the Node.js on top. Open to work now.",
+    "Senior DevOps Engineer with 4.5 years running production on AWS: EKS, ECS, Terraform, CI/CD and the Node.js on top. Immediate joiner, remote or anywhere in India.",
 };
 
 export type Layer = {

@@ -5,7 +5,7 @@ import { SITE, AVAILABLE_NOW } from "@/lib/content";
 export const metadata: Metadata = {
   title: "Hire a Senior DevOps Engineer",
   description:
-    "Senior DevOps, Platform or SRE role, Ahmedabad or remote. Available now, notice already served. What I do, what I want, and what recruiters ask first.",
+    "Senior DevOps, Platform or SRE role, remote or anywhere in India. Immediate joiner, notice already served. What I do, what I want, and what recruiters ask first.",
   alternates: { canonical: `${SITE.url}/hire` },
   openGraph: {
     title: "Hire a Senior DevOps Engineer",
@@ -57,11 +57,11 @@ const FAQ = [
   },
   {
     q: "Remote, hybrid or onsite?",
-    a: "All three work. I am in Ahmedabad, so anywhere in Gujarat is onsite if you want it. For remote I have four and a half years of working with clients I never met in person.",
+    a: "All three work. I am from Gujarat, so Ahmedabad, Gandhinagar or Rajkot is easy onsite, and I will relocate for the right team. For remote I have four and a half years of working with clients I never met in person.",
   },
   {
     q: "Would you relocate?",
-    a: "For the right team, yes. Bangalore, Pune, Hyderabad and NCR are all on the table.",
+    a: "Yes. Bangalore, Pune, Hyderabad, Mumbai and NCR are all on the table, and I can move quickly since there is no notice to serve.",
   },
   {
     q: "Full time or contract?",
@@ -137,9 +137,9 @@ export default function Hire() {
         <dl className="mt-12 grid grid-cols-2 lg:grid-cols-4 gap-3 md:gap-4 reveal">
           {[
             ["Available", AVAILABLE_NOW ? "Now" : "1 Sept 2026", "--l6"],
-            ["Notice", "None, served", "--l2"],
-            ["Based", "Ahmedabad, IN", "--l3"],
-            ["Open to", "Remote / hybrid", "--l1"],
+            ["Notice", "Immediate joiner", "--l2"],
+            ["Based", "Gujarat, IN", "--l3"],
+            ["Open to", "Remote, hybrid, onsite", "--l1"],
           ].map(([k, v, tint]) => (
             <div key={k} className="stat-card" style={{ ["--tint" as string]: `var(${tint})` }}>
               <dt className="eyebrow">{k}</dt>
