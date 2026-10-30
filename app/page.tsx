@@ -311,7 +311,7 @@ export default function Home() {
           <div className="wrap">
             <p className="eyebrow reveal">How it went</p>
             <h2 className="h2 mt-4 max-w-[20ch] reveal">
-              Four and a half years, from backend to the whole stack.
+              Four and a half years, from DevOps to the whole stack.
             </h2>
 
             <Timeline />

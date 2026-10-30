@@ -97,7 +97,7 @@ const DIFFERENT = [
     b: "Most products asking for Kubernetes do not need Kubernetes. I would rather build the smaller correct thing and keep the relationship than take the bigger invoice.",
   },
   {
-    t: "You get a runbook, not a dependency",
+    t: "You get documentation, not a dependency",
     b: "Every engagement ends with documentation your own team can act on. I have been the person a company could not replace. It is not a compliment and I will not do it to you.",
   },
   {
@@ -132,7 +132,7 @@ const PROCESS = [
   {
     n: "04",
     t: "Handover, not hostage",
-    b: "Access, documentation and a runbook, whether or not you keep me on afterwards. You should be able to hire someone else and have them understand it in a day.",
+    b: "Access and written documentation, whether or not you keep me on afterwards. You should be able to hire someone else and have them understand it in a day.",
   },
 ];
 

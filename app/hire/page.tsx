@@ -40,7 +40,7 @@ const FIRST_MONTH = [
   {
     n: "Week 4",
     t: "Write down what only I know",
-    b: "Whatever I have learned that is not in a repo goes into a runbook. I have been the bus factor. It is not a compliment.",
+    b: "Whatever I have learned that is not in a repo gets written down where the team can find it. I have been the bus factor. It is not a compliment.",
   },
 ];
 

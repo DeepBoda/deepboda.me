@@ -39,7 +39,7 @@ export default function WorkPage() {
         </h1>
         <p className="lede mt-5 max-w-[60ch] reveal">
           Sole or lead infrastructure engineer on every one of these, and lead
-          backend developer on most. Client and company names are left out on
+          backend engineer on most. Client and company names are left out on
           purpose. The decisions are mine to talk about, the names are not. The
           one at the bottom of that list is mine, so it gets its real name.
         </p>

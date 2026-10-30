@@ -169,15 +169,15 @@ export const TIMELINE = [
   },
   {
     year: "2022",
-    title: "Joined as a developer",
+    title: "Joined on the DevOps side",
     org: "TST Technology, Ahmedabad",
-    note: "Backend work on client platforms. Node.js, Express, schema design.",
+    note: "AWS, Docker, CI/CD. First pipelines, first on-call.",
   },
   {
     year: "2023",
-    title: "Took over infrastructure",
-    org: "AWS, Docker, CI/CD",
-    note: "First pipelines, first on-call, first outage that was mine to fix.",
+    title: "Built the backends too",
+    org: "Node.js, Express, schema design",
+    note: "Started writing the services I was deploying.",
   },
   {
     year: "2024",

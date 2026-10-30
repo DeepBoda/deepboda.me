@@ -3,12 +3,12 @@ import Link from "next/link";
 import { SITE } from "@/lib/content";
 
 export const metadata: Metadata = {
-  title: "Experience: backend to Senior DevOps",
+  title: "Experience: DevOps to the whole stack",
   description:
-    "Four years and seven months at one company, from backend developer to Senior DevOps and Full-Stack Engineer. What I owned each year, and the stack.",
+    "Four years and seven months at one company. Started in DevOps, then built the backends, then as a senior owned releases and the platform. What I owned each year, and the stack.",
   alternates: { canonical: `${SITE.url}/experience` },
   openGraph: {
-    title: "Experience: backend to Senior DevOps",
+    title: "Experience: DevOps to the whole stack",
     url: `${SITE.url}/experience`,
     images: ["/og/experience.png"],
   },
@@ -18,18 +18,18 @@ const PHASES = [
   {
     year: "2022",
     tint: "--l1",
-    title: "Joined as a backend developer",
-    scope: "Node.js, Express, schema design",
-    body: "Client platforms, writing services and designing schemas. The infrastructure was somebody else's problem and I wanted it to be mine.",
-    stack: ["Node.js", "Express", "MySQL", "PostgreSQL", "REST"],
+    title: "Joined on the DevOps side",
+    scope: "AWS, Docker, CI/CD, first on-call",
+    body: "Servers, pipelines and deploys for client platforms. Containerised the services, built the first pipelines and took the pager.",
+    stack: ["AWS EC2", "Docker", "Jenkins", "Nginx", "PM2", "CloudWatch"],
   },
   {
     year: "2023",
     tint: "--l2",
-    title: "Took over the infrastructure",
-    scope: "AWS, Docker, CI/CD, first on-call",
-    body: "Built the first pipelines, containerised the services, and took the pager. The first outage that was mine to fix happened this year, and it changed how I think about alerts.",
-    stack: ["AWS EC2", "Docker", "Jenkins", "Nginx", "PM2", "CloudWatch"],
+    title: "Started building the backends too",
+    scope: "Node.js, Express, schema design",
+    body: "The services I was deploying, I started writing as well. Client platforms, REST APIs and schema design. Knowing both sides made the deploys simpler and the outages shorter.",
+    stack: ["Node.js", "Express", "MySQL", "PostgreSQL", "REST"],
   },
   {
     year: "2024",
@@ -53,7 +53,7 @@ const PHASES = [
     title: "Senior DevOps and Full-Stack Engineer",
     scope: "Sole or lead infra engineer across the portfolio",
     body: "Owning infrastructure across every client platform and company product at once, and lead backend on most of them. Alongside it, building and running Anonymous India, which is entirely mine.",
-    stack: ["GCP", "Socket.io", "NestJS", "Next.js", "React", "Flutter", "Prisma"],
+    stack: ["Socket.io", "NestJS", "Next.js", "React", "Flutter", "Prisma"],
   },
 ];
 
@@ -112,7 +112,7 @@ const OWNED = [
 ];
 
 const SKILLS: [string, string[]][] = [
-  ["Cloud", ["AWS", "Azure", "GCP", "EC2", "EKS", "ECS", "ECR", "RDS", "S3", "CloudFront", "Lambda", "SNS", "SES", "SQS", "IAM", "CloudWatch"]],
+  ["Cloud", ["AWS", "Azure", "EC2", "EKS", "ECS", "ECR", "RDS", "S3", "CloudFront", "Lambda", "SNS", "SES", "SQS", "IAM", "CloudWatch"]],
   ["Containers and orchestration", ["Docker", "Docker Compose", "Kubernetes", "Helm", "ArgoCD", "HPA", "Cluster Autoscaler"]],
   ["Infrastructure as code", ["Terraform", "Nginx", "PM2", "systemd", "Bash"]],
   ["CI/CD", ["Jenkins", "ArgoCD", "CircleCI", "AWS CodeBuild", "CodePipeline", "Azure Pipelines", "GitHub Actions", "Xcode Cloud"]],
@@ -143,8 +143,8 @@ export default function Experience() {
           One company, four years and seven months, and every layer of it.
         </h1>
         <p className="lede mt-5 max-w-[60ch] reveal">
-          I joined to write backend services and left running the
-          infrastructure for the entire portfolio. At a services company that
+          I joined on the DevOps side, picked up the backends on top of it, and
+          left running the infrastructure for the entire portfolio. At a services company that
           progression is not a promotion path, it is what happens when you are
           the person who says yes to the thing nobody owns.
         </p>
@@ -170,7 +170,7 @@ export default function Experience() {
               Senior DevOps &amp; Full-Stack Engineer
             </h2>
             <span className="mono text-[var(--faint)]">
-              Feb 2022 &ndash; Aug 2026
+              Feb 2022 to Aug 2026
             </span>
           </div>
           <p className="mt-2 text-[var(--soft)]">
